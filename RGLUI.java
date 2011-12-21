@@ -22,7 +22,7 @@ public class RGLUI {
 
 	public void view() {
 		frame = new JFrame("RGL");
-		
+		// BLAH BLAH BLAH
 		gameDisplay = new JPanel();
 		
 		updateDisplay = new JTextArea();
