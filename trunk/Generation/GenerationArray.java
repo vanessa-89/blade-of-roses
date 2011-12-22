@@ -10,6 +10,11 @@ public class GenerationArray {
 	Random rand = new Random();
 	
 	char nextSpawnSource;
+	int nextSpawnNum;
+	int nextConnection;
+	int nextDirection;
+	int tempX;
+	int tempY;
 	
 	
 	GenerationArray() {
@@ -31,40 +36,61 @@ public class GenerationArray {
 			nextSpawnSource = HallOrRoom();
 			switch (nextSpawnSource){
 			case 'h':
-				//randomhall
-				//randomconnectionspot
-				//hallorroom(with params)
-				
-				
+				nextSpawnNum = rand.nextint(hallwayCounter);
+				nextConnection = rand.nextInt(hallwayArchive[nextSpawnNum].truelength);
+				hallwayArchive[nextSpawnNum].SetConnection(nextConnection);
+				nextDirection = (hallwayArchive[nextSpawnNum].xyTrack[2][nextConnection]
+									+ ((rand.nextInt%2) ? 1:-1)) % 4;
+				tempX = hallwayArchive[nextSpawnNum].xyTrack[0][nextConnection] 
+						+ hallwayArchive[nextSpawnNum].absoluteStart[0];
+				tempY = hallwayArchive[nextSpawnNum].xyTrack[1][nextConnection] 
+						+ hallwayArchive[nextSpawnNum].absoluteStart[1];
 				break;
 			case 'r':
-				//randomroom
-				//randomconnectionspot
-				//hallorroom(with params)
-				
-				
+				nextSpawnNum = rand.nextint(roomCounter);
+				nextConnection = (rand.nextInt(roomArchive[nextSpawnNum].width*2 +
+												roomArchive[nextSpawnNum].height*2);
+				if (nextConnection < roomArchive[nextSpawnNum].width)
+					nextDirection = 0;
+				else if (nextConnection < roomArchive[nextSpawnNum].width+
+											roomArchive[nextSpawnNum].height)
+					nextDirection = 1;
+				else if (nextConnection < roomArchive[nextSpawnNum].width*2+
+											roomArchive[nextSpawnNum].height)
+					nextDirection = 2;
+				else (nextConnection < roomArchive[nextSpawnNum].width*2+
+						roomArchive[nextSpawnNum].height*2)
+					nextDirection = 3;
+				tempX = nextConnection - 
+						((nextDirection/2)*roomArchive[nextSpawnNum].width) - 
+						(((nextDirection+3)/2)-1)*roomArchive[nextSpawnNum].height;
+				tempY = nextConnection - 
+						(((nextDirection+2)/2)*roomArchive[nextSpawnNum].width) - 
+						((nextDirection/2)*roomArchive[nextSpawnNum].height);
+				roomArchive[nextSpawnNum].SetConnection( tempX, tempY);
+				tempX = tempX + roomArchive[nextSpawnNum].absoluteStart[0];
+				tempY = tempY + roomArchive[nextSpawnNum].absoluteStart[1];
 				break;
 			}
-			
-			
+			HallOrRoom( tempX, tempY, nextDirection);		
 		}
-		
-		
 	}
 	
 	
 	
 	void CreateRoom (int x, int y, int direction){
 		roomArchive[roomCounter]=new Room();		
-		roomArchive[roomCounter].FindEdge(direction);
+//		roomArchive[roomCounter].FindEdge(direction);
 		roomArchive[roomCounter].SetAbsolute(x,y);
+		tempX = roomArchive[roomCounter].connection[0][connectionCounter];
+		tempY = roomArchive[roomCounter].connection[1][connectionCounter];
 		for (int i=0; i<roomArchive[roomCounter].width; i++){
 			for (int j=0; j<roomArchive[roomCounter].height; j++){
-				mapArray[x+i][y+j].walkable = true;
-				mapArray[x+i][y+j].tile = 1;
-				mapArray[x+i][y+j].structureIntIndex.push(roomCounter);
-				mapArray[x+i][y+j].structureTypeIndex.push('r');
-				mapArray[x+i][y+j].overlaps++;
+				mapArray[x+i-tempX][y+j-tempY].walkable = true;
+				mapArray[x+i-tempX][y+j-tempY].tile = 1;
+				mapArray[x+i-tempX][y+j-tempY].structureIntIndex.push(roomCounter);
+				mapArray[x+i-tempX][y+j-tempY].structureTypeIndex.push('r');
+				mapArray[x+i-tempX][y+j-tempY].overlaps++;
 			}
 		}
 		roomCounter++;
@@ -89,13 +115,10 @@ public class GenerationArray {
 	}
 	
 	
-
 	char HallOrRoom () {
 		char result = 0;
 		int boundary;
-		boundary = (hallwayCounter / 
-			(hallwayCounter + roomCounter))*100; //don't want this algorithm here, it's picking for next spawn source
-		switch (((rand.nextInt(100)/boundary)/100)){
+		switch (rand.nextInt(2)){
 		case 0:
 			result = 'r';
 			break;
@@ -110,11 +133,40 @@ public class GenerationArray {
 		int boundary;
 		boundary = hallwayCounter / 
 			(hallwayCounter + roomCounter);
+		switch (direction){
+		case 0:
+			y++;
+			break;
+		case 1:
+			x++;
+			break;
+		case 2:
+			y--;
+			break;
+		case 3:
+			x--;
+			break;
+		}
 		switch (rand.nextInt(100)/boundary){
 		case 1:
+			switch (direction){
+			case 0:
+				y++;
+				break;
+			case 1:
+				x++;
+				break;
+			case 2:
+				y--;
+				break;
+			case 3:
+				x--;
+				break;
+			}
 			CreateHallway( x, y, direction);
 			break;
 		case 0:
+			
 			CreateRoom( x, y, direction);
 			break;
 		}
