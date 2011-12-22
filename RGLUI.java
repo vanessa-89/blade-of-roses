@@ -1,4 +1,5 @@
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
 
 import javax.swing.*;
 
@@ -12,6 +13,8 @@ public class RGLUI {
 	JMenuBar menuBar;
 	JMenu fileMenu;
 	//JMenuItem
+	
+	AnAction anAction = new AnAction();
 
 	/**
 	 * @param args
@@ -41,6 +44,10 @@ public class RGLUI {
 		
 		quickBar = new JPanel();
 		quick1 = new JButton("1");
+
+		quick1.getInputMap().put(KeyStroke.getKeyStroke("1"), "doSomething");
+		quick1.getActionMap().put("doSomething", anAction);
+
 		quick2 = new JButton("2");
 		quick3 = new JButton("3");
 		quick4 = new JButton("4");
@@ -76,5 +83,11 @@ public class RGLUI {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
 		frame.setSize(800, 600);
+	}
+	
+	public class AnAction extends AbstractAction {
+		public void actionPerformed(ActionEvent e) {
+			updateDisplay.setText("1");
+		}
 	}
 }
