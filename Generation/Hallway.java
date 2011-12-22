@@ -3,7 +3,7 @@ import java.util.Random;
 public class Hallway {
 
 	static final int MAXLENGTH= 50;
-	int [][] xyTrack = new int[2][MAXLENGTH];
+	int [][] xyTrack = new int[3][MAXLENGTH];
 	int[] connection = new int[10]; // "doorways"
 	int connectionCounter;
 	int[] absoluteStart = new int[2];
@@ -32,18 +32,22 @@ public class Hallway {
 				case 0: //up
 					xyTrack[0][i+j]=xyTrack[0][i+j-1];
 					xyTrack[1][i+j]=xyTrack[1][i+j-1]+1;
+					xyTrack[2][i+j]=direction;
 					break;
 				case 1: //right
 					xyTrack[0][i+j]=xyTrack[0][i+j-1]+1;
 					xyTrack[1][i+j]=xyTrack[1][i+j-1];
+					xyTrack[2][i+j]=direction;
 					break;
 				case 2: //down
 					xyTrack[0][i+j]=xyTrack[0][i+j-1];
 					xyTrack[1][i+j]=xyTrack[1][i+j-1]-1;
+					xyTrack[2][i+j]=direction;
 					break;
 				case 3: //left
 					xyTrack[0][i+j]=xyTrack[0][i+j-1]-1;
 					xyTrack[1][i+j]=xyTrack[1][i+j-1];
+					xyTrack[2][i+j]=direction;
 					break;
 				}	
 			}
@@ -72,7 +76,10 @@ public class Hallway {
 		}
 	}
 	
-
+	void SetConnection(int length) {
+		connection[connectionCounter-1] = length;
+		connectionCounter++;
+	}
 	
 }
 	
