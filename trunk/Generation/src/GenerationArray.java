@@ -2,7 +2,7 @@ import java.util.Random;
 
 public class GenerationArray {
 
-	GenerationDataType[][] mapArray = new GenerationDataType[200][200];
+	GenerationDataType[][] mapArray;
 	Hallway[] hallwayArchive;
 	int hallwayCounter;
 	Room[] roomArchive;
@@ -17,15 +17,14 @@ public class GenerationArray {
 	int tempY;
 	
 	
-	GenerationArray() {
+	public GenerationArray() {
+		mapArray = new GenerationDataType[200][200];
 		hallwayCounter = 0;
 		roomCounter = 0;
 		for (int i=0; i<200; i++) {
 			for (int j=0; j<200; j++) {
-				mapArray[i][j].connection = false;
-				mapArray[i][j].walkable = false;
-				mapArray[i][j].tile = 0;
-				mapArray[i][j].overlaps = 0;
+				GenerationDataType gdt = new GenerationDataType();
+				mapArray[i][j] = gdt;
 			}
 		}
 	}
