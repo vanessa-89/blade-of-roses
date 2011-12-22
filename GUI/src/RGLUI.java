@@ -1,4 +1,6 @@
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
@@ -9,12 +11,14 @@ public class RGLUI {
 	
 	JFrame frame;
 	JPanel gameDisplay, playerDisplay, quickBar;
+	JScrollPane updateScroll;
 	JTextArea updateDisplay, statsDisplay;
 	JButton quick1, quick2, quick3, quick4, quick5, quick6, quick7, quick8, quick9, quick0;
 	JMenuBar menuBar;
 	JMenu fileMenu;
 	//JMenuItem
-	ImageIcon anIcon;
+	ImageIcon anIcon = new ImageIcon("C:/Users/Matt/workspace/borGUI/src/testicon.gif");
+	Insets zeroBorder = new Insets(0, 0, 0, 0);
 	
 	HotKey HKOne = new HotKey("1", anIcon, "1", new Integer(KeyEvent.VK_1));
 	HotKey HKTwo = new HotKey("2", anIcon, "2", new Integer(KeyEvent.VK_2));
@@ -44,6 +48,7 @@ public class RGLUI {
 		updateDisplay.setEditable(false);
 		updateDisplay.setText("MESSAGE!");
 		updateDisplay.setLineWrap(true);
+		updateScroll = new JScrollPane(updateDisplay);
 		
 		playerDisplay = new JPanel();
 		statsDisplay = new JTextArea();
@@ -58,63 +63,73 @@ public class RGLUI {
 		
 		// Quick Slot 1
 		quick1 = new JButton("1");
-		//quick1.getInputMap().put(KeyStroke.getKeyStroke("1"), "1press");
-		//quick1.getActionMap().put("1press", HKOne);
 		quick1.setAction(HKOne);
+		quick1.setIconTextGap(-24);
+		quick1.setMargin(zeroBorder);
+		quick1.setBackground(Color.BLACK);
 
 		// Quick Slot 2
 		quick2 = new JButton("2");
-		//quick2.getInputMap().put(KeyStroke.getKeyStroke("2"), "2press");
-		//quick2.getActionMap().put("2press", HKTwo);
 		quick2.setAction(HKTwo);
+		quick2.setIconTextGap(-24);
+		quick2.setMargin(zeroBorder);
+		quick2.setBackground(Color.BLACK);
 		
 		// Quick Slot 3
 		quick3 = new JButton("3");
-		//gameDisplay.getInputMap().put(KeyStroke.getKeyStroke("3"), "3press");
-		//gameDisplay.getActionMap().put("3press", hkThree);
 		quick3.setAction(HKThree);
+		quick3.setIconTextGap(-24);
+		quick3.setMargin(zeroBorder);
+		quick3.setBackground(Color.BLACK);
 		
 		// Quick Slot 4
 		quick4 = new JButton("4");
-		//gameDisplay.getInputMap().put(KeyStroke.getKeyStroke("4"), "4press");
-		//gameDisplay.getActionMap().put("4press", hkFour);
 		quick4.setAction(HKFour);
+		quick4.setIconTextGap(-24);
+		quick4.setMargin(zeroBorder);
+		quick4.setBackground(Color.BLACK);
 		
 		// Quick Slot 5
 		quick5 = new JButton("5");
-		//gameDisplay.getInputMap().put(KeyStroke.getKeyStroke("5"), "5press");
-		//gameDisplay.getActionMap().put("5press", hkFive);
 		quick5.setAction(HKFive);
+		quick5.setIconTextGap(-24);
+		quick5.setMargin(zeroBorder);
+		quick5.setBackground(Color.BLACK);
 		
 		// Quick Slot 6
 		quick6 = new JButton("6");
-		//gameDisplay.getInputMap().put(KeyStroke.getKeyStroke("6"), "6press");
-		//gameDisplay.getActionMap().put("6press", hkSix);
 		quick6.setAction(HKSix);
+		quick6.setIconTextGap(-24);
+		quick6.setMargin(zeroBorder);
+		quick6.setBackground(Color.BLACK);
 		
 		// Quick Slot 7
 		quick7 = new JButton("7");
-		//gameDisplay.getInputMap().put(KeyStroke.getKeyStroke("7"), "7press");
-		//gameDisplay.getActionMap().put("7press", hkSeven);
 		quick7.setAction(HKSeven);
+		quick7.setIconTextGap(-24);
+		quick7.setMargin(zeroBorder);
+		quick7.setBackground(Color.BLACK);
 		
 		// Quick Slot 8
 		quick8 = new JButton("8");
-		//gameDisplay.getInputMap().put(KeyStroke.getKeyStroke("8"), "8press");
-		//gameDisplay.getActionMap().put("8press", hkEight);
 		quick8.setAction(HKEight);
+		quick8.setIconTextGap(-24);
+		quick8.setMargin(zeroBorder);
+		quick8.setBackground(Color.BLACK);
 		
 		// Quick Slot 9
 		quick9 = new JButton("9");
-		//gameDisplay.getInputMap().put(KeyStroke.getKeyStroke("9"), "9press");
-		//gameDisplay.getActionMap().put("9press", hkNine);
 		quick9.setAction(HKNine);
+		quick9.setIconTextGap(-24);
+		quick9.setMargin(zeroBorder);
+		quick9.setBackground(Color.BLACK);
 		
 		// Quick Slot 0
 		quick0 = new JButton("0");
-		//gameDisplay.getInputMap().put(KeyStroke.getKeyStroke("0"), "0press");
-		//gameDisplay.getActionMap().put("0press", hkZero);
 		quick0.setAction(HKZero);
+		quick0.setIconTextGap(-24);
+		quick0.setMargin(zeroBorder);
+		quick0.setBackground(Color.BLACK);
 		
 		// Add Quick Slot Buttons to GUI
 		quickBar.add(quick1);
@@ -137,7 +152,7 @@ public class RGLUI {
 		//Frame Layout
 		frame.setJMenuBar(menuBar);
         frame.getContentPane().add(gameDisplay, BorderLayout.CENTER);
-        frame.getContentPane().add(updateDisplay, BorderLayout.WEST);
+        frame.getContentPane().add(updateScroll, BorderLayout.WEST);
         frame.getContentPane().add(playerDisplay, BorderLayout.EAST);
         frame.getContentPane().add(quickBar, BorderLayout.SOUTH);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
