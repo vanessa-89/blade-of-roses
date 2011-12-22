@@ -1,0 +1,3 @@
+#A quick word on posting to this wiki.
+
+Remember your syntax: http://code.google.com/p/support/wiki/WikiSyntax#Links
