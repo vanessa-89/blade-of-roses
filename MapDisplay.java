@@ -1,4 +1,5 @@
+import javax.swing.JPanel;
 
-public class MapDisplay {
+public class MapDisplay extends JPanel {
 
 }
