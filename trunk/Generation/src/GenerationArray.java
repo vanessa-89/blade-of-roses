@@ -9,34 +9,40 @@ public class GenerationArray {
 	int roomCounter;
 	Random rand = new Random();
 	
+	int MAXSIZE;
 	char nextSpawnSource;
 	int nextSpawnNum;
 	int nextConnection;
 	int nextDirection;
 	int tempX;
 	int tempY;
+	GenerationDataType gdt;
+	Room tempRoom;
+	Hallway tempHallway;
 	
-	
-	public GenerationArray() {
-		mapArray = new GenerationDataType[200][200];
+	public GenerationArray(int size) {
+		MAXSIZE=size;
+		mapArray = new GenerationDataType[MAXSIZE][MAXSIZE];
 		hallwayCounter = 0;
 		roomCounter = 0;
-		for (int i=0; i<200; i++) {
-			for (int j=0; j<200; j++) {
-				GenerationDataType gdt = new GenerationDataType();
+		for (int i=0; i<MAXSIZE; i++) {
+			for (int j=0; j<MAXSIZE; j++) {
+				gdt = new GenerationDataType();
 				mapArray[i][j] = gdt;
 			}
 		}
 	}
 	
 	void Generate () {
-		CreateRoom (100,100,4);
+		hallwayArchive = new Hallway[100];
+		roomArchive = new Room[100];
+		CreateRoom (MAXSIZE/2,MAXSIZE/2,4);
 		while (roomCounter*4+hallwayCounter*4 < 200) {
 			nextSpawnSource = HallOrRoom();
 			switch (nextSpawnSource){
 			case 'h':
-				nextSpawnNum = rand.nextInt(hallwayCounter);
-				nextConnection = rand.nextInt(hallwayArchive[nextSpawnNum].trueLength);
+				nextSpawnNum = ((hallwayCounter<2) ? 0:(rand.nextInt(hallwayCounter-1)));//fix
+				nextConnection = rand.nextInt(hallwayArchive[nextSpawnNum].trueLength);//fix\
 				hallwayArchive[nextSpawnNum].SetConnection(nextConnection);
 				nextDirection = (hallwayArchive[nextSpawnNum].xyTrack[2][nextConnection]
 									+ ((rand.nextInt()%2)==1 ? 1:-1)) % 4;
@@ -77,7 +83,8 @@ public class GenerationArray {
 	
 	
 	void CreateRoom (int x, int y, int direction){
-		roomArchive[roomCounter]=new Room();		
+		tempRoom = new Room();
+		roomArchive[roomCounter] = tempRoom;	
 //		roomArchive[roomCounter].FindEdge(direction);
 		roomArchive[roomCounter].SetAbsolute(x,y);
 		tempX = roomArchive[roomCounter].connection[0][roomArchive[roomCounter].connectionCounter];
@@ -97,7 +104,8 @@ public class GenerationArray {
 	void CreateHallway(int x, int y, int direction){
 		int relativeX;
 		int relativeY;
-		hallwayArchive[hallwayCounter]= new Hallway();
+		tempHallway = new Hallway();
+		hallwayArchive[hallwayCounter]= tempHallway;
 		hallwayArchive[hallwayCounter].Generate(direction);
 		hallwayArchive[hallwayCounter].SetAbsolute(x, y);
 		for (int i=0; i<hallwayArchive[hallwayCounter].trueLength; i++){
@@ -114,7 +122,7 @@ public class GenerationArray {
 	
 	
 	char HallOrRoom () {
-		char result = 0;
+		char result = 0; // GENERATING FROM HALLWAY WHEN THERE AREN'T ANY
 		switch (rand.nextInt(2)){
 		case 0:
 			result = 'r';
@@ -127,9 +135,6 @@ public class GenerationArray {
 	}
 	
 	void HallOrRoom ( int x, int y, int direction) {
-		int boundary;
-		boundary = hallwayCounter / 
-			(hallwayCounter + roomCounter);
 		switch (direction){
 		case 0:
 			y++;
@@ -144,22 +149,12 @@ public class GenerationArray {
 			x--;
 			break;
 		}
-		switch (rand.nextInt(100)/boundary){
+		int boundary;
+		boundary = hallwayCounter / 
+			(hallwayCounter + roomCounter);
+		
+		switch (((boundary==0) ? rand.nextInt(2):rand.nextInt(100)/boundary)){
 		case 1:
-			switch (direction){
-			case 0:
-				y++;
-				break;
-			case 1:
-				x++;
-				break;
-			case 2:
-				y--;
-				break;
-			case 3:
-				x--;
-				break;
-			}
 			CreateHallway( x, y, direction);
 			break;
 		case 0:

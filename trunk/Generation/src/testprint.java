@@ -2,15 +2,18 @@
 public class testprint {
 
 	public static void main(String[] args){
-	GenerationArray GA = new GenerationArray();
+		int size = 150;
+	GenerationArray GA = new GenerationArray(size);
 	GA.Generate();
-	for (int i=0; i<200; i++){
-		for (int j=0; j<200; j++){
+	for (int i=0; i<size; i++){
+		for (int j=0; j<size; j++){
 			if (GA.mapArray[i][j].walkable)
 				System.out.print('W');
 			else
 				System.out.print('U');
 			}
+		System.out.println();
 		}
-	}
+	System.out.print("Rooms: " + GA.roomCounter + "Hallways: " + GA.hallwayCounter);
+	}	
 }
