@@ -36,19 +36,19 @@ public class GenerationArray {
 			nextSpawnSource = HallOrRoom();
 			switch (nextSpawnSource){
 			case 'h':
-				nextSpawnNum = rand.nextint(hallwayCounter);
-				nextConnection = rand.nextInt(hallwayArchive[nextSpawnNum].truelength);
+				nextSpawnNum = rand.nextInt(hallwayCounter);
+				nextConnection = rand.nextInt(hallwayArchive[nextSpawnNum].trueLength);
 				hallwayArchive[nextSpawnNum].SetConnection(nextConnection);
 				nextDirection = (hallwayArchive[nextSpawnNum].xyTrack[2][nextConnection]
-									+ ((rand.nextInt%2) ? 1:-1)) % 4;
+									+ ((rand.nextInt()%2)==1 ? 1:-1)) % 4;
 				tempX = hallwayArchive[nextSpawnNum].xyTrack[0][nextConnection] 
 						+ hallwayArchive[nextSpawnNum].absoluteStart[0];
 				tempY = hallwayArchive[nextSpawnNum].xyTrack[1][nextConnection] 
 						+ hallwayArchive[nextSpawnNum].absoluteStart[1];
 				break;
 			case 'r':
-				nextSpawnNum = rand.nextint(roomCounter);
-				nextConnection = (rand.nextInt(roomArchive[nextSpawnNum].width*2 +
+				nextSpawnNum = rand.nextInt(roomCounter);
+				nextConnection = (rand.nextInt(roomArchive[nextSpawnNum].width*2) +
 												roomArchive[nextSpawnNum].height*2);
 				if (nextConnection < roomArchive[nextSpawnNum].width)
 					nextDirection = 0;
@@ -58,8 +58,7 @@ public class GenerationArray {
 				else if (nextConnection < roomArchive[nextSpawnNum].width*2+
 											roomArchive[nextSpawnNum].height)
 					nextDirection = 2;
-				else (nextConnection < roomArchive[nextSpawnNum].width*2+
-						roomArchive[nextSpawnNum].height*2)
+				else 
 					nextDirection = 3;
 				tempX = nextConnection - 
 						((nextDirection/2)*roomArchive[nextSpawnNum].width) - 
@@ -82,8 +81,8 @@ public class GenerationArray {
 		roomArchive[roomCounter]=new Room();		
 //		roomArchive[roomCounter].FindEdge(direction);
 		roomArchive[roomCounter].SetAbsolute(x,y);
-		tempX = roomArchive[roomCounter].connection[0][connectionCounter];
-		tempY = roomArchive[roomCounter].connection[1][connectionCounter];
+		tempX = roomArchive[roomCounter].connection[0][roomArchive[roomCounter].connectionCounter];
+		tempY = roomArchive[roomCounter].connection[1][roomArchive[roomCounter].connectionCounter];
 		for (int i=0; i<roomArchive[roomCounter].width; i++){
 			for (int j=0; j<roomArchive[roomCounter].height; j++){
 				mapArray[x+i-tempX][y+j-tempY].walkable = true;
@@ -117,7 +116,6 @@ public class GenerationArray {
 	
 	char HallOrRoom () {
 		char result = 0;
-		int boundary;
 		switch (rand.nextInt(2)){
 		case 0:
 			result = 'r';
