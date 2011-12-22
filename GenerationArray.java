@@ -31,12 +31,14 @@ public class GenerationArray {
 			nextSpawnSource = HallOrRoom();
 			switch (nextSpawnSource){
 			case 'h':
+				//randomhall
 				//randomconnectionspot
 				//hallorroom(with params)
 				
 				
 				break;
 			case 'r':
+				//randomroom
 				//randomconnectionspot
 				//hallorroom(with params)
 				
@@ -81,18 +83,18 @@ public class GenerationArray {
 			mapArray[relativeX][relativeY].tile=1;
 			mapArray[relativeX][relativeY].structureIntIndex.push(hallwayCounter);
 			mapArray[relativeX][relativeY].structureTypeIndex.push('h');
-			mapArray[x+i][y+j].overlaps++;
+			mapArray[relativeX][relativeY].overlaps++;
 		}
 		hallwayCounter++;
 	}
 	
 	
-	// MAKE BASED ON PERCENT
+
 	char HallOrRoom () {
 		char result = 0;
-		float boundary;
+		int boundary;
 		boundary = (hallwayCounter / 
-			(hallwayCounter + roomCounter))*100;
+			(hallwayCounter + roomCounter))*100; //don't want this algorithm here, it's picking for next spawn source
 		switch (((rand.nextInt(100)/boundary)/100)){
 		case 0:
 			result = 'r';
