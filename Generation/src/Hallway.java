@@ -2,9 +2,9 @@ import java.util.Random;
 
 public class Hallway {
 
-	static final int MAXLENGTH= 50;
+	static final int MAXLENGTH= 100;
 	int [][] xyTrack = new int[3][MAXLENGTH];
-	int[] connection = new int[10]; // "doorways"
+	int[] connection = new int[20]; // "doorways"
 	int connectionCounter;
 	int[] absoluteStart = new int[2];
 	int trueLength;
@@ -26,7 +26,7 @@ public class Hallway {
 		int previous;
 		for (int i=1; i<MAXLENGTH; i++) {
 			previous = direction;
-			int length = rand.nextInt(8)+rand.nextInt(8)+3;
+			int length = rand.nextInt(12)+rand.nextInt(12)+rand.nextInt(12);
 			for (int j=0; j<length; j++){
 				switch (direction) {
 				case 0: //up

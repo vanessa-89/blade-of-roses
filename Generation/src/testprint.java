@@ -2,7 +2,7 @@
 public class testprint {
 
 	public static void main(String[] args){
-		int size = 150;
+		int size = 300;
 	GenerationArray GA = new GenerationArray(size);
 	GA.Generate();
 	for (int i=0; i<size; i++){

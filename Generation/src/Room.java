@@ -57,6 +57,7 @@ public class Room {
 	void SetConnection(int x, int y) {
 		connection[0][connectionCounter]=x-absoluteStart[0];
 		connection[1][connectionCounter]=y-absoluteStart[1];
+		connectionCounter++;
 	}
 	
 
