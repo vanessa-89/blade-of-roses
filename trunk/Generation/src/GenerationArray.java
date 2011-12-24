@@ -36,35 +36,49 @@ public class GenerationArray {
 	void Generate () {
 		hallwayArchive = new Hallway[100];
 		roomArchive = new Room[100];
-		CreateRoom (MAXSIZE/2,MAXSIZE/2,4);
+		CreateRoom (MAXSIZE/2,MAXSIZE/2,rand.nextInt(4));
 		while (roomCounter*5+hallwayCounter*3 < 100) {
 			nextSpawnSource = HallOrRoom();
 			switch (nextSpawnSource){
 			case 'h':
 				nextSpawnNum = ((hallwayCounter<2) ? 0:(rand.nextInt(hallwayCounter-1)));
+				
 				nextConnection = rand.nextInt(hallwayArchive[nextSpawnNum].trueLength);
+				
 				hallwayArchive[nextSpawnNum].SetConnection(nextConnection);
+				
 				nextDirection = (hallwayArchive[nextSpawnNum].xyTrack[2][nextConnection]
 									+ ((rand.nextInt()%2)==1 ? 1:-1)) % 4;
+				
 				tempX = hallwayArchive[nextSpawnNum].xyTrack[0][nextConnection] 
 						+ hallwayArchive[nextSpawnNum].absoluteStart[0];
+				
 				tempY = hallwayArchive[nextSpawnNum].xyTrack[1][nextConnection] 
 						+ hallwayArchive[nextSpawnNum].absoluteStart[1];
 				break;
+			
 			case 'r':
 				nextSpawnNum = rand.nextInt(roomCounter);
-				nextConnection = (rand.nextInt(roomArchive[nextSpawnNum].width*2) +
-												roomArchive[nextSpawnNum].height*2);
+//				System.out.println("Next Spawn Num: " + nextSpawnNum);
+				nextConnection = (rand.nextInt(roomArchive[nextSpawnNum].width*2 +
+												roomArchive[nextSpawnNum].height*2));
+//				System.out.println("Next Connection: " + nextConnection);
+//				System.out.println("Width and Height: " + roomArchive[nextSpawnNum].width + "  " + roomArchive[nextSpawnNum].height);
+				
 				if (nextConnection < roomArchive[nextSpawnNum].width)
 					nextDirection = 0;
+				
 				else if (nextConnection < roomArchive[nextSpawnNum].width+
 											roomArchive[nextSpawnNum].height)
 					nextDirection = 1;
+				
 				else if (nextConnection < roomArchive[nextSpawnNum].width*2+
 											roomArchive[nextSpawnNum].height)
 					nextDirection = 2;
+				
 				else 
 					nextDirection = 3;
+				
 				tempX = nextConnection - 
 						((nextDirection/2)*roomArchive[nextSpawnNum].width) - 
 						(((nextDirection+3)/2)-1)*roomArchive[nextSpawnNum].height;
@@ -84,14 +98,15 @@ public class GenerationArray {
 	
 	void CreateRoom (int x, int y, int direction){
 		tempRoom = new Room();
-		roomArchive[roomCounter] = tempRoom;	
+		roomArchive[roomCounter] = tempRoom;
+//		System.out.println("direction: " + direction);
 		roomArchive[roomCounter].FindEdge(direction);
 		roomArchive[roomCounter].SetAbsolute(x,y);
 		tempX = roomArchive[roomCounter].connection[0][0];
 		tempY = roomArchive[roomCounter].connection[1][0];
 		for (int i=0; i<roomArchive[roomCounter].width; i++){
 			for (int j=0; j<roomArchive[roomCounter].height; j++){
-				mapArray[x+i-tempX][y+j-tempY].walkable = true;
+//				System.out.println("x " + x + " y " + y + " i " + i + " j " + j + " tempX " + tempX + " tempY " + tempY );
 				mapArray[x+i-tempX][y+j-tempY].tile = 1;
 				mapArray[x+i-tempX][y+j-tempY].structureIntIndex.push(roomCounter);
 				mapArray[x+i-tempX][y+j-tempY].structureTypeIndex.push('r');
@@ -118,9 +133,9 @@ public class GenerationArray {
 			mapArray[relativeX][relativeY].structureTypeIndex.push('h');
 			mapArray[relativeX][relativeY].overlaps++;
 		}
-		CreateRoom( hallwayArchive[hallwayCounter].xyTrack[0][hallwayArchive[hallwayCounter].trueLength],
-					hallwayArchive[hallwayCounter].xyTrack[1][hallwayArchive[hallwayCounter].trueLength],
-					hallwayArchive[hallwayCounter].xyTrack[2][hallwayArchive[hallwayCounter].trueLength] + (rand.nextInt(3)-1));
+		CreateRoom( hallwayArchive[hallwayCounter].xyTrack[0][hallwayArchive[hallwayCounter].trueLength]+x,
+					hallwayArchive[hallwayCounter].xyTrack[1][hallwayArchive[hallwayCounter].trueLength]+y,
+					(Math.abs((int)(hallwayArchive[hallwayCounter].xyTrack[2][hallwayArchive[hallwayCounter].trueLength] + ((((rand.nextInt(2)+1)*6)/3)-3)%4))));
 		hallwayCounter++;
 	}
 	

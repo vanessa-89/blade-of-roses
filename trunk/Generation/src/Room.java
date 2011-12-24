@@ -6,12 +6,15 @@ public class Room {
 	int width;
 	int[][] connection = new int[2][10]; // "doorways"
 	int connectionCounter;
-	int[] absoluteStart = new int[2];
+	int[] absoluteStart;
 	Random rand = new Random();
 	
 	Room(){ //height and width are 3-9 
-		height = rand.nextInt(7)+3;
-		width = rand.nextInt(7)+3;
+		height = (rand.nextInt(7))+6;
+		width = (rand.nextInt(7))+6;
+		absoluteStart = new int[2];
+//		absoluteStart[0] = new int;
+//		absoluteStart[1] = new int;
 		for (int i=0; i<10; i++) {
 			connection[0][i] = 0;
 			connection[1][i] = 0;
@@ -55,8 +58,12 @@ public class Room {
 	}
 	
 	void SetConnection(int x, int y) {
-		connection[0][connectionCounter]=x-absoluteStart[0];
-		connection[1][connectionCounter]=y-absoluteStart[1];
+//		x = x - absoluteStart[0];
+//		y = y - absoluteStart[1];
+		x = x;
+		y = y;	
+		connection[0][connectionCounter]=x;
+		connection[1][connectionCounter]=y;
 		connectionCounter++;
 	}
 	
