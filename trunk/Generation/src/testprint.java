@@ -7,6 +7,7 @@ public class testprint {
 	GA.Generate();
 	GA.FindBounds();
 	GA.PrintArea();
+	GA.PrintAll();
 	System.out.print("Rooms: " + GA.roomCounter + "Hallways: " + GA.hallwayCounter);
 	}	
 }

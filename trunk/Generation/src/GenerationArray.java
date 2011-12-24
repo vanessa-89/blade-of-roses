@@ -42,9 +42,8 @@ public class GenerationArray {
 		hallwayArchive = new Hallway[100];
 		roomArchive = new Room[100];
 		CreateRoom (MAXSIZE/2,MAXSIZE/2,rand.nextInt(4));
-/**/		while (roomCounter*5+hallwayCounter*3 < 100) {			
+/**/		while (roomCounter*5+hallwayCounter*3 < 75) {			
 			FindBounds();
-			PrintArea();
 			nextSpawnSource = HallOrRoom();
 			switch (nextSpawnSource){
 			case 'h':
@@ -142,9 +141,9 @@ public class GenerationArray {
 			mapArray[relativeX][relativeY].structureTypeIndex.push('h');
 			mapArray[relativeX][relativeY].overlaps++;
 		}
-		CreateRoom( hallwayArchive[hallwayCounter].xyTrack[0][hallwayArchive[hallwayCounter].trueLength]+x,
-					hallwayArchive[hallwayCounter].xyTrack[1][hallwayArchive[hallwayCounter].trueLength]+y,
-					hallwayArchive[hallwayCounter].xyTrack[2][hallwayArchive[hallwayCounter].trueLength]);
+		CreateRoom( hallwayArchive[hallwayCounter].xyTrack[0][hallwayArchive[hallwayCounter].trueLength-1]+x,
+					hallwayArchive[hallwayCounter].xyTrack[1][hallwayArchive[hallwayCounter].trueLength-1]+y,
+					hallwayArchive[hallwayCounter].xyTrack[2][hallwayArchive[hallwayCounter].trueLength-1]);
 //					(Math.abs((int)(hallwayArchive[hallwayCounter].xyTrack[2][hallwayArchive[hallwayCounter].trueLength] + ((((rand.nextInt(2)+1)*6)/3)-3)%4))));
 		hallwayCounter++;
 	}
@@ -152,11 +151,14 @@ public class GenerationArray {
 	
 	char HallOrRoom () {
 		char result = 0; 
-		switch (rand.nextInt(2)){
+		switch (rand.nextInt(3)){
 		case 0:
 			result = 'r';
 			break;
 		case 1:
+			result = 'h';
+			break;
+		case 2:
 			result = 'h';
 			break;
 		}
@@ -181,7 +183,7 @@ public class GenerationArray {
 			break;
 		}
 		int boundary;
-		boundary = (hallwayCounter/3) / 
+		boundary = (hallwayCounter/2) / 
 			(hallwayCounter + roomCounter);
 		
 		switch (((boundary==0) ? rand.nextInt(2):rand.nextInt(100)/boundary)){
@@ -219,10 +221,11 @@ public class GenerationArray {
 			}
 		}
 		System.out.println("x1 "+x1+" x2 "+x2+" y1 "+y1+" y2 "+y2);
+		PrintArea();
 	}
 	
 	void PrintAll(){
-		for (int i=0; i<=MAXSIZE; i++){
+		for (int i=0; i<MAXSIZE; i++){
 			for (int j=0; j<MAXSIZE; j++){
 				if (mapArray[i][j].walkable)
 					System.out.print('W');
