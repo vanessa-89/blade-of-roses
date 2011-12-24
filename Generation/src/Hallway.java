@@ -2,8 +2,8 @@ import java.util.Random;
 
 public class Hallway {
 
-	static final int MAXLENGTH= 100;
-	int [][] xyTrack = new int[3][MAXLENGTH];
+	static final int MAXLENGTH= 50;
+	int [][] xyTrack = new int[3][MAXLENGTH*2];
 	int[] connection = new int[20]; // "doorways"
 	int connectionCounter;
 	int[] absoluteStart = new int[2];
@@ -26,7 +26,7 @@ public class Hallway {
 		int previous;
 		for (int i=1; i<MAXLENGTH; i++) {
 			previous = direction;
-			int length = rand.nextInt(12)+rand.nextInt(12)+rand.nextInt(12);
+			int length = rand.nextInt(8)+rand.nextInt(8)+rand.nextInt(8);
 			for (int j=0; j<length; j++){
 				switch (direction) {
 				case 0: //up
@@ -56,6 +56,8 @@ public class Hallway {
 			}
 			i = i+length;
 			trueLength = i;
+			if ( i > MAXLENGTH )
+				i = MAXLENGTH - 1;
 			if ( rand.nextInt(MAXLENGTH-i) < MAXLENGTH/5 ) {
 				i = MAXLENGTH;
 			}	
@@ -68,8 +70,10 @@ public class Hallway {
 	}
 	
 	void SetConnection(int x, int y) {
-		x = x - absoluteStart[0];
-		y = y - absoluteStart[1];
+//		x = x - absoluteStart[0];
+//		y = y - absoluteStart[1];
+		x = x;
+		y = y;		
 		for (int i=0; i<trueLength; i++) {
 			if (xyTrack[0][i]==x && xyTrack[1][i]==y)
 				connection[connectionCounter]= i;
