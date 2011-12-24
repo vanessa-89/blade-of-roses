@@ -26,7 +26,7 @@ public class Hallway {
 		int previous;
 		for (int i=1; i<MAXLENGTH; i++) {
 			previous = direction;
-			int length = rand.nextInt(8)+rand.nextInt(8)+rand.nextInt(8);
+			int length = rand.nextInt(8)+rand.nextInt(8)+rand.nextInt(8)+1;
 			for (int j=0; j<length; j++){
 				switch (direction) {
 				case 0: //up
@@ -56,7 +56,7 @@ public class Hallway {
 			}
 			i = i+length;
 			trueLength = i;
-			if ( i > MAXLENGTH )
+			if ( i >= MAXLENGTH )
 				i = MAXLENGTH - 1;
 			if ( rand.nextInt(MAXLENGTH-i) < MAXLENGTH/5 ) {
 				i = MAXLENGTH;

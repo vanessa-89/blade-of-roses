@@ -19,12 +19,17 @@ public class GenerationArray {
 	GenerationDataType gdt;
 	Room tempRoom;
 	Hallway tempHallway;
+	int x1, x2, y1, y2;
 	
 	public GenerationArray(int size) {
 		MAXSIZE=size;
 		mapArray = new GenerationDataType[MAXSIZE][MAXSIZE];
 		hallwayCounter = 0;
 		roomCounter = 0;
+		int x1 = 0;
+		int y1 = 0;
+		int x2 = MAXSIZE-1;
+		int y2 = MAXSIZE-1;
 		for (int i=0; i<MAXSIZE; i++) {
 			for (int j=0; j<MAXSIZE; j++) {
 				gdt = new GenerationDataType();
@@ -37,7 +42,9 @@ public class GenerationArray {
 		hallwayArchive = new Hallway[100];
 		roomArchive = new Room[100];
 		CreateRoom (MAXSIZE/2,MAXSIZE/2,rand.nextInt(4));
-		while (roomCounter*5+hallwayCounter*3 < 100) {
+/**/		while (roomCounter*5+hallwayCounter*3 < 100) {			
+			FindBounds();
+			PrintArea();
 			nextSpawnSource = HallOrRoom();
 			switch (nextSpawnSource){
 			case 'h':
@@ -92,6 +99,7 @@ public class GenerationArray {
 			}
 			HallOrRoom( tempX, tempY, nextDirection);		
 		}
+/**/		
 	}
 	
 	
@@ -107,6 +115,7 @@ public class GenerationArray {
 		for (int i=0; i<roomArchive[roomCounter].width; i++){
 			for (int j=0; j<roomArchive[roomCounter].height; j++){
 //				System.out.println("x " + x + " y " + y + " i " + i + " j " + j + " tempX " + tempX + " tempY " + tempY );
+				mapArray[x+i-tempX][y+j-tempY].walkable = true;
 				mapArray[x+i-tempX][y+j-tempY].tile = 1;
 				mapArray[x+i-tempX][y+j-tempY].structureIntIndex.push(roomCounter);
 				mapArray[x+i-tempX][y+j-tempY].structureTypeIndex.push('r');
@@ -135,7 +144,8 @@ public class GenerationArray {
 		}
 		CreateRoom( hallwayArchive[hallwayCounter].xyTrack[0][hallwayArchive[hallwayCounter].trueLength]+x,
 					hallwayArchive[hallwayCounter].xyTrack[1][hallwayArchive[hallwayCounter].trueLength]+y,
-					(Math.abs((int)(hallwayArchive[hallwayCounter].xyTrack[2][hallwayArchive[hallwayCounter].trueLength] + ((((rand.nextInt(2)+1)*6)/3)-3)%4))));
+					hallwayArchive[hallwayCounter].xyTrack[2][hallwayArchive[hallwayCounter].trueLength]);
+//					(Math.abs((int)(hallwayArchive[hallwayCounter].xyTrack[2][hallwayArchive[hallwayCounter].trueLength] + ((((rand.nextInt(2)+1)*6)/3)-3)%4))));
 		hallwayCounter++;
 	}
 	
@@ -179,9 +189,63 @@ public class GenerationArray {
 			CreateHallway( x, y, direction);
 			break;
 		case 0:
-			
 			CreateRoom( x, y, direction);
 			break;
 		}
 	}
+	
+	void FindBounds(){
+//		PrintAll();
+		x1 = 0;
+		y1 = 0;
+		x2 = MAXSIZE-1;
+		y2 = MAXSIZE-1;
+		
+		for (int i=MAXSIZE-1; i>0; i--){
+			for (int j=MAXSIZE-1; j>0; j--){
+				if (mapArray[i][j].walkable)
+					x1=i;
+				if (mapArray[j][i].walkable)
+					y1=j;
+			}
+		}
+
+		for (int i=0; i<MAXSIZE; i++){
+			for (int j=0; j<MAXSIZE; j++){
+				if (mapArray[i][j].walkable)
+					x2=i;
+				if (mapArray[j][i].walkable)
+					y2=j;
+			}
+		}
+		System.out.println("x1 "+x1+" x2 "+x2+" y1 "+y1+" y2 "+y2);
+	}
+	
+	void PrintAll(){
+		for (int i=0; i<=MAXSIZE; i++){
+			for (int j=0; j<MAXSIZE; j++){
+				if (mapArray[i][j].walkable)
+					System.out.print('W');
+				else
+					System.out.print('U');
+			}
+			System.out.println();
+		}
+		System.out.println("Rooms: " + roomCounter + "Hallways: " + hallwayCounter);
+	}
+	
+	void PrintArea(){
+		for (int i=y1; i<=y2; i++){
+			for (int j=x1; j<x2; j++){
+				if (mapArray[i][j].walkable)
+					System.out.print('W');
+				else
+					System.out.print('U');
+			}
+			System.out.println();
+		}
+		System.out.println("Rooms: " + roomCounter + "Hallways: " + hallwayCounter);
+	}
+	
+	
 }
