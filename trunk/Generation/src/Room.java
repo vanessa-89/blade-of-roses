@@ -10,8 +10,8 @@ public class Room {
 	Random rand = new Random();
 	
 	Room(){ //height and width are 3-9 
-		height = (rand.nextInt(7))+6;
-		width = (rand.nextInt(7))+6;
+		height = (rand.nextInt(7)+rand.nextInt(7)+1);
+		width = (rand.nextInt(7)+rand.nextInt(7)+1);
 		absoluteStart = new int[2];
 //		absoluteStart[0] = new int;
 //		absoluteStart[1] = new int;
