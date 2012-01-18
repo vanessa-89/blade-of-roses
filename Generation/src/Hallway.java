@@ -72,8 +72,8 @@ public class Hallway {
 	void SetConnection(int x, int y) {
 //		x = x - absoluteStart[0];
 //		y = y - absoluteStart[1];
-		x = x;
-		y = y;		
+//		x = x;
+//		y = y;		
 		for (int i=0; i<trueLength; i++) {
 			if (xyTrack[0][i]==x && xyTrack[1][i]==y)
 				connection[connectionCounter]= i;
