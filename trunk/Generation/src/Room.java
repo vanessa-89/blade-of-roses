@@ -60,8 +60,8 @@ public class Room {
 	void SetConnection(int x, int y) {
 //		x = x - absoluteStart[0];
 //		y = y - absoluteStart[1];
-		x = x;
-		y = y;	
+//		x = x;
+//		y = y;	
 		connection[0][connectionCounter]=x;
 		connection[1][connectionCounter]=y;
 		connectionCounter++;

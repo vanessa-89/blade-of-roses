@@ -26,10 +26,10 @@ public class GenerationArray {
 		mapArray = new GenerationDataType[MAXSIZE][MAXSIZE];
 		hallwayCounter = 0;
 		roomCounter = 0;
-		int x1 = 0;
-		int y1 = 0;
-		int x2 = MAXSIZE-1;
-		int y2 = MAXSIZE-1;
+		x1 = 0;
+		y1 = 0;
+		x2 = MAXSIZE-1;
+		y2 = MAXSIZE-1;
 		for (int i=0; i<MAXSIZE; i++) {
 			for (int j=0; j<MAXSIZE; j++) {
 				gdt = new GenerationDataType();
@@ -203,6 +203,9 @@ public class GenerationArray {
 		x2 = MAXSIZE-1;
 		y2 = MAXSIZE-1;
 		
+//  Finding the minimum by starting at the max and as long as there is a Walkable square
+//	    set the new minimum to the appropriate coordinate.
+		
 		for (int i=MAXSIZE-1; i>0; i--){
 			for (int j=MAXSIZE-1; j>0; j--){
 				if (mapArray[i][j].walkable)
@@ -212,6 +215,9 @@ public class GenerationArray {
 			}
 		}
 
+//  Finding the maximum by starting at the min and as long as there is a Walkable square
+//	    set the new maximum to the appropriate coordinate.
+		
 		for (int i=0; i<MAXSIZE; i++){
 			for (int j=0; j<MAXSIZE; j++){
 				if (mapArray[i][j].walkable)
