@@ -7,21 +7,31 @@ import java.util.Random;
 
 import javax.swing.*;
 
-
+/**
+ * 
+ * @author Matt Morris
+ *
+ * This class handles the over GUI for Blade of Roses.
+ */
 public class RGLUI {
 	
-	JFrame frame;
-	MapDisplay gameDisplay;
-	JPanel playerDisplay, quickBar;
-	JScrollPane updateScroll;
-	JTextArea updateDisplay, statsDisplay;
-	JButton quick1, quick2, quick3, quick4, quick5, quick6, quick7, quick8, quick9, quick0;
-	JMenuBar menuBar;
-	JMenu fileMenu;
+	// Here all the GUI components are declared.
+	// This isn't the only way to do this, but I've found it
+	// to be the simplest and most sensible.
+	JFrame frame;	// The object that holds all other GUI components.
+	MapDisplay gameDisplay;	// This is an extension of JPanel with extra functions to handle map display.
+	JPanel playerDisplay, quickBar;	// These JPanels are intended to hold the player info and the hotkey buttons.
+	JScrollPane updateScroll;	// This creates a scroll bar for a JPanel.
+	JTextArea updateDisplay, statsDisplay;	// These are used to display text.
+	JButton quick1, quick2, quick3, quick4, quick5, quick6, quick7, quick8, quick9, quick0; // These are buttons.
+	JMenuBar menuBar; // This creates a menu bar for the window.
+	JMenu fileMenu;	// This populates the above menu bar.
 	//JMenuItem
-	ImageIcon anIcon = new ImageIcon("C:/Users/Matt/workspace/borGUI/src/testicon.gif");
-	Insets zeroBorder = new Insets(0, 0, 0, 0);
+	ImageIcon anIcon = new ImageIcon("C:/Users/Matt/workspace/borGUI/src/testicon.gif"); // This handles the icons for the hotkeys.
+	Insets zeroBorder = new Insets(0, 0, 0, 0); // Also for icons... a little odd.
 	
+	// Here are all the hotkeys.
+	// This still needs some work 2/9/12
 	HotKey HKOne = new HotKey("1", anIcon, "1", new Integer(KeyEvent.VK_1));
 	HotKey HKTwo = new HotKey("2", anIcon, "2", new Integer(KeyEvent.VK_2));
 	HotKey HKThree = new HotKey("3", anIcon, "3", new Integer(KeyEvent.VK_3));
@@ -37,14 +47,21 @@ public class RGLUI {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		new RGLUI().view();
+		new RGLUI().view(); // I use this because main has to be static.
+							// Static can cause some programming difficulties.
 	}
 
-	public void view() {
+	/**
+	 * Called by main, does the actual GUI setup.
+	 */
+	void view() {
+		// Setup the window here.
 		frame = new JFrame("RGL");
-		// BLAH BLAH BLAH
+
+		// Creates the MapDisplay. I do all the instantiation here.
 		gameDisplay = new MapDisplay();
 		
+		// Create and setup the Message Area.
 		updateDisplay = new JTextArea();
 		updateDisplay.setColumns(20);
 		updateDisplay.setEditable(false);
@@ -52,6 +69,7 @@ public class RGLUI {
 		updateDisplay.setLineWrap(true);
 		updateScroll = new JScrollPane(updateDisplay);
 		
+		// Create and setup the Player panel.
 		playerDisplay = new JPanel();
 		statsDisplay = new JTextArea();
 		statsDisplay.setRows(15);
@@ -60,9 +78,10 @@ public class RGLUI {
 		statsDisplay.setText("HP:\nMANA:\n\nSTR:\nDEX:\nINT:");
 		playerDisplay.add(statsDisplay, BorderLayout.CENTER);
 
-		
+		// Create the quick bar.
 		quickBar = new JPanel();
 		
+		// Populate the quick bar.
 		// Quick Slot 1
 		quick1 = new JButton("1");
 		quick1.setAction(HKOne);
