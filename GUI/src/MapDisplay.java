@@ -4,6 +4,7 @@ import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
 
+
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
@@ -22,14 +23,14 @@ public class MapDisplay extends JPanel {
 	// Initializes the JPanel and loads the image.
 	public static void initialize() {	
 		try {
-			File dtFile = new File("/borGUI/src/BOR-DungeonTiles.png");
+			File dtFile = new File("/src/BOR-DungeonTiles.png");
 			System.out.println(dtFile.exists());
 			dungeonTiles = ImageIO.read(dtFile);
 			System.out.println("IO");
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 			System.out.println("Uh-oh!");
-		}	
+		}
 	}
 	
 	// 
