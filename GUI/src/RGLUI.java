@@ -3,6 +3,7 @@ import java.awt.Color;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.util.Random;
 
 import javax.swing.*;
 
@@ -10,7 +11,8 @@ import javax.swing.*;
 public class RGLUI {
 	
 	JFrame frame;
-	JPanel gameDisplay, playerDisplay, quickBar;
+	MapDisplay gameDisplay;
+	JPanel playerDisplay, quickBar;
 	JScrollPane updateScroll;
 	JTextArea updateDisplay, statsDisplay;
 	JButton quick1, quick2, quick3, quick4, quick5, quick6, quick7, quick8, quick9, quick0;
@@ -41,7 +43,7 @@ public class RGLUI {
 	public void view() {
 		frame = new JFrame("RGL");
 		// BLAH BLAH BLAH
-		gameDisplay = new JPanel();
+		gameDisplay = new MapDisplay();
 		
 		updateDisplay = new JTextArea();
 		updateDisplay.setColumns(20);
@@ -158,6 +160,25 @@ public class RGLUI {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
 		frame.setSize(800, 600);
+		
+		// Initializes the map display
+		gameDisplay.initialize();
+		
+		/**********************************************************************
+		 * TEST OF MAP DISPLAY
+		 *********************************************************************/
+		int[][] map = new int[10][10];
+		Random random = new Random();
+		for (int i = 0; i < 10; i++) {
+			for (int j = 0; j < 10; j++) {
+				map[i][j] = random.nextInt(86);
+				System.out.print(map[i][j]);
+			}
+		}
+		gameDisplay.loadMap(map);
+		/**********************************************************************
+		 * TEST OF MAP DISPLAY
+		 *********************************************************************/
 	}
 	
 	/** Hot Key One  */
