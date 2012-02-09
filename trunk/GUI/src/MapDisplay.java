@@ -33,18 +33,20 @@ public class MapDisplay extends JPanel {
 		}
 	}
 	
-	// 
+	// Loads the generated map onto the screen using the provided tileset.
 	public void loadMap(int[][] map) {
 		for (int i = 0; i < map.length; i++) {
 			for (int j = 0; j < map[i].length; i++) {
+				// Calculates destination coordinates index of array.
 				int dx1 = j*65;
 				int dy1 = i*65;
 				int dx2 = dx1 + 65;
 				int dy2 = dy1 + 65;
 				
+				// Calculates source coordinates based on value in array.
 				int mapVal = map[i][j];
 				int count = 0;
-				while (mapVal >= 12) {
+				while (mapVal >= 12) { // May want to change this eventually to avoid Magic Numbers...
 					mapVal -= 12;
 					count++;
 				}
@@ -53,9 +55,12 @@ public class MapDisplay extends JPanel {
 				int sx2 = sx1 + 65;
 				int sy2 = sy1 + 65;
 				
+				// Draws the images to screen.
 				g2d.drawImage(dungeonTiles,dx1,dy1,dx2,dy2,sx1,sy1,sx2,sy2,ImageObserver);
 			}
 		}
+		// Flushes any buffered objects to screen.
+		this.repaint();
 	}
 	
 }
