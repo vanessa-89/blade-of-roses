@@ -186,19 +186,26 @@ public class RGLUI {
 		
 		/**********************************************************************
 		 * TEST OF MAP DISPLAY
+		 * 
+		 * This test generates a random array of numbers within the allowed range
+		 *  for the tileset. The purpose here is to verify that the tile placement
+		 *  and identification algorithm works.
+		 *  
+		 *  End of tile range is for now 85
+		 *  Absolute Null Ranges:
+		 *  16,20-23,28-35,38-47,52-59,68-71,76-83
 		 *********************************************************************/
 		int[][] map = new int[7][6];
 		Random random = new Random();
 		for (int i = 0; i < 7; i++) {
 			for (int j = 0; j < 6; j++) {
-				map[i][j] = random.nextInt(16); // End of tiles 80 with Null ranges of
-				//System.out.println(map[i][j]);
+				map[i][j] = random.nextInt(20);
 			}
 		}
 		gameDisplay.loadMap(map);
 		gameDisplay.repaint();
 		/**********************************************************************
-		 * TEST OF MAP DISPLAY
+		 * END TEST OF MAP DISPLAY
 		 *********************************************************************/
 	}
 	
