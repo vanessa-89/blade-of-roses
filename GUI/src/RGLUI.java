@@ -27,7 +27,7 @@ public class RGLUI {
 	JMenuBar menuBar; // This creates a menu bar for the window.
 	JMenu fileMenu;	// This populates the above menu bar.
 	//JMenuItem
-	ImageIcon anIcon = new ImageIcon("C:/Users/Matt/workspace/borGUI/src/testicon.gif"); // This handles the icons for the hotkeys.
+	ImageIcon anIcon = new ImageIcon("testicon.gif"); // This handles the icons for the hotkeys.
 	Insets zeroBorder = new Insets(0, 0, 0, 0); // Also for icons... a little odd.
 	
 	// Here are all the hotkeys.
@@ -60,6 +60,8 @@ public class RGLUI {
 
 		// Creates the MapDisplay. I do all the instantiation here.
 		gameDisplay = new MapDisplay();
+		// Initializes the map display
+		gameDisplay.initialize();
 		
 		// Create and setup the Message Area.
 		updateDisplay = new JTextArea();
@@ -180,21 +182,21 @@ public class RGLUI {
         frame.setVisible(true);
 		frame.setSize(800, 600);
 		
-		// Initializes the map display
-		gameDisplay.initialize();
+		
 		
 		/**********************************************************************
 		 * TEST OF MAP DISPLAY
 		 *********************************************************************/
-		int[][] map = new int[10][10];
+		int[][] map = new int[7][6];
 		Random random = new Random();
-		for (int i = 0; i < 10; i++) {
-			for (int j = 0; j < 10; j++) {
-				map[i][j] = random.nextInt(86);
-				System.out.print(map[i][j]);
+		for (int i = 0; i < 7; i++) {
+			for (int j = 0; j < 6; j++) {
+				map[i][j] = random.nextInt(16); // End of tiles 80 with Null ranges of
+				//System.out.println(map[i][j]);
 			}
 		}
 		gameDisplay.loadMap(map);
+		gameDisplay.repaint();
 		/**********************************************************************
 		 * TEST OF MAP DISPLAY
 		 *********************************************************************/
