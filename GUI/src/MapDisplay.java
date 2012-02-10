@@ -1,12 +1,9 @@
 import java.awt.Component;
 import java.awt.Graphics;
-//import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
-
-
 import javax.imageio.ImageIO;
 
 public class MapDisplay extends Component implements ImageObserver{
@@ -19,7 +16,8 @@ public class MapDisplay extends Component implements ImageObserver{
 
 	// Stores the .png of the tiles.
 	static BufferedImage dungeonTiles;
-	//Graphics2D g2d = (Graphics2D)this.getGraphics();
+
+	// Map array
 	int[][] dmap;
 	
 	// Initializes the JPanel and loads the image.
@@ -44,6 +42,8 @@ public class MapDisplay extends Component implements ImageObserver{
 		}
 	}
 	
+	// Required method to perform any sort of drawing.
+	// Called by MapDisplay.repaint()
 	public void paint(Graphics g) {
 		for (int i = 0; i < dmap.length; i++) {
 			for (int j = 0; j < dmap[i].length; j++) {
