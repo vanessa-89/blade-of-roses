@@ -1,4 +1,6 @@
-import java.awt.Graphics2D;
+import java.awt.Component;
+import java.awt.Graphics;
+//import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.io.File;
@@ -6,27 +8,25 @@ import java.io.IOException;
 
 
 import javax.imageio.ImageIO;
-import javax.swing.JPanel;
 
-public class MapDisplay extends JPanel {
+public class MapDisplay extends Component implements ImageObserver{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private static final ImageObserver ImageObserver = null;
+	//private static final ImageObserver ImageObserver = 1;
 
 	// Stores the .png of the tiles.
 	static BufferedImage dungeonTiles;
-	Graphics2D g2d = (Graphics2D)getGraphics();
+	//Graphics2D g2d = (Graphics2D)this.getGraphics();
+	int[][] dmap;
 	
 	// Initializes the JPanel and loads the image.
 	public static void initialize() {	
 		try {
-			File dtFile = new File("/src/BOR-DungeonTiles.png");
-			System.out.println(dtFile.exists());
+			File dtFile = new File("BOR-DungeonTiles.png");
 			dungeonTiles = ImageIO.read(dtFile);
-			System.out.println("IO");
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 			System.out.println("Uh-oh!");
@@ -35,8 +35,18 @@ public class MapDisplay extends JPanel {
 	
 	// Loads the generated map onto the screen using the provided tileset.
 	public void loadMap(int[][] map) {
-		for (int i = 0; i < map.length; i++) {
-			for (int j = 0; j < map[i].length; i++) {
+		dmap = map;
+		for (int i = 0; i < dmap.length; i++) {
+			for (int j = 0; j < dmap[i].length; j++) {
+				System.out.print(dmap[i][j] + " ");
+			}
+			System.out.println();
+		}
+	}
+	
+	public void paint(Graphics g) {
+		for (int i = 0; i < dmap.length; i++) {
+			for (int j = 0; j < dmap[i].length; j++) {
 				// Calculates destination coordinates index of array.
 				int dx1 = j*65;
 				int dy1 = i*65;
@@ -44,23 +54,21 @@ public class MapDisplay extends JPanel {
 				int dy2 = dy1 + 65;
 				
 				// Calculates source coordinates based on value in array.
-				int mapVal = map[i][j];
+				int mapVal = dmap[i][j];
 				int count = 0;
 				while (mapVal >= 12) { // May want to change this eventually to avoid Magic Numbers...
 					mapVal -= 12;
 					count++;
 				}
-				int sx1 = count*65 + count*2 + 2;
-				int sy1 = mapVal*65 + mapVal*2;
-				int sx2 = sx1 + 65;
+				int sy1 = count*65 + count*2 + 2;
+				int sx1 = mapVal*65 + mapVal*2;
 				int sy2 = sy1 + 65;
+				int sx2 = sx1 + 65;
 				
 				// Draws the images to screen.
-				g2d.drawImage(dungeonTiles,dx1,dy1,dx2,dy2,sx1,sy1,sx2,sy2,ImageObserver);
+				g.drawImage(dungeonTiles,dx1,dy1,dx2,dy2,sx1,sy1,sx2,sy2,this);
 			}
 		}
-		// Flushes any buffered objects to screen.
-		this.repaint();
 	}
 	
 }
