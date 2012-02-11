@@ -26,7 +26,9 @@ public class RGLUI {
 	JButton quick1, quick2, quick3, quick4, quick5, quick6, quick7, quick8, quick9, quick0; // These are buttons.
 	JMenuBar menuBar; // This creates a menu bar for the window.
 	JMenu fileMenu;	// This populates the above menu bar.
-	//JMenuItem
+	JMenu testMenu;
+	//JMenuItem exitItem;
+	JMenuItem dungeonItem, forestItem, cityItem, reloadItem;
 	ImageIcon anIcon = new ImageIcon("testicon.gif"); // This handles the icons for the hotkeys.
 	Insets zeroBorder = new Insets(0, 0, 0, 0); // Also for icons... a little odd.
 	
@@ -42,6 +44,8 @@ public class RGLUI {
 	HotKey HKEight = new HotKey("8", anIcon, "8", new Integer(KeyEvent.VK_8));
 	HotKey HKNine = new HotKey("9", anIcon, "9", new Integer(KeyEvent.VK_9));
 	HotKey HKZero = new HotKey("0", anIcon, "0", new Integer(KeyEvent.VK_0));
+	
+	ReloadMap reloadMap = new ReloadMap();
 
 	/**
 	 * @param args
@@ -67,7 +71,7 @@ public class RGLUI {
 		updateDisplay = new JTextArea();
 		updateDisplay.setColumns(20);
 		updateDisplay.setEditable(false);
-		updateDisplay.setText("MESSAGE!");
+		//updateDisplay.setText("MESSAGE!");
 		updateDisplay.setLineWrap(true);
 		updateScroll = new JScrollPane(updateDisplay);
 		
@@ -172,6 +176,12 @@ public class RGLUI {
 		fileMenu = new JMenu("File");
 		menuBar.add(fileMenu);
 		
+		testMenu = new JMenu("Test");
+		reloadItem = new JMenuItem("Reload",KeyEvent.VK_R);
+		reloadItem.addActionListener(reloadMap);
+		testMenu.add(reloadItem);
+		menuBar.add(testMenu);
+		
 		//Frame Layout
 		frame.setJMenuBar(menuBar);
         frame.getContentPane().add(gameDisplay, BorderLayout.CENTER);
@@ -211,14 +221,28 @@ public class RGLUI {
 	
 	/** Hot Key One  */
 	class HotKey extends AbstractAction {
-	    public HotKey(String text, ImageIcon icon,
-	                      String desc, Integer mnemonic) {
+	    public HotKey(String text, ImageIcon icon, String desc, Integer mnemonic) {
 	        super(text, icon);
 	        putValue(SHORT_DESCRIPTION, desc);
 	        putValue(MNEMONIC_KEY, mnemonic);
 	    }
 	    public void actionPerformed(ActionEvent e) {
 	        updateDisplay.append("\nPlayer casts " + e.getActionCommand() + "!");
+	    }
+	}
+	
+	/** Reload Map  */
+	class ReloadMap extends AbstractAction {
+	    public void actionPerformed(ActionEvent e) {
+	    	int[][] map = new int[7][6];
+			Random random = new Random();
+			for (int i = 0; i < 7; i++) {
+				for (int j = 0; j < 6; j++) {
+					map[i][j] = random.nextInt(86);
+				}
+			}
+			gameDisplay.loadMap(map);
+			gameDisplay.repaint();
 	    }
 	}
 

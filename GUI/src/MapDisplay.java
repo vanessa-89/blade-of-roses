@@ -27,7 +27,7 @@ public class MapDisplay extends Component implements ImageObserver{
 			dungeonTiles = ImageIO.read(dtFile);
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
-			System.out.println("Uh-oh!");
+			System.out.println("BOR could not load the image.");
 		}
 	}
 	
