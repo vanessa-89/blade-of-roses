@@ -1,0 +1,27 @@
+#summary Current list of things for us to do.
+
+= Introduction =
+
+List of what each of us are supposed to do.
+
+
+= Details =
+
+Add your content here.  Format your content with:
+  * Text in *bold* or _italic_
+  * Headings, paragraphs, and lists
+  * Automatic links to other wiki pages
+
+*pyro1370*
+-Hard code battle arena
+-(generation code)
+-monster class
+-start combat methods
+-learn GUI stuff for minimap
+
+*MattFMorris*
+-change map display to dynamic tileset
+-tile class
+-3x3 array for display of walls
+-character/monster tiles
+-character/monster animations
