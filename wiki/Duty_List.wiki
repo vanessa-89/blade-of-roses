@@ -8,25 +8,25 @@ List of what each of us are supposed to do. Crossover is allowed, this simply de
 
 ==pyro1370==
 
-  *Hard code battle arena
+  * Hard code battle arena
 
-  *(generation code)
+  * (generation code)
 
-  *monster class
+  * monster class
 
-  *start combat methods
+  * start combat methods
 
-  *learn GUI stuff for minimap
+  * learn GUI stuff for minimap
 
 
 ==MattFMorris==
 
-  *change map display to dynamic tileset
+  * change map display to dynamic tileset
 
-  *tile class
+  * tile class
 
-  *3x3 array for display of walls
+  * 3x3 array for display of walls
 
-  *character/monster tiles
+  * character/monster tiles
 
-  *character/monster animations
+  * character/monster animations
