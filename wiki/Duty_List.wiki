@@ -2,15 +2,9 @@
 
 = Introduction =
 
-List of what each of us are supposed to do.
-
+List of what each of us are supposed to do. Crossover is allowed, this simply denotes who is "in charge" of each aspect. This shall be decided cooperatively through business calls or some other mutual communication.
 
 = Details =
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
 
 *pyro1370*
 -Hard code battle arena
