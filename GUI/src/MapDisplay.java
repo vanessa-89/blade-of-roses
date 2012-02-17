@@ -6,6 +6,13 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
+/**
+ * 
+ * @author Matt Morris
+ * @version 0.1
+ *
+ * This class handles the map displays for Blade of Roses.
+ */
 public class MapDisplay extends Component implements ImageObserver{
 	/**
 	 * 
