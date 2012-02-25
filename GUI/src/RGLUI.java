@@ -27,7 +27,9 @@ public class RGLUI {
 	MapDisplay gameDisplay;	// This is an extension of JPanel with extra functions to handle map display.
 	JPanel playerDisplay, quickBar;	// These JPanels are intended to hold the player info and the hotkey buttons.
 	JScrollPane updateScroll;	// This creates a scroll bar for a JPanel.
-	JTextArea updateDisplay, statsDisplay, extraDisplay;	// These are used to display text.
+	JTextArea updateDisplay, extraDisplay;	// These are used to display text.
+	JTextField healthBar, soulBar;
+	JLabel healthLab, soulLab;
 	JButton quick1, quick2, quick3, quick4, quick5, quick6, quick7, quick8, quick9, quick0; // These are buttons.
 	JMenuBar menuBar; // This creates a menu bar for the window.
 	JMenu fileMenu;	// This populates the above menu bar.
@@ -114,6 +116,7 @@ public class RGLUI {
 		// Create and setup the Player panel.
 		playerDisplay = new JPanel();
 		// Switch to single line text fileds.
+		/**
 		statsDisplay = new JTextArea();
 		statsDisplay.setRows(15);
 		statsDisplay.setColumns(15);
@@ -129,7 +132,7 @@ public class RGLUI {
 				"\nWisdom:" +
 				"\nCharisma:" +
 				"\nConstitution:");
-		
+
 		// Get below stats....
 		extraDisplay = new JTextArea();
 		extraDisplay.setRows(11);
@@ -147,9 +150,22 @@ public class RGLUI {
 				"Taken by love to close...");
 		
 		extraDisplay.setOpaque(false);
+		*/
 		
-		playerDisplay.add(statsDisplay, BorderLayout.NORTH);
-		playerDisplay.add(extraDisplay, BorderLayout.SOUTH);
+		healthLab = new JLabel("Health: ");
+		healthBar = new JTextField(10);
+		healthBar.setEditable(false);
+		healthBar.setText(health.toString());
+		soulLab = new JLabel("Soul: ");
+		soulBar = new JTextField(10);
+		soulBar.setEditable(false);
+		soulBar.setText(soul.toString());
+		
+		playerDisplay.add(healthLab);
+		playerDisplay.add(healthBar);
+		playerDisplay.add(soulLab);
+		playerDisplay.add(soulBar);
+		//playerDisplay.add(extraDisplay, BorderLayout.SOUTH);
 
 		
 		// Create the quick bar.
