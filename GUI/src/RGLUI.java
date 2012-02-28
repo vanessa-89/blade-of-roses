@@ -35,7 +35,7 @@ public class RGLUI {
 	JMenu fileMenu;	// This populates the above menu bar.
 	JMenu testMenu;
 	//JMenuItem exitItem;
-	JMenuItem dungeonItem, forestItem, cityItem, reloadItem;
+	JMenuItem dungeonItem, forestItem, cityItem, reloadItem, loadTestItem;
 	ImageIcon anIcon = new ImageIcon("testicon.gif"); // This handles the icons for the hotkeys.
 	
 	Insets zeroBorder = new Insets(0, 0, 0, 0); // Also for icons... a little odd.
@@ -54,6 +54,7 @@ public class RGLUI {
 
 	
 	ReloadMap reloadMap = new ReloadMap();
+	LoadTestMap loadTestMap = new LoadTestMap();
 	
 	Movement moveUp = new Movement("NORTH");
 	Movement moveDown = new Movement("SOUTH");
@@ -296,7 +297,10 @@ public class RGLUI {
 		testMenu = new JMenu("Test");
 		reloadItem = new JMenuItem("Reload",KeyEvent.VK_R);
 		reloadItem.addActionListener(reloadMap);
+		loadTestItem = new JMenuItem("Load Test", KeyEvent.VK_T);
+		loadTestItem.addActionListener(loadTestMap);
 		testMenu.add(reloadItem);
+		testMenu.add(loadTestMap);
 		menuBar.add(testMenu);
 		
 		//Frame Layout
@@ -367,6 +371,17 @@ public class RGLUI {
 					map[i][j] = random.nextInt(86);
 				}
 			}
+			gameDisplay.loadMap(map);
+			gameDisplay.repaint();
+	    }
+	}
+	
+	/** Loads a testing map  */
+	@SuppressWarnings("serial")
+	class LoadTestMap extends AbstractAction {
+	    public void actionPerformed(ActionEvent e) {
+	    	TestDungeon test = new TestDungeon();
+	    	int[][] map = test.getDungeon();
 			gameDisplay.loadMap(map);
 			gameDisplay.repaint();
 	    }
