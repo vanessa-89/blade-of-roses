@@ -1,0 +1,7 @@
+Look at AWT classes, possible replacement to swing classes - http://docs.oracle.com/javase/7/docs/api/java/awt/package-frame.html
+	Canvas may be what needs to be used for drawings - http://docs.oracle.com/javase/7/docs/api/java/awt/Canvas.html
+	Add Splash Screen - http://docs.oracle.com/javase/7/docs/api/java/awt/SplashScreen.html
+	Add Popup Windows, these will need to be "on theme"
+	Add new window borders
+	TexturePaint?
+	GraphicsConfiguration?
