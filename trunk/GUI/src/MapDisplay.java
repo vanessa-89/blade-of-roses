@@ -27,6 +27,9 @@ public class MapDisplay extends Component implements ImageObserver{
 	// Map array
 	int[][] dmap;
 	
+	// Indicates where to draw the character and what section of the map to draw.
+	int charX, charY, centerX, centerY;
+	
 	// Initializes the JPanel and loads the image.
 	public static void initialize() {	
 		try {
@@ -46,6 +49,23 @@ public class MapDisplay extends Component implements ImageObserver{
 				System.out.print(dmap[i][j] + " ");
 			}
 			System.out.println();
+		}
+		charX = 5;
+		charY = 6;
+	}
+	
+	public void moveCharacter(int x, int y) {
+		charX = x;
+		charY = y;
+		if (charX < 5) {
+			centerX = 5;
+		} else {
+			centerX = charX;
+		}
+		if (charY < 6) {
+			centerY = 6;
+		} else {
+			centerY = charY;
 		}
 	}
 	
