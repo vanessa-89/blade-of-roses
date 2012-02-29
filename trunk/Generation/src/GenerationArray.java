@@ -1,3 +1,27 @@
+/* Class used to generate a map procedurally
+ * by generating a room in the center of the
+ * map, then by randomly generating either a
+ * room or hall from a randomly chosen room
+ * or hall. In the end more factors will be
+ * included such as how many structures
+ * branch off of a particular structure,
+ * which will make it less likely to be
+ * chosen to be spawned from again.
+ * 
+ * From the originally generated array of
+ * walkable and unwalkable spaces, including
+ * the labeling of connections, this class
+ * will then make a 3x3 array for each tile,
+ * based on what each side is, whether open,
+ * wall, or doorway, or whatever else. This
+ * is will then be passed to the actual map
+ * that will handle everything and eventually
+ * to the GUI generation to be displayed
+ * there as well.
+ */
+
+
+
 import java.util.Random;
 
 public class GenerationArray {
