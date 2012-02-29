@@ -297,10 +297,11 @@ public class RGLUI {
 		testMenu = new JMenu("Test");
 		reloadItem = new JMenuItem("Reload",KeyEvent.VK_R);
 		reloadItem.addActionListener(reloadMap);
-		loadTestItem = new JMenuItem("Load Test", KeyEvent.VK_T);
+
+		loadTestItem = new JMenuItem("Load Test Map", KeyEvent.VK_T);
 		loadTestItem.addActionListener(loadTestMap);
 		testMenu.add(reloadItem);
-		testMenu.add(loadTestMap);
+		testMenu.add(loadTestItem);
 		menuBar.add(testMenu);
 		
 		//Frame Layout
