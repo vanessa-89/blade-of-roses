@@ -8,7 +8,7 @@ import javax.imageio.ImageIO;
 
 /**
  * 
- * @author Matt Morris
+ * @author MattFMorris
  * @version 0.1
  *
  * This class handles the map displays for Blade of Roses.
