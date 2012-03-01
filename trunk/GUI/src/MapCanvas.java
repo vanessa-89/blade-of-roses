@@ -16,7 +16,7 @@ public class MapCanvas extends Canvas {
 
 	static BufferedImage tileset;
 	Tile[][] map;
-	//PlayerCharacter pc;
+	PlayerCharacter pc;
 	
 	/**
 	 * 
@@ -43,9 +43,9 @@ public class MapCanvas extends Canvas {
 	 * Add a character to the display
 	 * @param pc The PlayerCharacter to add to the display.
 	 */
-	//public void addCharacter(PlayerCharacter newPC) {
-	//	pc = newPC;
-	//}
+	public void addCharacter(PlayerCharacter newPC) {
+		pc = newPC;
+	}
 	
 	/**
 	 * 
@@ -61,14 +61,17 @@ public class MapCanvas extends Canvas {
 	public void paint(Graphics g) {
 		int h = this.getHeight()/64;
 		int w = this.getWidth()/64;
+		int pcx = pc.getX();
+		int pcy = pc.getY();
+		int centerY, cneterX;
 		
-		//if (pc is within Y ragne from edge) {
+		// Finds center of drawing region.
+		//if (pcy is within Y range from edge) {
 		//	centerY = pc.getY;
 		//} else { //Character is close to edge
 		//	centerY = h/2 + additional needed to keep centered;
-		//}
-		
-		//if (pc is within X ragne from edge) {
+		//}	
+		//if (pcx is within X range from edge) {
 		//	centerX = pc.getX;
 		//} else { //Character is close to edge
 		//	centerX = w/2 + additional needed to keep centered;
