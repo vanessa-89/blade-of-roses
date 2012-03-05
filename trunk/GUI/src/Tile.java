@@ -1,4 +1,8 @@
-
+/**
+ * 
+ * @author MattFMorris
+ *
+ */
 public class Tile {
 	int[][] tile;
 	int floor;

@@ -1,6 +1,10 @@
 import java.awt.Image;
 
-
+/**
+ * 
+ * @author MattFMorris
+ *
+ */
 public class PlayerCharacter {
 
 	// Sprite Sheet for character, must follow strict formating.

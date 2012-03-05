@@ -13,7 +13,7 @@ import javax.swing.*;
 
 /**
  * 
- * @author Matt Morris
+ * @author MattFMorris
  * @version 0.2
  *
  * This class handles the over GUI for Blade of Roses.
@@ -40,7 +40,8 @@ public class RGLUI {
 	
 	Insets zeroBorder = new Insets(0, 0, 0, 0); // Also for icons... a little odd.
 	
-	// Here are all the hot keys.
+	// Here are all the hot keys listeners.
+	String strHK1, strHK2, strHK3, strHK4, strHK5, strHK6, strHK7, strHK8, strHK9, strHK0;
 	HotKey HKOne = new HotKey("1", anIcon, "1", KeyEvent.VK_1);
 	HotKey HKTwo = new HotKey("2", anIcon, "2", KeyEvent.VK_2);
 	HotKey HKThree = new HotKey("3", anIcon, "3", KeyEvent.VK_3);
@@ -103,55 +104,19 @@ public class RGLUI {
 		// Initializes the map display
 		gameDisplay.initialize();
 		
+		
 		// Create and setup the Message Area.
 		updateDisplay = new JTextArea();
 		updateDisplay.setColumns(20);
 		updateDisplay.setEditable(false);
 		updateDisplay.setLineWrap(true);
-		//updateDisplay.setOpaque(false);
-		//updateDisplay.setFont(Font font);
 		updateDisplay.setForeground(Color.RED);
 		updateDisplay.setBackground(Color.BLACK);
 		updateScroll = new JScrollPane(updateDisplay);
+
 		
 		// Create and setup the Player panel.
 		playerDisplay = new JPanel();
-		// Switch to single line text fileds.
-		/**
-		statsDisplay = new JTextArea();
-		statsDisplay.setRows(15);
-		statsDisplay.setColumns(15);
-		statsDisplay.setEditable(false);
-		statsDisplay.setForeground(Color.RED);
-		statsDisplay.setBackground(Color.BLACK);
-		
-		statsDisplay.setText("Health:" + health.toString() 
-				+ "\nSoul:" + soul.toString() +
-				"\n\nStrength:" +
-				"\nDexterity:" +
-				"\nInteliigence:" +
-				"\nWisdom:" +
-				"\nCharisma:" +
-				"\nConstitution:");
-
-		// Get below stats....
-		extraDisplay = new JTextArea();
-		extraDisplay.setRows(11);
-		extraDisplay.setColumns(15);
-		extraDisplay.setEditable(false);
-		
-		extraDisplay.setText("The Call of the Rose\n\n" +
-				"Oh, come to the House\n" +
-				"Say by the grace of the Hero\n" +
-				"Take unto thee heart\n" +
-				"Of the thorny smithen arrow...\n\n" +
-				"Oh, this is the Roses's House\n" +
-				"By day and night a Rose\n" +
-				"Come chained and broken heart\n" +
-				"Taken by love to close...");
-		
-		extraDisplay.setOpaque(false);
-		*/
 		
 		healthLab = new JLabel("Health: ");
 		healthBar = new JTextField(10);
@@ -166,12 +131,12 @@ public class RGLUI {
 		playerDisplay.add(healthBar);
 		playerDisplay.add(soulLab);
 		playerDisplay.add(soulBar);
-		//playerDisplay.add(extraDisplay, BorderLayout.SOUTH);
 
 		
 		// Create the quick bar.
 		quickBar = new JPanel();
 		quickBar.setBackground(Color.BLACK);
+
 		
 		// HOT FUCKIN' KEYS!!!!!!!!!!!!!!
 		quickBar.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("1"), "do1");
@@ -288,6 +253,7 @@ public class RGLUI {
 		quickBar.add(quick9);
 		quickBar.add(quick0);
 		
+		
 		//Menu Bar
 		menuBar = new JMenuBar();
 		menuBar.setSize(frame.getWidth(), 100);
@@ -303,6 +269,7 @@ public class RGLUI {
 		testMenu.add(reloadItem);
 		testMenu.add(loadTestItem);
 		menuBar.add(testMenu);
+		
 		
 		//Frame Layout
 		frame.setJMenuBar(menuBar);
