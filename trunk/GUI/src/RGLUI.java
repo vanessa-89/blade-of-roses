@@ -62,6 +62,8 @@ public class RGLUI {
 	Movement moveLeft = new Movement("WEST");
 	Movement moveRight = new Movement("EAST");
 	
+	Wait wait = new Wait();
+	
 	
 	int curHealth = 100;
 	int maxHealth = 100;
@@ -167,6 +169,8 @@ public class RGLUI {
 		quickBar.getActionMap().put("doLeft", moveLeft);
 		quickBar.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("RIGHT"), "doRight");
 		quickBar.getActionMap().put("doRight", moveRight);
+		quickBar.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("SPACE"), "doWait");
+		quickBar.getActionMap().put("doWait", wait);
 		// HOT FUCKIN' KEYS!!!!!!!!!!!!!!
 		
 		// Populate the quick bar.
@@ -366,6 +370,13 @@ public class RGLUI {
 		}
 		public void actionPerformed(ActionEvent e) {
 			updateDisplay.append("\nPlayer moves " + dir + ".");
+		}
+	}
+	
+	@SuppressWarnings("serial")
+	class Wait extends AbstractAction {
+		public void actionPerformed(ActionEvent e) {
+			updateDisplay.append("\nPlayer waits a turn.");
 		}
 	}
 	
