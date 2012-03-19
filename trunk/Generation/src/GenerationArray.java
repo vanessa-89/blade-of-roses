@@ -139,7 +139,7 @@ public class GenerationArray {
 			for (int j=0; j<roomArchive[roomCounter].height; j++){
 //				System.out.println("x " + x + " y " + y + " i " + i + " j " + j + " tempX " + tempX + " tempY " + tempY );
 				mapArray[x+i-tempX][y+j-tempY].walkable = true;
-				mapArray[x+i-tempX][y+j-tempY].tile = 1;
+				mapArray[x+i-tempX][y+j-tempY].tile[1][1] = 1;
 				mapArray[x+i-tempX][y+j-tempY].structureIntIndex.push(roomCounter);
 				mapArray[x+i-tempX][y+j-tempY].structureTypeIndex.push('r');
 				mapArray[x+i-tempX][y+j-tempY].overlaps++;
@@ -160,11 +160,12 @@ public class GenerationArray {
 			relativeX = x+hallwayArchive[hallwayCounter].xyTrack[0][i];
 			relativeY = y+hallwayArchive[hallwayCounter].xyTrack[1][i];
 			mapArray[relativeX][relativeY].walkable = true;
-			mapArray[relativeX][relativeY].tile=1;
+			mapArray[relativeX][relativeY].tile[1][1] = 1;
 			mapArray[relativeX][relativeY].structureIntIndex.push(hallwayCounter);
 			mapArray[relativeX][relativeY].structureTypeIndex.push('h');
 			mapArray[relativeX][relativeY].overlaps++;
 		}
+		// Attempts to create a room at the end of the hallway to prevent dead ends. Possibly adding an algorithm before this after fixing it
 		CreateRoom( hallwayArchive[hallwayCounter].xyTrack[0][hallwayArchive[hallwayCounter].trueLength-1]+x,
 					hallwayArchive[hallwayCounter].xyTrack[1][hallwayArchive[hallwayCounter].trueLength-1]+y,
 					hallwayArchive[hallwayCounter].xyTrack[2][hallwayArchive[hallwayCounter].trueLength-1]);
@@ -260,7 +261,7 @@ public class GenerationArray {
 				if (mapArray[i][j].walkable)
 					System.out.print('W');
 				else
-					System.out.print('U');
+					System.out.print('.');
 			}
 			System.out.println();
 		}
@@ -273,7 +274,7 @@ public class GenerationArray {
 				if (mapArray[i][j].walkable)
 					System.out.print('W');
 				else
-					System.out.print('U');
+					System.out.print('.');
 			}
 			System.out.println();
 		}
