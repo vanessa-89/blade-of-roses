@@ -237,7 +237,7 @@ public class GenerationArray {
 			for (int j=MAXSIZE-1; j>0; j--){
 				if (mapArray[i][j].walkable)
 					x1=i;
-				if (mapArray[j][i].walkable)
+				if (mapArray[i][j].walkable)
 					y1=j;
 			}
 		}
@@ -249,7 +249,7 @@ public class GenerationArray {
 			for (int j=0; j<MAXSIZE; j++){
 				if (mapArray[i][j].walkable)
 					x2=i;
-				if (mapArray[j][i].walkable)
+				if (mapArray[i][j].walkable)
 					y2=j;
 			}
 		}
