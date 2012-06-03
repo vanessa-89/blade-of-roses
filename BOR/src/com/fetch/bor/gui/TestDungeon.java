@@ -1,6 +1,6 @@
 package com.fetch.bor.gui;
 
-import com.fetch.bor.bor.PlayerCharacter;
+import com.fetch.bor.bor.Character;
 
 /**
  * 
@@ -9,7 +9,7 @@ import com.fetch.bor.bor.PlayerCharacter;
  */
 public class TestDungeon {
 	int[][] dungeon;
-	PlayerCharacter pc;
+	Character pc;
 	public TestDungeon() {
 		dungeon = new int[][]{
 						{12,25,25,25,25,13},
@@ -19,14 +19,14 @@ public class TestDungeon {
 						{24,85,85,85,85,26},
 						{15,27,27,27,27,14}
 					};
-		pc = new PlayerCharacter();
+		pc = new Character();
 	}
 	
 	public int[][] getDungeon() {
 		return dungeon;
 	}
 	
-	public PlayerCharacter getPC() {
+	public Character getPC() {
 		return pc;
 	}
 }
