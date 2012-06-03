@@ -7,14 +7,48 @@ package com.fetch.bor.bor;
  */
 public class Tile {
 	int[][] tile;
-	int floor;
 	
 	public Tile() {
 		tile = new int[3][3];
-		floor = 0;
+		tile[1][1] = 0;
 	}
 	public Tile(int[][] inTile) {
 		tile = inTile;
-		floor = tile[1][1];
+	}
+	
+	public int getFloor() {
+		return tile[1][1];
+	}
+	
+	public int getNWall() {
+		return tile[1][0];
+	}
+	
+	public int getSWall() {
+		return tile[1][2];
+	}
+	
+	public int getEWall() {
+		return tile[2][1];
+	}
+	
+	public int getWWall() {
+		return tile[0][1];
+	}
+	
+	public int getNWCorner() {
+		return tile[0][0];
+	}
+	
+	public int getNECorner() {
+		return tile[2][0];
+	}
+	
+	public int getSWCorner() {
+		return tile[0][2];
+	}
+	
+	public int getSECorner() {
+		return tile[2][2];
 	}
 }
