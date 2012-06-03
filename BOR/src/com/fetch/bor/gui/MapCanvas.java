@@ -1,6 +1,8 @@
 package com.fetch.bor.gui;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -23,12 +25,16 @@ public class MapCanvas extends Canvas {
 	static BufferedImage tileset;
 	Tile[][] map;
 	Character pc;
+	boolean needToRedrawMap;
+	
+	DirectionKeyListener dirKeyLis = new DirectionKeyListener();
 	
 	/**
 	 * 
 	 */
 	public MapCanvas() {
-		
+		this.addKeyListener(dirKeyLis);
+		needToRedrawMap = true;
 	}
 	
 	/**
@@ -171,15 +177,52 @@ public class MapCanvas extends Canvas {
 					}
 					if (map[i][j].getSWCorner() != 0 && map[i][j].getSWall() == 0 && map[i][j].getWWall() == 0) {
 						g.drawImage(tileset, dx1, dy1, dx2, dy2, 192, 320, 192, 384, this);
-					
+					}
 					// Draw Objects
 					
 					// Draw Characters
-					}
+						
+					
 				} else {
 					g.drawImage(tileset,dx1,dy1,dx2,dy2,64,0,128,64,this);
 				}
+				
 			}
 		}
+		int locx1 = pc.getX()*64;
+		int locx2 = locx1 + 64;
+		int locy1 = pc.getY()*64;
+		int locy2 = locy1 + 64;
+		g.drawImage(pc.getSprite(), locx1, locy1, locx2, locy2, 0, 0, 64, 64, this);
+	}
+	
+	private class DirectionKeyListener implements KeyListener {
+
+		@Override
+		public void keyPressed(KeyEvent arg0) {
+			if (arg0.getKeyCode() == KeyEvent.VK_UP) {
+				pc.moveNorth();
+			} else if (arg0.getKeyCode() == KeyEvent.VK_LEFT) {
+				pc.moveWest();
+			} else if (arg0.getKeyCode() == KeyEvent.VK_RIGHT) {
+				pc.moveEast();
+			} else if (arg0.getKeyCode() == KeyEvent.VK_DOWN) {
+				pc.moveSouth();
+			}
+			repaint();
+		}
+
+		@Override
+		public void keyReleased(KeyEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void keyTyped(KeyEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+		
 	}
 }
