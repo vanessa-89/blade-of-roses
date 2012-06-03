@@ -25,16 +25,16 @@ public class PlayerCharacter {
 	 * Constructs a generic PC.
 	 */
 	public PlayerCharacter() {
-		xPos = 0;
-		yPos = 0;
+		xPos = 3;
+		yPos = 3;
 		level=1;
 		experience = 0;
 		abilityPoints = 0;
-		stats.setStrength(0);
-		stats.setDexterity(0);
+		stats.setStrength(10);
+		stats.setDexterity(10);
 		stats.setDamage(0);
-		stats.setWillpower(0);
-		stats.setIntelligence(0);
+		stats.setWillpower(10);
+		stats.setIntelligence(10);
 		stats.setSpellDamage(0);
 		stats.setDodge(0);
 		stats.setParry(0);
@@ -43,8 +43,8 @@ public class PlayerCharacter {
 		stats.setShield(0);
 		stats.setArmor(0);
 		stats.setResist(0);
-		stats.setMaxBody(0);
-		stats.setMaxSoul(0);
+		stats.setMaxBody(100);
+		stats.setMaxSoul(100);
 		stats.setBody(stats.getMaxBody());
 		stats.setSoul(stats.getMaxSoul());
 	
