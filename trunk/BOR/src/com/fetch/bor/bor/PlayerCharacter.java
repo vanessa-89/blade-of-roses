@@ -114,4 +114,8 @@ public class PlayerCharacter {
 	public Image getSprite() {
 		return sprite;
 	}
+	
+	
+	
+	
 }
