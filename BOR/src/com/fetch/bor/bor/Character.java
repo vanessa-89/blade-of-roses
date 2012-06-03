@@ -1,15 +1,28 @@
 package com.fetch.bor.bor;
 
 import java.awt.Image;
+import java.util.Random;
 
 /**
  * 
  * @author MattFMorris
  *
  */
+/**
+ * @author Ranger
+ *
+ */
+/**
+ * @author Ranger
+ *
+ */
+/**
+ * @author Ranger
+ *
+ */
 public class Character {
 
-	
+	Random rand = new Random();
 	int level;
 	MasterStatArray stats = new MasterStatArray();
 	
@@ -19,16 +32,22 @@ public class Character {
 	// Location
 	protected int xPos, yPos;
 	
+	//Facing
+	public int targetX, targetY;
+	
 	/**
 	 * Constructs a generic PC.
 	 */
 	public Character() {
 		xPos = 3;
 		yPos = 3;
+		targetX = 3;
+		targetY = 4;
         level = 1;
 		stats.setStrength(10);
 		stats.setDexterity(10);
 		stats.setDamage(0);
+		stats.setHit(0);
 		stats.setWillpower(10);
 		stats.setIntelligence(10);
 		stats.setSpellDamage(0);
@@ -56,11 +75,14 @@ public class Character {
 	public Character(int x, int y, Image image) {
 		xPos = x;
 		yPos = y;
+		targetX = 3;
+		targetY = 4;
 		sprite = image;
 		level = 1;
 		stats.setStrength(10);
 		stats.setDexterity(10);
 		stats.setDamage(0);
+		stats.setHit(0);
 		stats.setWillpower(10);
 		stats.setIntelligence(10);
 		stats.setSpellDamage(0);
@@ -82,13 +104,17 @@ public class Character {
 	 */
 	public void moveNorth() {
 		yPos--;
+		targetX = xPos;
+		targetY = yPos-1;
 	}
 	
 	/**
 	 * Moves the C SOUTH. Map handler should test before making this call.
 	 */
 	public void moveSouth() {
-		yPos++;	
+		yPos++;
+		targetX = xPos;
+		targetY = yPos+1;
 	}
 	
 	/**
@@ -96,6 +122,8 @@ public class Character {
 	 */
 	public void moveEast() {
 		xPos++;
+		targetX = xPos+1;
+		targetY = yPos;
 	}
 	
 	/**
@@ -103,6 +131,8 @@ public class Character {
 	 */
 	public void moveWest() {
 		xPos--;
+		targetX = xPos-1;
+		targetY = yPos;
 	}
 	
 	/**
@@ -129,7 +159,27 @@ public class Character {
 		return sprite;
 	}
 	
-	
+ 
+	/*public void WeaponAttack() {
+		Character target = MasterArray.getCharacter( targetX, targetY );
+		int attDex = stats.getDexterity();
+		int attStr = stats.getStrength();
+		int attDmg = stats.getDamage();
+		int defDdg = target.stats.getDodge()+target.stats.getDexterity()/5;
+		int defPry = target.stats.getParry();
+		int defBlk = target.stats.getBlock();
+		int defAmr = target.stats.getArmor();
+		int hit = rand.nextInt(attDex)+stats.getHit();
+		if (hit < defDdg)
+			return;
+		if (rand.nextInt(100)<Math.max(defPry, defBlk))
+			return;
+		if (rand.nextInt(100)<(Math.min(defPry, defBlk))/2)
+			return;
+		int damageDealt = rand.nextInt(attDmg) + attStr/5 - defAmr;
+		damageDealt *= -1;
+		target.stats.modifyBody(damageDealt);
+	}*/
 	
 	
 }
