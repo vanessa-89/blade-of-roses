@@ -3,11 +3,11 @@ package com.fetch.bor.bor;
 
 public class MasterStatArray {
 
-	public int[] statArray = new int[17];
+	public int[] statArray = new int[18];
 
 	// adds another array to this array
 	void modifyArray (int[] modifier) {
-		for (int i = 0; i < 17; i++) {
+		for (int i = 0; i < 18; i++) {
 			statArray[i] += modifier[i];
 		}
 	}
@@ -60,118 +60,126 @@ public class MasterStatArray {
 		return statArray[4];
 	}
 	
+	void setHit (int newHit) {
+		statArray[5] = newHit;
+	}
+	
+	int getHit () {
+		return statArray[5];
+	}
 	void setWillpower ( int newWillpower ) {
-		statArray[5] = newWillpower;
+		statArray[6] = newWillpower;
 	}
 	
 	int getWillpower () {
-		return statArray[5];
-	}
-	
-	void setIntelligence ( int newIntelligence ) {
-		statArray[6] = newIntelligence;
-	}
-	
-	int getIntelligence () {
 		return statArray[6];
 	}
 	
-	void setSpellDamage ( int newSpellDamage ) {
-		statArray[7] = newSpellDamage;
+	void setIntelligence ( int newIntelligence ) {
+		statArray[7] = newIntelligence;
 	}
 	
-	int getSpellDamage () {
+	int getIntelligence () {
 		return statArray[7];
 	}
 	
-	void setDodge ( int newDodge ) {
-		statArray[8] = newDodge;
+	void setSpellDamage ( int newSpellDamage ) {
+		statArray[8] = newSpellDamage;
 	}
 	
-	int getDodge () {
+	int getSpellDamage () {
 		return statArray[8];
 	}
 	
-	void setParry ( int newParry ) {
-		statArray[9] = newParry;
+	void setDodge ( int newDodge ) {
+		statArray[9] = newDodge;
 	}
 	
-	int getParry () {
+	int getDodge () {
 		return statArray[9];
 	}
 	
-	void setCounterspell ( int newCounterspell ) {
-		statArray[10] = newCounterspell;
+	void setParry ( int newParry ) {
+		statArray[10] = newParry;
 	}
 	
-	int getCounterspell () {
+	int getParry () {
 		return statArray[10];
 	}
 	
-	void setBlock ( int newBlock ) {
-		statArray[11] = newBlock;
+	void setCounterspell ( int newCounterspell ) {
+		statArray[11] = newCounterspell;
 	}
 	
-	int getBlock () {
+	int getCounterspell () {
 		return statArray[11];
 	}
 	
-	void setShield ( int newShield ) {
-		statArray[12] = newShield;
+	void setBlock ( int newBlock ) {
+		statArray[12] = newBlock;
 	}
 	
-	int getShield () {
+	int getBlock () {
 		return statArray[12];
 	}
 	
-	void setArmor ( int newArmor ) {
-		statArray[13] = newArmor;
+	void setShield ( int newShield ) {
+		statArray[13] = newShield;
 	}
 	
-	int getArmor () {
+	int getShield () {
 		return statArray[13];
 	}
 	
-	void setResist ( int newResist ) {
-		statArray[14] = newResist;
+	void setArmor ( int newArmor ) {
+		statArray[14] = newArmor;
 	}
 	
-	int getResist () {
+	int getArmor () {
 		return statArray[14];
 	}
 	
-	void setMaxBody ( int newMaxBody ) {
-		statArray[15] = newMaxBody;
+	void setResist ( int newResist ) {
+		statArray[15] = newResist;
 	}
 	
-	int getMaxBody () {
+	int getResist () {
 		return statArray[15];
 	}
 	
+	void setMaxBody ( int newMaxBody ) {
+		statArray[16] = newMaxBody;
+	}
+	
+	int getMaxBody () {
+		return statArray[16];
+	}
+	
 	void setMaxSoul ( int newMaxSoul ) {
-		statArray[16] = newMaxSoul;
+		statArray[17] = newMaxSoul;
 	}
 	
 	int getMaxSoul () {
-		return statArray[16];
+		return statArray[17];
 	}
 /*	0  body
 	1  soul
     2  strength
     3  dexterity
     4  damage
-    5  willpower
-    6  intelligence
-    7  spell damage
-    8  dodge
-    9  parry
-    10 counterspell
-    11 block
-    12 shield
-    13 armor
-    14 resist
-    15 Max Body
-    16 Max Soul
+    5  hit
+    6  willpower
+    7  intelligence
+    8  spell damage
+    9  dodge
+    10  parry
+    11 counterspell
+    12 block
+    13 shield
+    14 armor
+    15 resist
+    16 Max Body
+    17 Max Soul
 */    
      
 }
