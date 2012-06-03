@@ -1,3 +1,5 @@
+import javax.swing.JFrame;
+
 
 /**
  * 
@@ -6,18 +8,12 @@
  *
  */
 public class BORGUI {
-	MapCanvas map;
-	PlayerCharacter pc;
 	
 	public static void main(String[] args) {
-		BORGUI borgui = new BORGUI();
-		borgui.go();
+		JFrame window = new JFrame();
+		window.getContentPane().add(new MapCanvas());
+		window.setLocation(100, 100);
+		window.pack();
+		window.setVisible(true);
 	}
-	
-	public void go() {
-		map = new MapCanvas();
-		map.setSize(800, 600);
-		map.setVisible(true);
-	}
-	
 }

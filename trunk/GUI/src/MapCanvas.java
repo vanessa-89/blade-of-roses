@@ -63,7 +63,7 @@ public class MapCanvas extends Canvas {
 		int w = this.getWidth()/64;
 		int pcx = pc.getX();
 		int pcy = pc.getY();
-		int centerY, cneterX;
+		int centerY, centerX;
 		
 		// Finds center of drawing region.
 		//if (pcy is within Y range from edge) {
