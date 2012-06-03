@@ -5,6 +5,12 @@
 Various story snippets.
 
 = Backstory =
+<p>
+long ago the land was at peace, the heavens were calm and Heroes still roamed the world. That time faded and the world grew restless, Heroes aged and died. A time of pain came upon the people of the world. Stories were but painful reminders of a better time...
+</p>
+<p>
+This is when he appeared. He was wrapped in iron chains and his face a mask of anger.
+</p>
 
 = The Call of the Rose =
 
