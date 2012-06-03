@@ -11,9 +11,7 @@ public class Character {
 
 	
 	int level;
-	int experience;
 	MasterStatArray stats = new MasterStatArray();
-	int abilityPoints;
 	
 	// Sprite Sheet for character, must follow strict formating.
 	private Image sprite;
@@ -27,9 +25,7 @@ public class Character {
 	public Character() {
 		xPos = 3;
 		yPos = 3;
-		level=1;
-		experience = 0;
-		abilityPoints = 0;
+        level = 1;
 		stats.setStrength(10);
 		stats.setDexterity(10);
 		stats.setDamage(0);
@@ -52,10 +48,10 @@ public class Character {
 	}
 	
 	/**
-	 * Constructs a new PC at the specified position with the specified Sprite Sheet.
-	 * @param x The PC's horizontal position.
-	 * @param y The PC's vertical position.
-	 * @param image The PC's Sprite Sheet.
+	 * Constructs a new C at the specified position with the specified Sprite Sheet.
+	 * @param x The C's horizontal position.
+	 * @param y The C's vertical position.
+	 * @param image The C's Sprite Sheet.
 	 */
 	public Character(int x, int y, Image image) {
 		xPos = x;
@@ -64,35 +60,35 @@ public class Character {
 	}
 	
 	/**
-	 * Moves the PC NORTH. Map handler should test before making this call.
+	 * Moves the C NORTH. Map handler should test before making this call.
 	 */
 	public void moveNorth() {
 		yPos--;
 	}
 	
 	/**
-	 * Moves the PC SOUTH. Map handler should test before making this call.
+	 * Moves the C SOUTH. Map handler should test before making this call.
 	 */
 	public void moveSouth() {
 		yPos++;	
 	}
 	
 	/**
-	 * Moves the PC EAST. Map handler should test before making this call.
+	 * Moves the C EAST. Map handler should test before making this call.
 	 */
 	public void moveEast() {
 		xPos++;
 	}
 	
 	/**
-	 * Moves the PC WEST. Map handler should test before making this call.
+	 * Moves the C WEST. Map handler should test before making this call.
 	 */
 	public void moveWest() {
 		xPos--;
 	}
 	
 	/**
-	 * Returns the PC's horizontal position.
+	 * Returns the C's horizontal position.
 	 * @return
 	 */
 	public int getX() {
@@ -100,7 +96,7 @@ public class Character {
 	}
 	
 	/**
-	 * Returns the PC's vertical position.
+	 * Returns the C's vertical position.
 	 * @return
 	 */
 	public int getY() {
@@ -108,7 +104,7 @@ public class Character {
 	}
 	
 	/**
-	 * Returns the PC's sprite sheet to be used in animations.
+	 * Returns the C's sprite sheet to be used in animations.
 	 * @return sprite
 	 */
 	public Image getSprite() {
