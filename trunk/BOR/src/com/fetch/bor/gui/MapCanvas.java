@@ -7,7 +7,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import com.fetch.bor.bor.PlayerCharacter;
+import com.fetch.bor.bor.Character;
 import com.fetch.bor.bor.Tile;
 
 /**
@@ -22,7 +22,7 @@ public class MapCanvas extends Canvas {
 	
 	static BufferedImage tileset;
 	Tile[][] map;
-	PlayerCharacter pc;
+	Character pc;
 	
 	/**
 	 * 
@@ -49,7 +49,7 @@ public class MapCanvas extends Canvas {
 	 * Add a character to the display
 	 * @param pc The PlayerCharacter to add to the display.
 	 */
-	public void addCharacter(PlayerCharacter newPC) {
+	public void addCharacter(Character newPC) {
 		pc = newPC;
 	}
 	
