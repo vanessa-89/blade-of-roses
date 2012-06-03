@@ -29,12 +29,24 @@ public class MapCanvas extends Canvas {
 	
 	DirectionKeyListener dirKeyLis = new DirectionKeyListener();
 	
+	
+	static BufferedImage imp;
+	
 	/**
 	 * 
 	 */
 	public MapCanvas() {
 		this.addKeyListener(dirKeyLis);
 		needToRedrawMap = true;
+		
+		
+		try {
+			File file = new File("Imp001.png");
+			imp = ImageIO.read(file);
+		} catch (IOException ioe) {
+			System.out.println("BOR could not load the image.");
+			ioe.printStackTrace();
+		}
 	}
 	
 	/**
@@ -194,6 +206,8 @@ public class MapCanvas extends Canvas {
 		int locy1 = pc.getY()*64;
 		int locy2 = locy1 + 64;
 		g.drawImage(pc.getSprite(), locx1, locy1, locx2, locy2, 0, 0, 64, 64, this);
+		
+		g.drawImage(imp, 448, 448, 512, 512, 0, 0, 64, 64, this);
 	}
 	
 	private class DirectionKeyListener implements KeyListener {
