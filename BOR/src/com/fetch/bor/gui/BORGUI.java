@@ -8,6 +8,8 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
+import com.fetch.bor.bor.TestArea;
+
 
 /**
  * 
@@ -31,9 +33,12 @@ public class BORGUI {
 		JFrame window = new JFrame("Blade of Roses");
 		window.setIconImage(icon);
 		
+		TestArea ta = new TestArea(10);
+		
 		MapCanvas mapCanvas = new MapCanvas();
 		mapCanvas.setPreferredSize(new Dimension(800, 800));
 		mapCanvas.loadTileset("TestTileSet.png");
+		mapCanvas.loadMap(ta.getTiles());
 		window.getContentPane().add(mapCanvas);
 		window.setLocation(100, 100);
 		window.pack();

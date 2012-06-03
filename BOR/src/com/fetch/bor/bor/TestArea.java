@@ -10,6 +10,11 @@ public class TestArea {
 		arenasize = size;
 		arena = new Tile[arenasize][arenasize];
 	
+		for (int i = 0; i < arenasize; i ++) {
+			for (int j = 0; j < arenasize; j ++) {
+				arena[i][j] = new Tile();
+			}
+		}
 		
 		for (int i=1; i<arenasize-2; i++) {
 			for (int j=1; j<arenasize-2; j++) {

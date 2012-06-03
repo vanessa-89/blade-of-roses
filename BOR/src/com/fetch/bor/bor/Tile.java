@@ -6,7 +6,7 @@ package com.fetch.bor.bor;
  *
  */
 public class Tile {
-	int[][] tile;
+	public int[][] tile;
 	
 	public Tile() {
 		tile = new int[3][3];
