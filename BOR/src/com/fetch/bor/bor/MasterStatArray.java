@@ -3,11 +3,11 @@ package com.fetch.bor.bor;
 
 public class MasterStatArray {
 
-	public int[] statArray = new int[15];
+	public int[] statArray = new int[17];
 
 	// adds another array to this array
 	void modifyArray (int[] modifier) {
-		for (int i = 0; i < 14; i++) {
+		for (int i = 0; i < 17; i++) {
 			statArray[i] += modifier[i];
 		}
 	}
