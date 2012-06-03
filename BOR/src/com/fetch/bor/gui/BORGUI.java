@@ -43,9 +43,11 @@ public class BORGUI {
 		
 		MapCanvas mapCanvas = new MapCanvas();
 		mapCanvas.setPreferredSize(new Dimension(800, 800));
+		mapCanvas.setLocation(200,200);
 		mapCanvas.loadTileset("TestTileSet.png");
 		mapCanvas.loadMap(ta.getTiles());
 		mapCanvas.addCharacter(pc);
+		
 		window.getContentPane().add(mapCanvas);
 		window.setLocation(100, 100);
 		window.pack();

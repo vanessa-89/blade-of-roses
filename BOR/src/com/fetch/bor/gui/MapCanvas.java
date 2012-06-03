@@ -83,11 +83,11 @@ public class MapCanvas extends Canvas {
 	 * 
 	 */
 	public void paint(Graphics g) {
-		int h = this.getHeight()/64;
-		int w = this.getWidth()/64;
+//		int h = this.getHeight()/64;
+//		int w = this.getWidth()/64;
 //		int pcx = pc.getX();
 //		int pcy = pc.getY();
-		int centerY, centerX;
+//		int centerY, centerX;
 		
 		// Finds center of drawing region.
 		//if (pcy is within Y range from edge) {
