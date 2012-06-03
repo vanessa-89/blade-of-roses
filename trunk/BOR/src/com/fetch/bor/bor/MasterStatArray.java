@@ -52,108 +52,126 @@ public class MasterStatArray {
 		return statArray[3];
 	}
 	
-	void setWillpower ( int newWillpower ) {
-		statArray[4] = newWillpower;
+	void setDamage ( int newDamage ) {
+		statArray[4] = newDamage;
 	}
 	
-	int getWillpower () {
+	int getDamage () {
 		return statArray[4];
 	}
 	
-	void setIntelligence ( int newIntelligence ) {
-		statArray[5] = newIntelligence;
+	void setWillpower ( int newWillpower ) {
+		statArray[5] = newWillpower;
 	}
 	
-	int getIntelligence () {
+	int getWillpower () {
 		return statArray[5];
 	}
 	
-	void setDodge ( int newDodge ) {
-		statArray[6] = newDodge;
+	void setIntelligence ( int newIntelligence ) {
+		statArray[6] = newIntelligence;
 	}
 	
-	int getDodge () {
+	int getIntelligence () {
 		return statArray[6];
 	}
 	
-	void setParry ( int newParry ) {
-		statArray[7] = newParry;
+	void setSpellDamage ( int newSpellDamage ) {
+		statArray[7] = newSpellDamage;
 	}
 	
-	int getParry () {
+	int getSpellDamage () {
 		return statArray[7];
 	}
 	
-	void setCounterspell ( int newCounterspell ) {
-		statArray[8] = newCounterspell;
+	void setDodge ( int newDodge ) {
+		statArray[8] = newDodge;
 	}
 	
-	int getCounterspell () {
+	int getDodge () {
 		return statArray[8];
 	}
 	
-	void setBlock ( int newBlock ) {
-		statArray[9] = newBlock;
+	void setParry ( int newParry ) {
+		statArray[9] = newParry;
 	}
 	
-	int getBlock () {
+	int getParry () {
 		return statArray[9];
 	}
 	
-	void setShield ( int newShield ) {
-		statArray[10] = newShield;
+	void setCounterspell ( int newCounterspell ) {
+		statArray[10] = newCounterspell;
 	}
 	
-	int getShield () {
+	int getCounterspell () {
 		return statArray[10];
 	}
 	
-	void setArmor ( int newArmor ) {
-		statArray[11] = newArmor;
+	void setBlock ( int newBlock ) {
+		statArray[11] = newBlock;
 	}
 	
-	int getArmor () {
+	int getBlock () {
 		return statArray[11];
 	}
 	
-	void setResist ( int newResist ) {
-		statArray[12] = newResist;
+	void setShield ( int newShield ) {
+		statArray[12] = newShield;
 	}
 	
-	int getResist () {
+	int getShield () {
 		return statArray[12];
 	}
 	
-	void setMaxBody ( int newMaxBody ) {
-		statArray[13] = newMaxBody;
+	void setArmor ( int newArmor ) {
+		statArray[13] = newArmor;
 	}
 	
-	int getMaxBody () {
+	int getArmor () {
 		return statArray[13];
 	}
 	
+	void setResist ( int newResist ) {
+		statArray[14] = newResist;
+	}
+	
+	int getResist () {
+		return statArray[14];
+	}
+	
+	void setMaxBody ( int newMaxBody ) {
+		statArray[15] = newMaxBody;
+	}
+	
+	int getMaxBody () {
+		return statArray[15];
+	}
+	
 	void setMaxSoul ( int newMaxSoul ) {
-		statArray[14] = newMaxSoul;
+		statArray[16] = newMaxSoul;
 	}
 	
 	int getMaxSoul () {
-		return statArray[14];
+		return statArray[16];
 	}
 /*	0  body
 	1  soul
     2  strength
     3  dexterity
-    4  willpower
-    5  intelligence
-    6  dodge
-    7  parry
-    8  counterspell
-    9  block
-    10 shield
-    11 armor
-    12 resist
-    13 Max Body
-    14 Max Soul
+    4  damage
+    5  willpower
+    6  intelligence
+    7  spell damage
+    8  dodge
+    9  parry
+    10 counterspell
+    11 block
+    12 shield
+    13 armor
+    14 resist
+    15 Max Body
+    16 Max Soul
 */    
      
 }

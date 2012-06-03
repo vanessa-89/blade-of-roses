@@ -16,8 +16,10 @@ public class Player {
 		abilityPoints = 0;
 		stats.setStrength(0);
 		stats.setDexterity(0);
+		stats.setDamage(0);
 		stats.setWillpower(0);
-		stats.setIntelligence(0);	
+		stats.setIntelligence(0);
+		stats.setSpellDamage(0);
 		stats.setDodge(0);
 		stats.setParry(0);
 		stats.setCounterspell(0);
