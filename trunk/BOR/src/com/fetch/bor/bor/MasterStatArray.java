@@ -3,36 +3,36 @@ package com.fetch.bor.bor;
 
 public class MasterStatArray {
 
-	public int[] statArray = new int[12];
+	public int[] statArray = new int[15];
 
 	// adds another array to this array
 	void modifyArray (int[] modifier) {
-		for (int i = 0; i < 12; i++) {
+		for (int i = 0; i < 14; i++) {
 			statArray[i] += modifier[i];
 		}
 	}
 	
-	void setHealth ( int newHealth ) {
-		statArray[0] = newHealth;
+	void setBody ( int newBody ) {
+		statArray[0] = newBody;
 	}
 	
-	int getHealth () {
+	int getBody () {
 		return statArray[0];
 	}
 	
-	void modifyHealth ( int modifier ) {
+	void modifyBody ( int modifier ) {
 		statArray[0] += modifier;
 	}
 	
-	void setMana ( int newMana ) {
-		statArray[1] = newMana;
+	void setSoul ( int newSoul ) {
+		statArray[1] = newSoul;
 	}
 	
-	int getMana () {
+	int getSoul () {
 		return statArray[1];
 	}
 	
-	void modifyMana ( int modifier ) {
+	void modifySoul ( int modifier ) {
 		statArray[1] += modifier;
 	}
 	
@@ -52,19 +52,19 @@ public class MasterStatArray {
 		return statArray[3];
 	}
 	
-	void setIntelligence ( int newIntelligence ) {
-		statArray[4] = newIntelligence;
+	void setWillpower ( int newWillpower ) {
+		statArray[4] = newWillpower;
 	}
 	
-	int getIntelligence () {
+	int getWillpower () {
 		return statArray[4];
 	}
 	
-	void setDamage ( int newDamage ) {
-		statArray[5] = newDamage;
+	void setIntelligence ( int newIntelligence ) {
+		statArray[5] = newIntelligence;
 	}
 	
-	int getDamage () {
+	int getIntelligence () {
 		return statArray[5];
 	}
 	
@@ -84,49 +84,76 @@ public class MasterStatArray {
 		return statArray[7];
 	}
 	
-	void setBlock ( int newBlock ) {
-		statArray[8] = newBlock;
+	void setCounterspell ( int newCounterspell ) {
+		statArray[8] = newCounterspell;
 	}
 	
-	int getBlock () {
+	int getCounterspell () {
 		return statArray[8];
 	}
 	
-	void setArmor ( int newArmor ) {
-		statArray[9] = newArmor;
+	void setBlock ( int newBlock ) {
+		statArray[9] = newBlock;
 	}
 	
-	int getArmor () {
+	int getBlock () {
 		return statArray[9];
 	}
 	
-	void setMaxHP ( int newMaxHP ) {
-		statArray[10] = newMaxHP;
+	void setShield ( int newShield ) {
+		statArray[10] = newShield;
 	}
 	
-	int getMaxHP () {
+	int getShield () {
 		return statArray[10];
 	}
 	
-	void setMaxMP ( int newMaxMP ) {
-		statArray[11] = newMaxMP;
+	void setArmor ( int newArmor ) {
+		statArray[11] = newArmor;
 	}
 	
-	int getMaxMP () {
+	int getArmor () {
 		return statArray[11];
 	}
-/*	0  health
-	1  mana
+	
+	void setResist ( int newResist ) {
+		statArray[12] = newResist;
+	}
+	
+	int getResist () {
+		return statArray[12];
+	}
+	
+	void setMaxBody ( int newMaxBody ) {
+		statArray[13] = newMaxBody;
+	}
+	
+	int getMaxBody () {
+		return statArray[13];
+	}
+	
+	void setMaxSoul ( int newMaxSoul ) {
+		statArray[14] = newMaxSoul;
+	}
+	
+	int getMaxSoul () {
+		return statArray[14];
+	}
+/*	0  body
+	1  soul
     2  strength
     3  dexterity
-    4  intelligence
-    5  damage
+    4  willpower
+    5  intelligence
     6  dodge
     7  parry
-    8  block
-    9  armor
-    10 Max HP
-    11 Max MP
+    8  counterspell
+    9  block
+    10 shield
+    11 armor
+    12 resist
+    13 Max Body
+    14 Max Soul
 */    
      
 }
