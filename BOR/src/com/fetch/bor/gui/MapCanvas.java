@@ -176,6 +176,8 @@ public class MapCanvas extends Canvas {
 					
 					// Draw Characters
 					}
+				} else {
+					g.drawImage(tileset,dx1,dy1,dx2,dy2,64,0,128,64,this);
 				}
 			}
 		}
