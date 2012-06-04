@@ -109,96 +109,98 @@ public class MapCanvas extends Canvas {
 				int dx2 = dx1 + TILE_SIZE;
 				int dy1 = j*TILE_SIZE;
 				int dy2 = dy1 + TILE_SIZE;
-				
-				// Draw Floor
-				if (map[i][j].getFloor() != 0) {
-					g.drawImage(tileset,dx1,dy1,dx2,dy2,0,0,64,64,this);
-				
-					// Draw Walls
-					if (map[i][j].getNWall() != 0) {
-						if (map[i][j].getNECorner() == 0 && map[i][j].getNWCorner() == 0) {
-							g.drawImage(tileset, dx1, dy1, dx2, dy2, 0, 64, 64, 128, this);
-						} else if (map[i][j].getNECorner() != 0 && map[i][j].getNWCorner() != 0) {
-							g.drawImage(tileset, dx1, dy1, dx2, dy2, 64, 64, 128, 128, this);
-						} else if (map[i][j].getNECorner() == 0 && map[i][j].getNWCorner() != 0) {
-							g.drawImage(tileset, dx1, dy1, dx2, dy2, 128, 64, 192, 128, this);
-						} else if (map[i][j].getNECorner() != 0 && map[i][j].getNWCorner() == 0) {
-							g.drawImage(tileset, dx1, dy1, dx2, dy2, 192, 64, 256, 128, this);
-						}
-						if (map[i][j].getNWall() == 2) {
-							g.drawImage(tileset, dx1, dy1, dx2, dy2, 0, 448, 64, 512, this);
-						}
-						if (map[i][j].getNWall() == 3) {
-							g.drawImage(tileset, dx1, dy1, dx2, dy2, 0, 384, 64, 448, this);
-						}
-					}
-					if (map[i][j].getWWall() != 0) {
-						if (map[i][j].getNWCorner() == 0 && map[i][j].getSWCorner() == 0) {
-							g.drawImage(tileset, dx1, dy1, dx2, dy2, 0, 128, 64, 192, this);
-						} else if (map[i][j].getNWCorner() != 0 && map[i][j].getSWCorner() != 0) {
-							g.drawImage(tileset, dx1, dy1, dx2, dy2, 64, 128, 128, 192, this);
-						} else if (map[i][j].getNWCorner() == 0 && map[i][j].getSWCorner() != 0) {
-							g.drawImage(tileset, dx1, dy1, dx2, dy2, 128, 128, 192, 192, this);
-						} else if (map[i][j].getNWCorner() != 0 && map[i][j].getSWCorner() == 0) {
-							g.drawImage(tileset, dx1, dy1, dx2, dy2, 192, 128, 256, 192, this);
-						}
-						if (map[i][j].getWWall() == 2) {
-							g.drawImage(tileset, dx1, dy1, dx2, dy2, 64, 448, 128, 512, this);
-						}
-						if (map[i][j].getWWall() == 3) {
-							// Closed door
-						}
-					}
-					if (map[i][j].getEWall() != 0) {
-						if (map[i][j].getNECorner() == 0 && map[i][j].getSECorner() == 0) {
-							g.drawImage(tileset, dx1, dy1, dx2, dy2, 0, 192, 64, 256, this);
-						} else if (map[i][j].getNECorner() != 0 && map[i][j].getSECorner() != 0) {
-							g.drawImage(tileset, dx1, dy1, dx2, dy2, 64, 192, 128, 256, this);
-						} else if (map[i][j].getNECorner() == 0 && map[i][j].getSECorner() != 0) {
-							g.drawImage(tileset, dx1, dy1, dx2, dy2, 128, 192, 192, 256, this);
-						} else if (map[i][j].getNECorner() != 0 && map[i][j].getSECorner() == 0) {
-							g.drawImage(tileset, dx1, dy1, dx2, dy2, 192, 192, 256, 256, this);
-						}
-						if (map[i][j].getEWall() == 2) {
-							g.drawImage(tileset, dx1, dy1, dx2, dy2, 128, 448, 192, 512, this);
-						}
-						if (map[i][j].getEWall() == 3) {
-							// Closed door
-						}
-					}
-					if (map[i][j].getSWall() != 0) {
-						if (map[i][j].getSECorner() == 0 && map[i][j].getSWCorner() == 0) {
-							g.drawImage(tileset, dx1, dy1, dx2, dy2, 0, 256, 64, 320, this);
-						} else if (map[i][j].getSECorner() != 0 && map[i][j].getSWCorner() != 0) {
-							g.drawImage(tileset, dx1, dy1, dx2, dy2, 64, 256, 128, 320, this);
-						} else if (map[i][j].getSECorner() == 0 && map[i][j].getSWCorner() != 0) {
-							g.drawImage(tileset, dx1, dy1, dx2, dy2, 128, 256, 192, 320, this);
-						} else if (map[i][j].getSECorner() != 0 && map[i][j].getSWCorner() == 0) {
-							g.drawImage(tileset, dx1, dy1, dx2, dy2, 192, 256, 256, 320, this);
-						}
-					}
+		
+				if (g.hitClip(dx1, dy1, dx2, dy2)) {
+					// Draw Floor
+					if (map[i][j].getFloor() != 0) {
+						g.drawImage(tileset,dx1,dy1,dx2,dy2,0,0,64,64,this);
 					
-					if (map[i][j].getNECorner() != 0 && map[i][j].getNWall() == 0 && map[i][j].getEWall() == 0) {
-						g.drawImage(tileset, dx1, dy1, dx2, dy2, 64, 320, 128, 384, this);
-					}
-					if (map[i][j].getNWCorner() != 0 && map[i][j].getNWall() == 0 && map[i][j].getWWall() == 0) {
-						g.drawImage(tileset, dx1, dy1, dx2, dy2, 0, 320, 64, 384, this);
-					}
-					if (map[i][j].getSECorner() != 0 && map[i][j].getSWall() == 0 && map[i][j].getEWall() == 0) {
-						g.drawImage(tileset, dx1, dy1, dx2, dy2, 128, 320, 192, 384, this);
-					}
-					if (map[i][j].getSWCorner() != 0 && map[i][j].getSWall() == 0 && map[i][j].getWWall() == 0) {
-						g.drawImage(tileset, dx1, dy1, dx2, dy2, 192, 320, 192, 384, this);
-					}
-					// Draw Objects
-					
-					// Draw Characters
+						// Draw Walls
+						if (map[i][j].getNWall() != 0) {
+							if (map[i][j].getNECorner() == 0 && map[i][j].getNWCorner() == 0) {
+								g.drawImage(tileset, dx1, dy1, dx2, dy2, 0, 64, 64, 128, this);
+							} else if (map[i][j].getNECorner() != 0 && map[i][j].getNWCorner() != 0) {
+								g.drawImage(tileset, dx1, dy1, dx2, dy2, 64, 64, 128, 128, this);
+							} else if (map[i][j].getNECorner() == 0 && map[i][j].getNWCorner() != 0) {
+								g.drawImage(tileset, dx1, dy1, dx2, dy2, 128, 64, 192, 128, this);
+							} else if (map[i][j].getNECorner() != 0 && map[i][j].getNWCorner() == 0) {
+								g.drawImage(tileset, dx1, dy1, dx2, dy2, 192, 64, 256, 128, this);
+							}
+							if (map[i][j].getNWall() == 2) {
+								g.drawImage(tileset, dx1, dy1, dx2, dy2, 0, 448, 64, 512, this);
+							}
+							if (map[i][j].getNWall() == 3) {
+								g.drawImage(tileset, dx1, dy1, dx2, dy2, 0, 384, 64, 448, this);
+							}
+						}
+						if (map[i][j].getWWall() != 0) {
+							if (map[i][j].getNWCorner() == 0 && map[i][j].getSWCorner() == 0) {
+								g.drawImage(tileset, dx1, dy1, dx2, dy2, 0, 128, 64, 192, this);
+							} else if (map[i][j].getNWCorner() != 0 && map[i][j].getSWCorner() != 0) {
+								g.drawImage(tileset, dx1, dy1, dx2, dy2, 64, 128, 128, 192, this);
+							} else if (map[i][j].getNWCorner() == 0 && map[i][j].getSWCorner() != 0) {
+								g.drawImage(tileset, dx1, dy1, dx2, dy2, 128, 128, 192, 192, this);
+							} else if (map[i][j].getNWCorner() != 0 && map[i][j].getSWCorner() == 0) {
+								g.drawImage(tileset, dx1, dy1, dx2, dy2, 192, 128, 256, 192, this);
+							}
+							if (map[i][j].getWWall() == 2) {
+								g.drawImage(tileset, dx1, dy1, dx2, dy2, 64, 448, 128, 512, this);
+							}
+							if (map[i][j].getWWall() == 3) {
+								// Closed door
+							}
+						}
+						if (map[i][j].getEWall() != 0) {
+							if (map[i][j].getNECorner() == 0 && map[i][j].getSECorner() == 0) {
+								g.drawImage(tileset, dx1, dy1, dx2, dy2, 0, 192, 64, 256, this);
+							} else if (map[i][j].getNECorner() != 0 && map[i][j].getSECorner() != 0) {
+								g.drawImage(tileset, dx1, dy1, dx2, dy2, 64, 192, 128, 256, this);
+							} else if (map[i][j].getNECorner() == 0 && map[i][j].getSECorner() != 0) {
+								g.drawImage(tileset, dx1, dy1, dx2, dy2, 128, 192, 192, 256, this);
+							} else if (map[i][j].getNECorner() != 0 && map[i][j].getSECorner() == 0) {
+								g.drawImage(tileset, dx1, dy1, dx2, dy2, 192, 192, 256, 256, this);
+							}
+							if (map[i][j].getEWall() == 2) {
+								g.drawImage(tileset, dx1, dy1, dx2, dy2, 128, 448, 192, 512, this);
+							}
+							if (map[i][j].getEWall() == 3) {
+								// Closed door
+							}
+						}
+						if (map[i][j].getSWall() != 0) {
+							if (map[i][j].getSECorner() == 0 && map[i][j].getSWCorner() == 0) {
+								g.drawImage(tileset, dx1, dy1, dx2, dy2, 0, 256, 64, 320, this);
+							} else if (map[i][j].getSECorner() != 0 && map[i][j].getSWCorner() != 0) {
+								g.drawImage(tileset, dx1, dy1, dx2, dy2, 64, 256, 128, 320, this);
+							} else if (map[i][j].getSECorner() == 0 && map[i][j].getSWCorner() != 0) {
+								g.drawImage(tileset, dx1, dy1, dx2, dy2, 128, 256, 192, 320, this);
+							} else if (map[i][j].getSECorner() != 0 && map[i][j].getSWCorner() == 0) {
+								g.drawImage(tileset, dx1, dy1, dx2, dy2, 192, 256, 256, 320, this);
+							}
+						}
 						
+						if (map[i][j].getNECorner() != 0 && map[i][j].getNWall() == 0 && map[i][j].getEWall() == 0) {
+							g.drawImage(tileset, dx1, dy1, dx2, dy2, 64, 320, 128, 384, this);
+						}
+						if (map[i][j].getNWCorner() != 0 && map[i][j].getNWall() == 0 && map[i][j].getWWall() == 0) {
+							g.drawImage(tileset, dx1, dy1, dx2, dy2, 0, 320, 64, 384, this);
+						}
+						if (map[i][j].getSECorner() != 0 && map[i][j].getSWall() == 0 && map[i][j].getEWall() == 0) {
+							g.drawImage(tileset, dx1, dy1, dx2, dy2, 128, 320, 192, 384, this);
+						}
+						if (map[i][j].getSWCorner() != 0 && map[i][j].getSWall() == 0 && map[i][j].getWWall() == 0) {
+							g.drawImage(tileset, dx1, dy1, dx2, dy2, 192, 320, 192, 384, this);
+						}
+						// Draw Objects
+						
+						// Draw Characters
+							
+						
+					} else {
+						g.drawImage(tileset,dx1,dy1,dx2,dy2,64,0,128,64,this);
+					}
 					
-				} else {
-					g.drawImage(tileset,dx1,dy1,dx2,dy2,64,0,128,64,this);
 				}
-				
 			}
 		}
 		int locx1 = pc.getX()*64;
@@ -208,22 +210,30 @@ public class MapCanvas extends Canvas {
 		g.drawImage(pc.getSprite(), locx1, locy1, locx2, locy2, 0, 0, 64, 64, this);
 		
 		g.drawImage(imp, 448, 448, 512, 512, 0, 0, 64, 64, this);
+		
 	}
 	
 	private class DirectionKeyListener implements KeyListener {
 
 		@Override
 		public void keyPressed(KeyEvent arg0) {
+			int sx1 = pc.getX()*64;
+			int sx2 = sx1 + 64;
+			int sy1 = pc.getY()*64;
+			int sy2 = sy1 + 64;
 			if (arg0.getKeyCode() == KeyEvent.VK_UP) {
 				pc.moveNorth();
+				repaint(sx1, sy1-64, sx2, sy2);
 			} else if (arg0.getKeyCode() == KeyEvent.VK_LEFT) {
 				pc.moveWest();
+				repaint(sx1-64, sy1, sx2, sy2);
 			} else if (arg0.getKeyCode() == KeyEvent.VK_RIGHT) {
 				pc.moveEast();
+				repaint(sx1, sy1, sx2+64, sy2);
 			} else if (arg0.getKeyCode() == KeyEvent.VK_DOWN) {
 				pc.moveSouth();
+				repaint(sx1, sy1, sx2, sy2+64);
 			}
-			repaint();
 		}
 
 		@Override
