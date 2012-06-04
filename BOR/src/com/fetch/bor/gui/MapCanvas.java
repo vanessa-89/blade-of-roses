@@ -83,8 +83,8 @@ public class MapCanvas extends Canvas {
 	 * 
 	 */
 	public void paint(Graphics g) {
-//		int h = this.getHeight()/64;
-//		int w = this.getWidth()/64;
+//		int h = this.getHeight()/TILE_SIZE;
+//		int w = this.getWidth()/TILE_SIZE;
 //		int pcx = pc.getX();
 //		int pcy = pc.getY();
 //		int centerY, centerX;
@@ -105,9 +105,9 @@ public class MapCanvas extends Canvas {
 //			for (int j = centerX - w/2; j < centerX + w/2; j++) {
 		for (int i = 0; i < map.length; i ++) {
 			for (int j = 0; j < map[i].length; j++) {
-				int dx1 = i*TILE_SIZE;
+				int dx1 = i * TILE_SIZE;
 				int dx2 = dx1 + TILE_SIZE;
-				int dy1 = j*TILE_SIZE;
+				int dy1 = j * TILE_SIZE;
 				int dy2 = dy1 + TILE_SIZE;
 		
 				if (g.hitClip(dx1, dy1, dx2, dy2)) {
@@ -203,10 +203,10 @@ public class MapCanvas extends Canvas {
 				}
 			}
 		}
-		int locx1 = pc.getX()*64;
-		int locx2 = locx1 + 64;
-		int locy1 = pc.getY()*64;
-		int locy2 = locy1 + 64;
+		int locx1 = pc.getX() * TILE_SIZE;
+		int locx2 = locx1 + TILE_SIZE;
+		int locy1 = pc.getY() * TILE_SIZE;
+		int locy2 = locy1 + TILE_SIZE;
 		g.drawImage(pc.getSprite(), locx1, locy1, locx2, locy2, 0, 0, 64, 64, this);
 		
 		g.drawImage(imp, 448, 448, 512, 512, 0, 0, 64, 64, this);
@@ -217,22 +217,22 @@ public class MapCanvas extends Canvas {
 
 		@Override
 		public void keyPressed(KeyEvent arg0) {
-			int sx1 = pc.getX()*64;
-			int sx2 = sx1 + 64;
-			int sy1 = pc.getY()*64;
-			int sy2 = sy1 + 64;
+			int sx1 = pc.getX() * TILE_SIZE;
+			int sx2 = sx1 + TILE_SIZE;
+			int sy1 = pc.getY() * TILE_SIZE;
+			int sy2 = sy1 + TILE_SIZE;
 			if (arg0.getKeyCode() == KeyEvent.VK_UP) {
 				pc.moveNorth();
-				repaint(sx1, sy1-64, sx2, sy2);
+				repaint(sx1, sy1-TILE_SIZE, sx2, sy2);
 			} else if (arg0.getKeyCode() == KeyEvent.VK_LEFT) {
 				pc.moveWest();
-				repaint(sx1-64, sy1, sx2, sy2);
+				repaint(sx1-TILE_SIZE, sy1, sx2, sy2);
 			} else if (arg0.getKeyCode() == KeyEvent.VK_RIGHT) {
 				pc.moveEast();
-				repaint(sx1, sy1, sx2+64, sy2);
+				repaint(sx1, sy1, sx2+TILE_SIZE, sy2);
 			} else if (arg0.getKeyCode() == KeyEvent.VK_DOWN) {
 				pc.moveSouth();
-				repaint(sx1, sy1, sx2, sy2+64);
+				repaint(sx1, sy1, sx2, sy2+TILE_SIZE);
 			}
 		}
 
