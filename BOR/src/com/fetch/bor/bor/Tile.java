@@ -88,4 +88,28 @@ public class Tile {
 		tile[2][2] = value;
 	}
 	
+	public void setNWallSafe (int value) {
+		if (tile[1][0] != 2)
+		tile[1][0] = value;
+	}
+	
+	public void setSWallSafe(int value) {
+		if (tile[1][2] != 2)
+		tile[1][2] = value;
+	}
+	
+	public void setEWallSafe(int value) {
+		if (tile[2][1] != 2)
+		tile[2][1] = value;
+	}
+	
+	public void setWWallSafe(int value) {
+		if (tile[0][1] != 2)
+		tile[0][1] = value;
+	}
+	
+	
+	
 }
+
+
