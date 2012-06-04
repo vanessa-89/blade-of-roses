@@ -162,8 +162,8 @@ public class Character {
  
 	/*public void WeaponAttack() {
 		Character target = MasterArray.getCharacter( targetX, targetY );
-		int attDex = stats.getDexterity();
 		int attStr = stats.getStrength();
+        int attDex = stats.getDexterity();
 		int attDmg = stats.getDamage();
 		int defDdg = target.stats.getDodge()+target.stats.getDexterity()/5;
 		int defPry = target.stats.getParry();
@@ -180,6 +180,27 @@ public class Character {
 		damageDealt *= -1;
 		target.stats.modifyBody(damageDealt);
 	}*/
+	
+	/*public void MagicAttack() {
+		Character target = MasterArray.getCharacter( magicTargetX, magicTargetY );
+		int attWpr = stats.getWillpower();
+		int attInt = stats.getIntelligence();
+		int attSpD = stats.getSpellDamage();
+		int defDdg = target.stats.getDodge()+target.stats.getDexterity()/5;
+		int defCtS = target.stats.getCounterSpell();
+		int defShd = target.stats.getShield();
+		int defRst = target.stats.getResist();
+		int hit = rand.nextInt(attInt)+stats.getSpD();
+		if (hit < defDdg)
+			return;
+		if (rand.nextInt(100)<Math.max(defCts, defShd))
+			return;
+		if (rand.nextInt(100)<(Math.min(defCtS, defShd))/2)
+			return;
+		int damageDealt = rand.nextInt(attSpD) + attWpr/5 - defRst;
+		damageDealt *= -1;
+		target.stats.modifyBody(damageDealt);
+}*/
 	
 	
 }
