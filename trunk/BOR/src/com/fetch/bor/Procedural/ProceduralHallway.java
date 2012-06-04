@@ -1,5 +1,5 @@
 package com.fetch.bor.Procedural;
 
-public class ProceduralHallway {
+public class ProceduralHallway extends ProceduralStructure {
 
 }

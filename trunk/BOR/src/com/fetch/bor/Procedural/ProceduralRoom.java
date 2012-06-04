@@ -1,5 +1,5 @@
 package com.fetch.bor.Procedural;
 
-public class ProceduralRoom {
+public class ProceduralRoom extends ProceduralStructure {
 
 }

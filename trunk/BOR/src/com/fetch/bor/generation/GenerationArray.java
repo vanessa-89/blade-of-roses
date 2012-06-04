@@ -22,7 +22,7 @@ package com.fetch.bor.generation;
  * there as well.
  */
 
-
+import com.fetch.bor.bor.Tile;
 
 import java.util.Random;
 
@@ -58,8 +58,7 @@ public class GenerationArray {
 		y2 = MAXSIZE-1;
 		for (int i=0; i<MAXSIZE; i++) {
 			for (int j=0; j<MAXSIZE; j++) {
-				gdt = new GenerationDataType();
-				mapArray[i][j] = gdt;
+				mapArray[i][j] = new GenerationDataType();
 			}
 		}
 	}
@@ -140,7 +139,7 @@ public class GenerationArray {
 		for (int i=0; i<roomArchive[roomCounter].width; i++){
 			for (int j=0; j<roomArchive[roomCounter].height; j++){
 //				System.out.println("x " + x + " y " + y + " i " + i + " j " + j + " tempX " + tempX + " tempY " + tempY );
-				mapArray[x+i-tempX][y+j-tempY].walkable = true;
+				mapArray[x+i-tempX][y+j-tempY].tile.setFloor(1);
 				mapArray[x+i-tempX][y+j-tempY].tile[1][1] = 1;
 				mapArray[x+i-tempX][y+j-tempY].structureIntIndex.push(roomCounter);
 				mapArray[x+i-tempX][y+j-tempY].structureTypeIndex.push('r');
