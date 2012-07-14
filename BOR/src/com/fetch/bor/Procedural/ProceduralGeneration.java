@@ -55,7 +55,7 @@ public class ProceduralGeneration {
 		direction = 0;
 		generateRoom( xDraw, yDraw );
 		
-		while ()//some condition for ending Generation
+		while (hCounter+rCounter < 20)//some condition for ending Generation
 		{
 			//determine which to generate
 			if ( (rand.nextDouble()*rCounter+hCounter) < rCounter)
