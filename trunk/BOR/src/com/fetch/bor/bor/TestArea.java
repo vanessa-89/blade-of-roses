@@ -24,11 +24,17 @@ public class TestArea {
 		
 		for (int i=1; i<arenasize-1; i++) {
 			arena[i][1].setNWall(1);
+			arena[i][1].dirIndex.push(0);
 			arena[i][arenasize-2].setSWall(1);
+			arena[i][arenasize-2].dirIndex.push(2);
 			arena[1][i].setWWall(1);
+			arena[1][i].dirIndex.push(3);
 			arena[arenasize-2][i].setEWall(1);
+			arena[arenasize-2][i].dirIndex.push(1);
 			arena[(arenasize-1)/2][i].setEWall(1);
+			arena[(arenasize-1)/2][i].dirIndex.push(1);
 			arena[(arenasize-1)/2+1][i].setWWall(1);
+			arena[(arenasize-1)/2+1][i].dirIndex.push(3);
 		}
 		
 		arena[1][1].setNWCorner(1);
@@ -42,7 +48,9 @@ public class TestArea {
 		
 		//doors
 		arena[(arenasize-1)/2][(arenasize-1)/2].setEWall(2);
+		arena[(arenasize-1)/2][(arenasize-1)/2].dirIndex.removeElement(1);
 		arena[(arenasize-1)/2+1][(arenasize-1)/2].setWWall(2);
+		arena[(arenasize-1)/2+1][(arenasize-1)/2].dirIndex.removeElement(3);
 		
 	}
 	
