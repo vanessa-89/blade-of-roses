@@ -14,6 +14,7 @@ public class Tile {
 	public Tile() {
 		tile = new int[3][3];
 		tile[1][1] = 0;
+		dirIndex = new Stack<Integer>();
 	}
 	public Tile(int[][] inTile) {
 		tile = inTile;
