@@ -103,7 +103,9 @@ public class Character {
 	 * Moves the C NORTH. Map handler should test before making this call.
 	 */
 	public void moveNorth() {
-		yPos--;
+		if (yPos > 0) {
+			yPos--;
+		}
 		targetX = xPos;
 		targetY = yPos-1;
 	}
@@ -130,7 +132,9 @@ public class Character {
 	 * Moves the C WEST. Map handler should test before making this call.
 	 */
 	public void moveWest() {
-		xPos--;
+		if (xPos > 0) {
+			xPos--;
+		}
 		targetX = xPos-1;
 		targetY = yPos;
 	}

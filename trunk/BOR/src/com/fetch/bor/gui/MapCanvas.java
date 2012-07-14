@@ -6,6 +6,7 @@ import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
@@ -22,15 +23,19 @@ import com.fetch.bor.bor.Tile;
 public class MapCanvas extends Canvas {
 	static final int TILE_SIZE = 64;
 	
-	static BufferedImage tileset;
-	Tile[][] map;
-	Character pc;
-	boolean needToRedrawMap;
+	private static BufferedImage ui;
 	
-	DirectionKeyListener dirKeyLis = new DirectionKeyListener();
+	private static BufferedImage tileset;
+	private Tile[][] map;
+	private Character pc;
+	private boolean needToRedrawMap;
 	
+	private DirectionKeyListener dirKeyLis = new DirectionKeyListener();
+
+	private boolean newMap = true;
+	private BufferedImage buffer;
 	
-	static BufferedImage imp;
+	private ArrayList<Character> elements = new ArrayList<Character>();
 	
 	/**
 	 * 
@@ -39,10 +44,9 @@ public class MapCanvas extends Canvas {
 		this.addKeyListener(dirKeyLis);
 		needToRedrawMap = true;
 		
-		
 		try {
-			File file = new File("Imp001.png");
-			imp = ImageIO.read(file);
+			File file = new File("BORUI.png");
+			ui = ImageIO.read(file);
 		} catch (IOException ioe) {
 			System.out.println("BOR could not load the image.");
 			ioe.printStackTrace();
@@ -71,45 +75,68 @@ public class MapCanvas extends Canvas {
 		pc = newPC;
 	}
 	
+	public void addElement(Character newElement) {
+		elements.add(newElement);
+	}
+	
+	/**
+	 * Removes the specified element from the drawn objects.
+	 * Note: the param must be the exact object to be removed.
+	 * @param remove
+	 */
+	public void removeElement(Character remove) {
+		elements.remove(remove);
+	}
+	
 	/**
 	 * 
 	 * @param newMap The map to display.
 	 */
 	public void loadMap(Tile[][] newMap) {
 		map = newMap;
+		this.newMap = true;
 	}
 	
 	/**
 	 * 
 	 */
 	public void paint(Graphics g) {
-//		int h = this.getHeight()/TILE_SIZE;
-//		int w = this.getWidth()/TILE_SIZE;
-//		int pcx = pc.getX();
-//		int pcy = pc.getY();
-//		int centerY, centerX;
+		if (newMap) {
+			buffer = new BufferedImage(map.length * TILE_SIZE, map.length * TILE_SIZE, BufferedImage.TYPE_INT_ARGB);
+			Graphics gBuffer = buffer.getGraphics();
+			processMap(gBuffer);
+		}
+		g.drawImage(render(buffer), 0, 0, map.length * TILE_SIZE, map.length * TILE_SIZE,
+				0, 0, map.length * TILE_SIZE, map.length * TILE_SIZE, this);		
+	}
+	
+	private BufferedImage render(BufferedImage background) {
+		BufferedImage buf = new BufferedImage(map.length * TILE_SIZE, map.length * TILE_SIZE, BufferedImage.TYPE_INT_ARGB);
+		Graphics g = buf.getGraphics();
+		g.drawImage(background, 0, 0, map.length * TILE_SIZE, map.length * TILE_SIZE,
+				0, 0, map.length * TILE_SIZE, map.length * TILE_SIZE, this);
 		
-		// Finds center of drawing region.
-		//if (pcy is within Y range from edge) {
-		//	centerY = pc.getY;
-		//} else { //Character is close to edge
-		//	centerY = h/2 + additional needed to keep centered;
-		//}	
-		//if (pcx is within X range from edge) {
-		//	centerX = pc.getX;
-		//} else { //Character is close to edge
-		//	centerX = w/2 + additional needed to keep centered;
-		//}
+		int locx1 = pc.getX() * TILE_SIZE;
+		int locx2 = locx1 + TILE_SIZE;
+		int locy1 = pc.getY() * TILE_SIZE;
+		int locy2 = locy1 + TILE_SIZE;
+		g.drawImage(pc.getSprite(), locx1, locy1, locx2, locy2, 0, 0, 64, 64, this);
 		
-//		for (int i = centerY - h/2; i < centerY + h/2; i++) {
-//			for (int j = centerX - w/2; j < centerX + w/2; j++) {
+		for (Character c : elements) {
+			g.drawImage(c.getSprite(), c.getX() * TILE_SIZE, c.getY() * TILE_SIZE, c.getX() * TILE_SIZE + 64, c.getY() * TILE_SIZE + 64, 0, 0, 64, 64, this);
+		}
+		
+		return buf;
+	}
+
+	private void processMap(Graphics g) {
 		for (int i = 0; i < map.length; i ++) {
 			for (int j = 0; j < map[i].length; j++) {
 				int dx1 = i * TILE_SIZE;
 				int dx2 = dx1 + TILE_SIZE;
 				int dy1 = j * TILE_SIZE;
 				int dy2 = dy1 + TILE_SIZE;
-		
+				
 				if (g.hitClip(dx1, dy1, dx2, dy2)) {
 					// Draw Floor
 					if (map[i][j].getFloor() != 0) {
@@ -117,6 +144,7 @@ public class MapCanvas extends Canvas {
 					
 						// Draw Walls
 						if (map[i][j].getNWall() != 0) {
+							// Wall and Corners
 							if (map[i][j].getNECorner() == 0 && map[i][j].getNWCorner() == 0) {
 								g.drawImage(tileset, dx1, dy1, dx2, dy2, 0, 64, 64, 128, this);
 							} else if (map[i][j].getNECorner() != 0 && map[i][j].getNWCorner() != 0) {
@@ -127,9 +155,11 @@ public class MapCanvas extends Canvas {
 								g.drawImage(tileset, dx1, dy1, dx2, dy2, 192, 64, 256, 128, this);
 							}
 							if (map[i][j].getNWall() == 2) {
+								// Open Door
 								g.drawImage(tileset, dx1, dy1, dx2, dy2, 0, 448, 64, 512, this);
 							}
 							if (map[i][j].getNWall() == 3) {
+								// Closed Door
 								g.drawImage(tileset, dx1, dy1, dx2, dy2, 0, 384, 64, 448, this);
 							}
 						}
@@ -148,6 +178,7 @@ public class MapCanvas extends Canvas {
 							}
 							if (map[i][j].getWWall() == 3) {
 								// Closed door
+								g.drawImage(tileset, dx1, dy1, dx2, dy2, 64, 448, 128, 448, this);
 							}
 						}
 						if (map[i][j].getEWall() != 0) {
@@ -165,6 +196,7 @@ public class MapCanvas extends Canvas {
 							}
 							if (map[i][j].getEWall() == 3) {
 								// Closed door
+								g.drawImage(tileset, dx1, dy1, dx2, dy2, 128, 448, 192, 448, this);
 							}
 						}
 						if (map[i][j].getSWall() != 0) {
@@ -199,20 +231,13 @@ public class MapCanvas extends Canvas {
 					} else {
 						g.drawImage(tileset,dx1,dy1,dx2,dy2,64,0,128,64,this);
 					}
-					
 				}
 			}
 		}
-		int locx1 = pc.getX() * TILE_SIZE;
-		int locx2 = locx1 + TILE_SIZE;
-		int locy1 = pc.getY() * TILE_SIZE;
-		int locy2 = locy1 + TILE_SIZE;
-		g.drawImage(pc.getSprite(), locx1, locy1, locx2, locy2, 0, 0, 64, 64, this);
-		
-		g.drawImage(imp, 448, 448, 512, 512, 0, 0, 64, 64, this);
-		
+		g.drawImage(ui, 0, 0, 800, 600, 0, 0, 800, 600, this);
+		newMap = false;
 	}
-	
+
 	private class DirectionKeyListener implements KeyListener {
 
 		@Override
