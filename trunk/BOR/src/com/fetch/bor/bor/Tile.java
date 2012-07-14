@@ -1,5 +1,7 @@
 package com.fetch.bor.bor;
 
+import java.util.Stack;
+
 /**
  * 
  * @author MattFMorris
@@ -7,6 +9,7 @@ package com.fetch.bor.bor;
  */
 public class Tile {
 	public int[][] tile;
+	public Stack<Integer> dirIndex;
 	
 	public Tile() {
 		tile = new int[3][3];
