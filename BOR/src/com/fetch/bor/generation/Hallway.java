@@ -56,7 +56,7 @@ public class Hallway {
 			while (direction == previous){
 				direction = rand.nextInt(4);
 			}
-			i = i+length;
+			i = i+length-1;
 			trueLength = i;
 			if ( i >= MAXLENGTH )
 				i = MAXLENGTH - 1;

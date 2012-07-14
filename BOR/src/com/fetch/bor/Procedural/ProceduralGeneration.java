@@ -2,7 +2,7 @@ package com.fetch.bor.Procedural;
 
 import java.util.Random;
 
-import com.fetch.bor.bor.Tile;
+//import com.fetch.bor.bor.Tile;
 
 public class ProceduralGeneration {
 
@@ -95,14 +95,14 @@ public class ProceduralGeneration {
 						break;
 					case 1: //Heading East
 						yTemp = rArchive[nextSrcInt].pickRightEdge();
-						xTemp = rArchive[nextSrcInt].getX()+rArchive[nextSrcInt].width;
+						xTemp = rArchive[nextSrcInt].getX()+rArchive[nextSrcInt].getWidth();
 						genMap[xTemp][yTemp].tile.setEWall(2);
 						xTemp += 1;
 						genMap[xTemp][yTemp].tile.setWWall(2);
 						break;
 					case 2: //Heading South
 						xTemp = rArchive[nextSrcInt].pickBottomEdge();
-						yTemp = rArchive[nextSrcInt].gety()+rArchive[nextSrcInt].height;
+						yTemp = rArchive[nextSrcInt].getY()+rArchive[nextSrcInt].getHeight();
 						genMap[xTemp][yTemp].tile.setSWall(2);
 						yTemp += 1;	
 						genMap[xTemp][yTemp].tile.setNWall(2);
@@ -115,6 +115,7 @@ public class ProceduralGeneration {
 						genMap[xTemp][yTemp].tile.setEWall(2);
 						break;
 				}
+				rArchive[nextSrcInt].addconnection();
 			}
 			else {
 				//set things off a hallway
@@ -125,23 +126,31 @@ public class ProceduralGeneration {
 				switch(direction){
 					case 0: //Heading North
 						genMap[xTemp][yTemp].tile.setNWall(2);
+						genMap[xTemp][yTemp].tile.dirIndex.removeElement(0);
 						yTemp -= 1;
 						genMap[xTemp][yTemp].tile.setSWall(2);
+						genMap[xTemp][yTemp].tile.dirIndex.removeElement(2);
 						break;
 					case 1: //Heading East
 						genMap[xTemp][yTemp].tile.setEWall(2);
+						genMap[xTemp][yTemp].tile.dirIndex.removeElement(1);
 						xTemp += 1;
 						genMap[xTemp][yTemp].tile.setWWall(2);
+						genMap[xTemp][yTemp].tile.dirIndex.removeElement(3);
 						break;
 					case 2: //Heading South
 						genMap[xTemp][yTemp].tile.setSWall(2);
+						genMap[xTemp][yTemp].tile.dirIndex.removeElement(2);
 						yTemp += 1;	
 						genMap[xTemp][yTemp].tile.setNWall(2);
+						genMap[xTemp][yTemp].tile.dirIndex.removeElement(0);
 						break;
 					case 3: //Heading West
 						genMap[xTemp][yTemp].tile.setWWall(2);
+						genMap[xTemp][yTemp].tile.dirIndex.removeElement(3);
 						xTemp -= 1;
 						genMap[xTemp][yTemp].tile.setEWall(2);
+						genMap[xTemp][yTemp].tile.dirIndex.removeElement(1);
 						break;
 				}
 			}
@@ -156,8 +165,12 @@ public class ProceduralGeneration {
 			
 		}//end of WHILE LOOP
 		
-		
-		
+/*		for (int i = 0; i < xSize; i++){
+			for (int j = 0 ; j < ySize; j++){
+				if
+			}
+		}
+*/		
 	}//end of Generate
 	
 	public void generateRoom ( int startX, int startY ){
@@ -196,32 +209,28 @@ public class ProceduralGeneration {
 				genMap[i][j].tile.setSECorner(0);
 				genMap[i][j].tile.setSWCorner(0);
 				genMap[i][j].tile.dirIndex.clear();
-				if (i==realCornerX){
-					rArchive[rCounter].addTopEdge(i,j);
+				if (j==realCornerY){
 					genMap[i][j].tile.dirIndex.push(0);
 					genMap[i][j].tile.setNWallSafe(0);
 				}
 				else
 					genMap[i][j].tile.setNWall(0);
 				
-				if (i==realCornerX+xObject){
-					rArchive[rCounter].addBottomEdge(i,j);
+				if (j==realCornerY+yObject){
 					genMap[i][j].tile.dirIndex.push(2);
 					genMap[i][j].tile.setSWallSafe(0);
 				}
 				else
 					genMap[i][j].tile.setSWall(0);
 				
-				if (j==realCornerY) {
-					rArchive[rCounter].addLeftEdge(i,j);
+				if (i==realCornerX) {
 					genMap[i][j].tile.dirIndex.push(3);
 					genMap[i][j].tile.setWWallSafe(0);
 				}
 				else
 					genMap[i][j].tile.setWWall(0);
 				
-				if (j==realCornerY+yObject) {
-					rArchive[rCounter].addRightEdge(i,j);
+				if (i==realCornerX+xObject) {
 					genMap[i][j].tile.dirIndex.push(1);
 					genMap[i][j].tile.setEWallSafe(0);
 				}
@@ -242,8 +251,8 @@ public class ProceduralGeneration {
 		xTemp = startX;
 		yTemp = startY;
 		for (int i = 0; i < xObject ; i++){
-			xTemp = startX + hArchive[hCounter].array[i][0];
-			yTemp = startY + hArchive[hCounter].array[i][1];
+			xTemp = startX + hArchive[hCounter].xydTrack[0][i];
+			yTemp = startY + hArchive[hCounter].xydTrack[1][i];
 			genMap[xTemp][yTemp].tile.setFloor(1);
 			genMap[xTemp][yTemp].tile.setEWall(0);
 			genMap[xTemp][yTemp].tile.setWWall(0);
@@ -254,8 +263,8 @@ public class ProceduralGeneration {
 			genMap[xTemp][yTemp].tile.setSECorner(0);
 			genMap[xTemp][yTemp].tile.setSWCorner(0);
 			genMap[xTemp][yTemp].tile.dirIndex.clear();
-			genMap[xTemp][yTemp].typeIndex.push('r');
-			genMap[xTemp][yTemp].intIndex.push(rCounter);
+			genMap[xTemp][yTemp].typeIndex.push('h');
+			genMap[xTemp][yTemp].intIndex.push(hCounter);
 			switch(direction){
 				case 0: //Heading North
 					genMap[xTemp][yTemp].tile.setNWall(1);
@@ -312,5 +321,6 @@ public class ProceduralGeneration {
 			}
 			
 		}
+		hCounter++;
 	}
 }

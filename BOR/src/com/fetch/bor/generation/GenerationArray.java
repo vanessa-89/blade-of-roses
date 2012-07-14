@@ -140,7 +140,7 @@ public class GenerationArray {
 			for (int j=0; j<roomArchive[roomCounter].height; j++){
 //				System.out.println("x " + x + " y " + y + " i " + i + " j " + j + " tempX " + tempX + " tempY " + tempY );
 				mapArray[x+i-tempX][y+j-tempY].tile.setFloor(1);
-				mapArray[x+i-tempX][y+j-tempY].tile[1][1] = 1;
+//				mapArray[x+i-tempX][y+j-tempY].tile[1][1] = 1;
 				mapArray[x+i-tempX][y+j-tempY].structureIntIndex.push(roomCounter);
 				mapArray[x+i-tempX][y+j-tempY].structureTypeIndex.push('r');
 				mapArray[x+i-tempX][y+j-tempY].overlaps++;
@@ -160,8 +160,8 @@ public class GenerationArray {
 		for (int i=0; i<hallwayArchive[hallwayCounter].trueLength; i++){
 			relativeX = x+hallwayArchive[hallwayCounter].xyTrack[0][i];
 			relativeY = y+hallwayArchive[hallwayCounter].xyTrack[1][i];
-			mapArray[relativeX][relativeY].walkable = true;
-			mapArray[relativeX][relativeY].tile[1][1] = 1;
+//			mapArray[relativeX][relativeY].walkable = true;
+			mapArray[relativeX][relativeY].tile.tile[1][1] = 1;
 			mapArray[relativeX][relativeY].structureIntIndex.push(hallwayCounter);
 			mapArray[relativeX][relativeY].structureTypeIndex.push('h');
 			mapArray[relativeX][relativeY].overlaps++;
@@ -234,9 +234,9 @@ public class GenerationArray {
 		
 		for (int i=MAXSIZE-1; i>0; i--){
 			for (int j=MAXSIZE-1; j>0; j--){
-				if (mapArray[i][j].walkable)
+				if (mapArray[i][j].tile.tile[1][1]==1)
 					x1=i;
-				if (mapArray[i][j].walkable)
+				if (mapArray[i][j].tile.tile[1][1]==1)
 					y1=j;
 			}
 		}
@@ -246,9 +246,9 @@ public class GenerationArray {
 		
 		for (int i=0; i<MAXSIZE; i++){
 			for (int j=0; j<MAXSIZE; j++){
-				if (mapArray[i][j].walkable)
+				if (mapArray[i][j].tile.tile[1][1]==1)
 					x2=i;
-				if (mapArray[i][j].walkable)
+				if (mapArray[i][j].tile.tile[1][1]==1)
 					y2=j;
 			}
 		}
@@ -259,7 +259,7 @@ public class GenerationArray {
 	void PrintAll(){
 		for (int i=0; i<MAXSIZE; i++){
 			for (int j=0; j<MAXSIZE; j++){
-				if (mapArray[i][j].walkable)
+				if (mapArray[i][j].tile.tile[1][1]==1)
 					System.out.print('W');
 				else
 					System.out.print('.');
@@ -272,7 +272,7 @@ public class GenerationArray {
 	void PrintArea(){
 		for (int i=y1; i<=y2; i++){
 			for (int j=x1; j<x2; j++){
-				if (mapArray[i][j].walkable)
+				if (mapArray[i][j].tile.tile[1][1]==1)
 					System.out.print('W');
 				else
 					System.out.print('.');
