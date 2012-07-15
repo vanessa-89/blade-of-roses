@@ -1,5 +1,6 @@
 package com.fetch.bor.gui;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -33,44 +34,44 @@ public class BORGUI {
 	
 	public static void main(String[] args) {
 		// Musicz
-		int totalFramesRead = 0;
-		File fileIn = new File("Song013.mid");
-		try {
-		  AudioInputStream audioInputStream = 
-		    AudioSystem.getAudioInputStream(fileIn);
-		  int bytesPerFrame = 
-		    audioInputStream.getFormat().getFrameSize();
-		    if (bytesPerFrame == AudioSystem.NOT_SPECIFIED) {
-		    // some audio formats may have unspecified frame size
-		    // in that case we may read any amount of bytes
-		    bytesPerFrame = 1;
-		  } 
-		  // Set an arbitrary buffer size of 1024 frames.
-		  int numBytes = 1024 * bytesPerFrame; 
-		  byte[] audioBytes = new byte[numBytes];
-		  try {
-		    int numBytesRead = 0;
-		    int numFramesRead = 0;
-		    // Try to read numBytes bytes from the file.
-		    while ((numBytesRead = 
-		      audioInputStream.read(audioBytes)) != -1) {
-		      // Calculate the number of frames actually read.
-		      numFramesRead = numBytesRead / bytesPerFrame;
-		      totalFramesRead += numFramesRead;
-		      // Here, do something useful with the audio data that's 
-		      // now in the audioBytes array...
-		      
-		    }
-		    Clip clip = AudioSystem.getClip();
-		    clip.loop(2);
-		    clip.open(audioInputStream.getFormat(), audioBytes, 0, totalFramesRead);
-		    clip.start();
-		  } catch (Exception ex) { 
-		    ex.printStackTrace();
-		  }
-		} catch (Exception e) {
-		  e.printStackTrace();
-		}
+//		int totalFramesRead = 0;
+//		File fileIn = new File("Song013.mid");
+//		try {
+//		  AudioInputStream audioInputStream = 
+//		    AudioSystem.getAudioInputStream(fileIn);
+//		  int bytesPerFrame = 
+//		    audioInputStream.getFormat().getFrameSize();
+//		    if (bytesPerFrame == AudioSystem.NOT_SPECIFIED) {
+//		    // some audio formats may have unspecified frame size
+//		    // in that case we may read any amount of bytes
+//		    bytesPerFrame = 1;
+//		  } 
+//		  // Set an arbitrary buffer size of 1024 frames.
+//		  int numBytes = 1024 * bytesPerFrame; 
+//		  byte[] audioBytes = new byte[numBytes];
+//		  try {
+//		    int numBytesRead = 0;
+//		    int numFramesRead = 0;
+//		    // Try to read numBytes bytes from the file.
+//		    while ((numBytesRead = 
+//		      audioInputStream.read(audioBytes)) != -1) {
+//		      // Calculate the number of frames actually read.
+//		      numFramesRead = numBytesRead / bytesPerFrame;
+//		      totalFramesRead += numFramesRead;
+//		      // Here, do something useful with the audio data that's 
+//		      // now in the audioBytes array...
+//		      
+//		    }
+//		    Clip clip = AudioSystem.getClip();
+//		    clip.loop(2);
+//		    clip.open(audioInputStream.getFormat(), audioBytes, 0, totalFramesRead);
+//		    clip.start();
+//		  } catch (Exception ex) { 
+//		    ex.printStackTrace();
+//		  }
+//		} catch (Exception e) {
+//		  e.printStackTrace();
+//		}
 
 		
 		
@@ -88,19 +89,20 @@ public class BORGUI {
 		JFrame window = new JFrame("Blade of Roses");
 		window.setIconImage(icon);
 		
-		ProceduralGeneration PG = new ProceduralGeneration(30,20);
-		PG.Generate();
+//		ProceduralGeneration PG = new ProceduralGeneration(30,20);
+//		PG.Generate();
 		
-//		TestArea ta = new TestArea(14);
+		TestArea ta = new TestArea(14);
 //		int size = 14 * 64;
 		
 		MapCanvas mapCanvas = new MapCanvas();
 		mapCanvas.setPreferredSize(new Dimension(800, 600));
 		mapCanvas.setLocation(200,200);
 		mapCanvas.loadTileset("TestTileSet.png");
-//		mapCanvas.loadMap(ta.getTiles());
-		mapCanvas.loadMap(PG.convertOut());
+		mapCanvas.loadMap(ta.getTiles());
+//		mapCanvas.loadMap(PG.convertOut());
 		mapCanvas.addCharacter(pc);
+		mapCanvas.setBackground(Color.BLACK);
 		
 		/**************************** TEST **************************************/
 		final BufferedImage impImage;
