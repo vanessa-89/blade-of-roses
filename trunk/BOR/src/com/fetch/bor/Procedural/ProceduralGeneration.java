@@ -18,7 +18,7 @@ public class ProceduralGeneration {
 	int xTemp, yTemp;
 	int direction;
 	int realCornerX, realCornerY;
-	
+	int boundsX1, boundsX2, boundsY1, boundsY2;
 	
 	ProceduralHallway[] hArchive;
 	int hCounter;
@@ -38,6 +38,10 @@ public class ProceduralGeneration {
 		yDraw = 0;
 		hCounter = 0;
 		rCounter = 0;
+		boundsX1 = xSize-1;
+		boundsX2 = 0;
+		boundsY1 = ySize-1;
+		boundsY2 = 0;
 		genMap = new ProceduralDataType[xSize][ySize];
 		for (int i = 0; i < xSize; i ++) {
 			for (int j = 0; j < ySize; j ++) {
@@ -123,11 +127,24 @@ public class ProceduralGeneration {
 			}
 			else {
 				//set things off a hallway
-				hArchive[nextSrcInt].pickStart();
-				direction = hArchive[nextSrcInt].getDirection();
-				xTemp = (hArchive[nextSrcInt].absoluteStart[0]) + hArchive[nextSrcInt].getX();
-				yTemp = (hArchive[nextSrcInt].absoluteStart[1]) + hArchive[nextSrcInt].getY();
-				System.out.print("temps of hall: " + xTemp + " , " +yTemp + '\n');
+				boolean inRoom = true;
+				while (inRoom){
+					hArchive[nextSrcInt].pickStart();
+					xTemp = (hArchive[nextSrcInt].absoluteStart[0]) + hArchive[nextSrcInt].getX();
+					yTemp = (hArchive[nextSrcInt].absoluteStart[1]) + hArchive[nextSrcInt].getY();
+					if (!genMap[xTemp][yTemp].typeIndex.contains('r')){
+						inRoom = false;
+					}
+				}
+				System.out.print("temps of hall: " + xTemp + " , " +yTemp + " , " + genMap[xTemp][yTemp].tile.getFloor() + '\n');
+//				System.out.print("dir of Hall: "+ genMap[xTemp][yTemp].tile.dirIndex.peek());
+				if (genMap[xTemp][yTemp].tile.dirIndex.isEmpty()){
+					System.out.print("Empty" + '\n');
+				}
+//				direction = genMap[xTemp][yTemp].tile.dirIndex.size();
+//				direction = rand.nextInt(direction);
+//				direction = genMap[xTemp][yTemp].tile.dirIndex.get(direction);
+				
 				switch(direction){
 					case 0: //Heading North
 						genMap[xTemp][yTemp].tile.setNWall(2);
@@ -203,52 +220,55 @@ public class ProceduralGeneration {
 		System.out.print("real of Room: " + realCornerX + " , " +realCornerY + '\n');
 		rArchive[rCounter].pushX(realCornerX);
 		rArchive[rCounter].pushY(realCornerY);
-		for (int i=realCornerX ; i<realCornerX+xObject; i++){
-			for (int j=realCornerY ; j<realCornerY+yObject; j++){
-				genMap[i][j].tile.setFloor(1);
-				genMap[i][j].tile.setEWall(0);
-				genMap[i][j].tile.setWWall(0);
-				genMap[i][j].tile.setNWall(0);
-				genMap[i][j].tile.setSWall(0);
-				genMap[i][j].tile.setNWCorner(0);
-				genMap[i][j].tile.setNECorner(0);
-				genMap[i][j].tile.setSECorner(0);
-				genMap[i][j].tile.setSWCorner(0);
-				genMap[i][j].tile.dirIndex.clear();
-				if (j==realCornerY){
-					genMap[i][j].tile.dirIndex.push(0);
-					genMap[i][j].tile.setNWallSafe(1);
-				}
-				else
-					genMap[i][j].tile.setNWall(0);
-				
-				if (j==realCornerY+yObject){
-					genMap[i][j].tile.dirIndex.push(2);
-					genMap[i][j].tile.setSWallSafe(1);
-				}
-				else
-					genMap[i][j].tile.setSWall(0);
-				
-				if (i==realCornerX) {
-					genMap[i][j].tile.dirIndex.push(3);
-					genMap[i][j].tile.setWWallSafe(1);
-				}
-				else
-					genMap[i][j].tile.setWWall(0);
-				
-				if (i==realCornerX+xObject) {
-					genMap[i][j].tile.dirIndex.push(1);
-					genMap[i][j].tile.setEWallSafe(1);
-				}
-				else
+		for (int i=realCornerX ; i<=realCornerX+xObject; i++){
+			for (int j=realCornerY ; j<=realCornerY+yObject; j++){
+				if (genMap[i][j].typeIndex.contains('r')){
+					genMap[i][j].tile.setFloor(1);
 					genMap[i][j].tile.setEWall(0);
+					genMap[i][j].tile.setWWall(0);
+					genMap[i][j].tile.setNWall(0);
+					genMap[i][j].tile.setSWall(0);
+					genMap[i][j].tile.setNWCorner(0);
+					genMap[i][j].tile.setNECorner(0);
+					genMap[i][j].tile.setSECorner(0);
+					genMap[i][j].tile.setSWCorner(0);
+					genMap[i][j].tile.dirIndex.clear();
+					if (j==realCornerY){
+						genMap[i][j].tile.dirIndex.push(0);
+						genMap[i][j].tile.setNWallSafe(1);
+					}
+					else
+						genMap[i][j].tile.setNWall(0);
 					
-				genMap[i][j].typeIndex.push('r');
-				genMap[i][j].intIndex.push(rCounter);
+					if (j==realCornerY+yObject){
+						genMap[i][j].tile.dirIndex.push(2);
+						genMap[i][j].tile.setSWallSafe(1);
+					}
+					else
+						genMap[i][j].tile.setSWall(0);
+					
+					if (i==realCornerX) {
+						genMap[i][j].tile.dirIndex.push(3);
+						genMap[i][j].tile.setWWallSafe(1);
+					}
+					else
+						genMap[i][j].tile.setWWall(0);
+					
+					if (i==realCornerX+xObject) {
+						genMap[i][j].tile.dirIndex.push(1);
+						genMap[i][j].tile.setEWallSafe(1);
+					}
+					else
+						genMap[i][j].tile.setEWall(0);
+				}
+					genMap[i][j].typeIndex.push('r');
+					genMap[i][j].intIndex.push(rCounter);
+
 			}
 		}
 		rCounter++;
 		System.out.print("rCounter: " + rCounter + '\n');
+		printMap();
 	}
 	
 	public void generateHallway ( int startX, int startY) {
@@ -264,87 +284,140 @@ public class ProceduralGeneration {
 		for (int i = 0; i < xObject ; i++){
 			xTemp = startX + hArchive[hCounter].xydTrack[0][i];
 			yTemp = startY + hArchive[hCounter].xydTrack[1][i];
-			genMap[xTemp][yTemp].tile.setFloor(1);
-			genMap[xTemp][yTemp].tile.setEWall(0);
-			genMap[xTemp][yTemp].tile.setWWall(0);
-			genMap[xTemp][yTemp].tile.setNWall(0);
-			genMap[xTemp][yTemp].tile.setSWall(0);
-			genMap[xTemp][yTemp].tile.setNWCorner(0);
-			genMap[xTemp][yTemp].tile.setNECorner(0);
-			genMap[xTemp][yTemp].tile.setSECorner(0);
-			genMap[xTemp][yTemp].tile.setSWCorner(0);
-			genMap[xTemp][yTemp].tile.dirIndex.clear();
-			genMap[xTemp][yTemp].typeIndex.push('h');
-			genMap[xTemp][yTemp].intIndex.push(hCounter);
-			direction = hArchive[hCounter].xydTrack[2][i];
-			switch(direction){
-				case 0: //Heading North
-					genMap[xTemp][yTemp].tile.setNWall(1);
-					genMap[xTemp][yTemp].tile.setEWall(1);
-					genMap[xTemp][yTemp].tile.setWWall(1);
-					genMap[xTemp][yTemp].tile.setSWCorner(1);
-					genMap[xTemp][yTemp].tile.setSECorner(1);
-					genMap[xTemp][yTemp].tile.dirIndex.push(0);
-					genMap[xTemp][yTemp].tile.dirIndex.push(3);
-					genMap[xTemp][yTemp].tile.dirIndex.push(1);
-					yTemp += 1;
-					genMap[xTemp][yTemp].tile.setNWall(0);
-					genMap[xTemp][yTemp].tile.dirIndex.removeElement(0);
-					break;
-				case 1: //Heading East
-					genMap[xTemp][yTemp].tile.setEWall(1);
-					genMap[xTemp][yTemp].tile.setNWall(1);
-					genMap[xTemp][yTemp].tile.setSWall(1);
-					genMap[xTemp][yTemp].tile.setSWCorner(1);
-					genMap[xTemp][yTemp].tile.setNWCorner(1);
-					genMap[xTemp][yTemp].tile.dirIndex.push(0);
-					genMap[xTemp][yTemp].tile.dirIndex.push(2);
-					genMap[xTemp][yTemp].tile.dirIndex.push(1);
-					xTemp -= 1;
-					genMap[xTemp][yTemp].tile.setEWall(0);
-					genMap[xTemp][yTemp].tile.dirIndex.removeElement(0);
-					break;
-				case 2: //Heading South
-					genMap[xTemp][yTemp].tile.setSWall(1);
-					genMap[xTemp][yTemp].tile.setEWall(1);
-					genMap[xTemp][yTemp].tile.setWWall(1);
-					genMap[xTemp][yTemp].tile.setNECorner(1);
-					genMap[xTemp][yTemp].tile.setNWCorner(1);
-					genMap[xTemp][yTemp].tile.dirIndex.push(3);
-					genMap[xTemp][yTemp].tile.dirIndex.push(2);
-					genMap[xTemp][yTemp].tile.dirIndex.push(1);
-					yTemp += 1;	
-					genMap[xTemp][yTemp].tile.setNWall(0);
-					genMap[xTemp][yTemp].tile.dirIndex.removeElement(2);
-					break;
-				case 3: //Heading West
-					genMap[xTemp][yTemp].tile.setWWall(1);
-					genMap[xTemp][yTemp].tile.setNWall(1);
-					genMap[xTemp][yTemp].tile.setSWall(1);
-					genMap[xTemp][yTemp].tile.setNECorner(1);
-					genMap[xTemp][yTemp].tile.setSECorner(1);
-					genMap[xTemp][yTemp].tile.dirIndex.push(3);
-					genMap[xTemp][yTemp].tile.dirIndex.push(0);
-					genMap[xTemp][yTemp].tile.dirIndex.push(1);
-					xTemp -= 1;
-					genMap[xTemp][yTemp].tile.setEWall(0);
-					genMap[xTemp][yTemp].tile.dirIndex.removeElement(3);
-					break;
+			if (genMap[xTemp][yTemp].typeIndex.contains('r')){
+				genMap[xTemp][yTemp].tile.setFloor(1);
+				genMap[xTemp][yTemp].tile.setEWall(0);
+				genMap[xTemp][yTemp].tile.setWWall(0);
+				genMap[xTemp][yTemp].tile.setNWall(0);
+				genMap[xTemp][yTemp].tile.setSWall(0);
+				genMap[xTemp][yTemp].tile.setNWCorner(0);
+				genMap[xTemp][yTemp].tile.setNECorner(0);
+				genMap[xTemp][yTemp].tile.setSECorner(0);
+				genMap[xTemp][yTemp].tile.setSWCorner(0);
+				genMap[xTemp][yTemp].tile.dirIndex.clear();
+				genMap[xTemp][yTemp].typeIndex.push('h');
+				genMap[xTemp][yTemp].intIndex.push(hCounter);
+				direction = hArchive[hCounter].xydTrack[2][i];
+				switch(direction){
+					case 0: //Heading North
+						genMap[xTemp][yTemp].tile.setNWall(1);
+						genMap[xTemp][yTemp].tile.setEWall(1);
+						genMap[xTemp][yTemp].tile.setWWall(1);
+						genMap[xTemp][yTemp].tile.setSWCorner(1);
+						genMap[xTemp][yTemp].tile.setSECorner(1);
+						genMap[xTemp][yTemp].tile.dirIndex.push(0);
+						genMap[xTemp][yTemp].tile.dirIndex.push(3);
+						genMap[xTemp][yTemp].tile.dirIndex.push(1);
+						yTemp += 1;
+						genMap[xTemp][yTemp].tile.dirIndex.removeElement(0);
+						genMap[xTemp][yTemp].tile.setNWallSafe(0);
+						break;
+					case 1: //Heading East
+						genMap[xTemp][yTemp].tile.setEWall(1);
+						genMap[xTemp][yTemp].tile.setNWall(1);
+						genMap[xTemp][yTemp].tile.setSWall(1);
+						genMap[xTemp][yTemp].tile.setSWCorner(1);
+						genMap[xTemp][yTemp].tile.setNWCorner(1);
+						genMap[xTemp][yTemp].tile.dirIndex.push(0);
+						genMap[xTemp][yTemp].tile.dirIndex.push(2);
+						genMap[xTemp][yTemp].tile.dirIndex.push(1);
+						xTemp -= 1;
+						genMap[xTemp][yTemp].tile.dirIndex.removeElement(1);
+						genMap[xTemp][yTemp].tile.setEWallSafe(0);
+						break;
+					case 2: //Heading South
+						genMap[xTemp][yTemp].tile.setSWall(1);
+						genMap[xTemp][yTemp].tile.setEWall(1);
+						genMap[xTemp][yTemp].tile.setWWall(1);
+						genMap[xTemp][yTemp].tile.setNECorner(1);
+						genMap[xTemp][yTemp].tile.setNWCorner(1);
+						genMap[xTemp][yTemp].tile.dirIndex.push(3);
+						genMap[xTemp][yTemp].tile.dirIndex.push(2);
+						genMap[xTemp][yTemp].tile.dirIndex.push(1);
+						yTemp -= 1;	
+						genMap[xTemp][yTemp].tile.dirIndex.removeElement(2);
+						genMap[xTemp][yTemp].tile.setNWallSafe(0);
+						break;
+					case 3: //Heading West
+						genMap[xTemp][yTemp].tile.setWWall(1);
+						genMap[xTemp][yTemp].tile.setNWall(1);
+						genMap[xTemp][yTemp].tile.setSWall(1);
+						genMap[xTemp][yTemp].tile.setNECorner(1);
+						genMap[xTemp][yTemp].tile.setSECorner(1);
+						genMap[xTemp][yTemp].tile.dirIndex.push(3);
+						genMap[xTemp][yTemp].tile.dirIndex.push(0);
+						genMap[xTemp][yTemp].tile.dirIndex.push(1);
+						xTemp += 1;
+						genMap[xTemp][yTemp].tile.dirIndex.removeElement(3);
+						genMap[xTemp][yTemp].tile.setEWallSafe(0);
+						break;
+				}
+			}//end of if (genMap[xTemp][yTemp].typeIndex.contains('r'))
+			else {
+				if (genMap[xTemp][yTemp].tile.getWWall()==1){
+					genMap[xTemp][yTemp].tile.setWWall(2);
+					genMap[xTemp-1][yTemp].tile.setEWall(2);
+				}
+				else if (genMap[xTemp][yTemp].tile.getSWall()==1){
+					genMap[xTemp][yTemp].tile.setSWall(2);
+					genMap[xTemp-1][yTemp].tile.setNWall(2);
+				}
+				else if (genMap[xTemp][yTemp].tile.getEWall()==1){
+					genMap[xTemp][yTemp].tile.setEWall(2);
+					genMap[xTemp-1][yTemp].tile.setEWall(2);
+				}
+				else if (genMap[xTemp][yTemp].tile.getNWall()==1){
+					genMap[xTemp][yTemp].tile.setNWall(2);
+					genMap[xTemp-1][yTemp].tile.setSWall(2);
+				}
 			}
-			
 		}
 		hCounter++;
 		System.out.print("hCounter: " + hCounter + '\n');
+		printMap();
 	}
 	
 	public Tile[][] convertOut(){
-		Tile[][] tileOut= new Tile[xSize][ySize];
-		for (int i = 0; i<xSize; i++){
-			for (int j = 0; j<ySize; j++){
-				tileOut[i][j] = genMap[i][j].tile;
+		findBounds();
+		Tile[][] tileOut= new Tile[boundsX2-boundsX1][boundsY2-boundsY1];
+		for (int i = 0; i<boundsX2-boundsX1; i++){
+			for (int j = 0; j<boundsY2-boundsY1; j++){
+				tileOut[i][j] = genMap[boundsX1+i][boundsY1+j].tile;
 			}
 		}
 		return tileOut;
 	}
+	
+	public void findBounds(){
+		for (int j = 0; j < ySize; j++){
+			for (int i = 0; i<xSize; i++){
+				if (genMap[i][j].tile.getFloor()==1){
+					if (i<boundsX1){
+						boundsX1 = i;
+					}
+					if (i>boundsX2){
+						boundsX2 = i;
+					}
+					if (j<boundsY1){
+						boundsY1 = j;
+					}
+					if (j>boundsY2){
+						boundsY2 = j;
+					}
+				}
+			}
+		}
+	}
 
+	public void printMap(){
+		findBounds();
+		System.out.print("Bounds: " + boundsX1 + " , " + boundsX2 + " , " + boundsY1 + " , " + boundsY2 + '\n');
+		for (int i = boundsY1; i<boundsY2; i++){
+			for (int j = boundsX1; j<boundsX2; j++){
+				System.out.print( genMap[j][i].tile.getFloor() + " ");
+			}
+			System.out.print( '\n' );
+		}
+	}
+	
 }
