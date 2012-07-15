@@ -222,7 +222,7 @@ public class ProceduralGeneration {
 		rArchive[rCounter].pushY(realCornerY);
 		for (int i=realCornerX ; i<=realCornerX+xObject; i++){
 			for (int j=realCornerY ; j<=realCornerY+yObject; j++){
-				if (genMap[i][j].typeIndex.contains('r')){
+				if (!genMap[i][j].typeIndex.contains('r')){
 					genMap[i][j].tile.setFloor(1);
 					genMap[i][j].tile.setEWall(0);
 					genMap[i][j].tile.setWWall(0);
@@ -268,7 +268,7 @@ public class ProceduralGeneration {
 		}
 		rCounter++;
 		System.out.print("rCounter: " + rCounter + '\n');
-		printMap();
+	//	printMap();
 	}
 	
 	public void generateHallway ( int startX, int startY) {
@@ -284,7 +284,7 @@ public class ProceduralGeneration {
 		for (int i = 0; i < xObject ; i++){
 			xTemp = startX + hArchive[hCounter].xydTrack[0][i];
 			yTemp = startY + hArchive[hCounter].xydTrack[1][i];
-			if (genMap[xTemp][yTemp].typeIndex.contains('r')){
+			if (!genMap[xTemp][yTemp].typeIndex.contains('r')){
 				genMap[xTemp][yTemp].tile.setFloor(1);
 				genMap[xTemp][yTemp].tile.setEWall(0);
 				genMap[xTemp][yTemp].tile.setWWall(0);
@@ -374,15 +374,22 @@ public class ProceduralGeneration {
 		}
 		hCounter++;
 		System.out.print("hCounter: " + hCounter + '\n');
-		printMap();
+	//	printMap();
 	}
 	
 	public Tile[][] convertOut(){
-		findBounds();
-		Tile[][] tileOut= new Tile[boundsX2-boundsX1][boundsY2-boundsY1];
-		for (int i = 0; i<boundsX2-boundsX1; i++){
-			for (int j = 0; j<boundsY2-boundsY1; j++){
-				tileOut[i][j] = genMap[boundsX1+i][boundsY1+j].tile;
+//		findBounds();
+//		Tile[][] tileOut= new Tile[boundsX2-boundsX1][boundsY2-boundsY1];
+//		for (int i = 0; i<boundsX2-boundsX1; i++){
+//			for (int j = 0; j<boundsY2-boundsY1; j++){
+//				tileOut[i][j] = genMap[boundsX1+i][boundsY1+j].tile;
+//			}
+//		}
+		printMap();
+		Tile[][] tileOut= new Tile[xSize][ySize];
+		for (int i = 0; i<xSize; i++){
+			for (int j = 0; j<ySize; j++){
+				tileOut[i][j] = genMap[i][j].tile;
 			}
 		}
 		return tileOut;
@@ -410,10 +417,10 @@ public class ProceduralGeneration {
 	}
 
 	public void printMap(){
-		findBounds();
+//		findBounds();
 		System.out.print("Bounds: " + boundsX1 + " , " + boundsX2 + " , " + boundsY1 + " , " + boundsY2 + '\n');
-		for (int i = boundsY1; i<boundsY2; i++){
-			for (int j = boundsX1; j<boundsX2; j++){
+		for (int i = boundsY2; i<boundsY1; i++){
+			for (int j = boundsX2; j<boundsX1; j++){
 				System.out.print( genMap[j][i].tile.getFloor() + " ");
 			}
 			System.out.print( '\n' );
