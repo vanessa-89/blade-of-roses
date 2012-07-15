@@ -26,7 +26,7 @@ public class ProceduralHallway{
 		int previous;
 		for (int i=1; i<MAXLENGTH; i++) {
 			previous = direction;
-			int length = rand.nextInt(7)+rand.nextInt(7)+rand.nextInt(7)+1;
+			int length = rand.nextInt(6+1);
 			for (int j=0; j<length; j++){
 				switch (direction) {
 				case 0: //up

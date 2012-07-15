@@ -2,7 +2,7 @@ package com.fetch.bor.Procedural;
 
 import java.util.Random;
 
-//import com.fetch.bor.bor.Tile;
+import com.fetch.bor.bor.Tile;
 
 public class ProceduralGeneration {
 
@@ -30,6 +30,8 @@ public class ProceduralGeneration {
 	
 	
 	public ProceduralGeneration ( int x, int y ) {
+		rArchive =  new ProceduralRoom[20];
+		hArchive =  new ProceduralHallway[20];
 		xSize = x;
 		ySize = y;
 		xDraw = 0;
@@ -63,7 +65,9 @@ public class ProceduralGeneration {
 			else
 				nextGenChar = 'r';
 			
+	
 			//determine which to build from
+			repeat = true;
 			while (repeat == true){
 				nextSrcInt = rand.nextInt(rCounter+hCounter);
 				if (nextSrcInt < rCounter){
@@ -121,8 +125,9 @@ public class ProceduralGeneration {
 				//set things off a hallway
 				hArchive[nextSrcInt].pickStart();
 				direction = hArchive[nextSrcInt].getDirection();
-				xTemp = hArchive[nextSrcInt].getX();
-				yTemp = hArchive[nextSrcInt].getY();
+				xTemp = (hArchive[nextSrcInt].absoluteStart[0]) + hArchive[nextSrcInt].getX();
+				yTemp = (hArchive[nextSrcInt].absoluteStart[1]) + hArchive[nextSrcInt].getY();
+				System.out.print("temps of hall: " + xTemp + " , " +yTemp + '\n');
 				switch(direction){
 					case 0: //Heading North
 						genMap[xTemp][yTemp].tile.setNWall(2);
@@ -171,7 +176,7 @@ public class ProceduralGeneration {
 			}
 		}
 */		
-	}//end of Generate
+	}//end of Generate	
 	
 	public void generateRoom ( int startX, int startY ){
 		rArchive[rCounter] = new ProceduralRoom();
@@ -195,6 +200,7 @@ public class ProceduralGeneration {
 			realCornerY = startY-rand.nextInt(yObject);
 			break;
 		}
+		System.out.print("real of Room: " + realCornerX + " , " +realCornerY + '\n');
 		rArchive[rCounter].pushX(realCornerX);
 		rArchive[rCounter].pushY(realCornerY);
 		for (int i=realCornerX ; i<realCornerX+xObject; i++){
@@ -211,28 +217,28 @@ public class ProceduralGeneration {
 				genMap[i][j].tile.dirIndex.clear();
 				if (j==realCornerY){
 					genMap[i][j].tile.dirIndex.push(0);
-					genMap[i][j].tile.setNWallSafe(0);
+					genMap[i][j].tile.setNWallSafe(1);
 				}
 				else
 					genMap[i][j].tile.setNWall(0);
 				
 				if (j==realCornerY+yObject){
 					genMap[i][j].tile.dirIndex.push(2);
-					genMap[i][j].tile.setSWallSafe(0);
+					genMap[i][j].tile.setSWallSafe(1);
 				}
 				else
 					genMap[i][j].tile.setSWall(0);
 				
 				if (i==realCornerX) {
 					genMap[i][j].tile.dirIndex.push(3);
-					genMap[i][j].tile.setWWallSafe(0);
+					genMap[i][j].tile.setWWallSafe(1);
 				}
 				else
 					genMap[i][j].tile.setWWall(0);
 				
 				if (i==realCornerX+xObject) {
 					genMap[i][j].tile.dirIndex.push(1);
-					genMap[i][j].tile.setEWallSafe(0);
+					genMap[i][j].tile.setEWallSafe(1);
 				}
 				else
 					genMap[i][j].tile.setEWall(0);
@@ -242,12 +248,17 @@ public class ProceduralGeneration {
 			}
 		}
 		rCounter++;
+		System.out.print("rCounter: " + rCounter + '\n');
 	}
+	
 	public void generateHallway ( int startX, int startY) {
 		hArchive[hCounter] = new ProceduralHallway(direction);
 		xObject = hArchive[hCounter].getLength();
 		realCornerX = startX;
 		realCornerY = startY;
+		hArchive[hCounter].absoluteStart[0]=startX;
+		hArchive[hCounter].absoluteStart[1]=startY;
+		System.out.print("real of Hall: " + realCornerX + " , " +realCornerY + '\n');
 		xTemp = startX;
 		yTemp = startY;
 		for (int i = 0; i < xObject ; i++){
@@ -265,6 +276,7 @@ public class ProceduralGeneration {
 			genMap[xTemp][yTemp].tile.dirIndex.clear();
 			genMap[xTemp][yTemp].typeIndex.push('h');
 			genMap[xTemp][yTemp].intIndex.push(hCounter);
+			direction = hArchive[hCounter].xydTrack[2][i];
 			switch(direction){
 				case 0: //Heading North
 					genMap[xTemp][yTemp].tile.setNWall(1);
@@ -302,7 +314,7 @@ public class ProceduralGeneration {
 					genMap[xTemp][yTemp].tile.dirIndex.push(2);
 					genMap[xTemp][yTemp].tile.dirIndex.push(1);
 					yTemp += 1;	
-					genMap[xTemp][yTemp].tile.setNWall(2);
+					genMap[xTemp][yTemp].tile.setNWall(0);
 					genMap[xTemp][yTemp].tile.dirIndex.removeElement(2);
 					break;
 				case 3: //Heading West
@@ -315,12 +327,24 @@ public class ProceduralGeneration {
 					genMap[xTemp][yTemp].tile.dirIndex.push(0);
 					genMap[xTemp][yTemp].tile.dirIndex.push(1);
 					xTemp -= 1;
-					genMap[xTemp][yTemp].tile.setEWall(2);
+					genMap[xTemp][yTemp].tile.setEWall(0);
 					genMap[xTemp][yTemp].tile.dirIndex.removeElement(3);
 					break;
 			}
 			
 		}
 		hCounter++;
+		System.out.print("hCounter: " + hCounter + '\n');
 	}
+	
+	public Tile[][] convertOut(){
+		Tile[][] tileOut= new Tile[xSize][ySize];
+		for (int i = 0; i<xSize; i++){
+			for (int j = 0; j<ySize; j++){
+				tileOut[i][j] = genMap[i][j].tile;
+			}
+		}
+		return tileOut;
+	}
+
 }

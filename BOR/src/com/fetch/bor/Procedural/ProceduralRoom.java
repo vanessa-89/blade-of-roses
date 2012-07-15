@@ -13,8 +13,8 @@ public class ProceduralRoom{
 	
 	public ProceduralRoom(){
 		connections=0;
-		width = (rand.nextInt(5)+rand.nextInt(5)+rand.nextInt(5)+rand.nextInt(5)+rand.nextInt(5));
-		height = (rand.nextInt(5)+rand.nextInt(5)+rand.nextInt(5)+rand.nextInt(5)+rand.nextInt(5));
+		width = (rand.nextInt(5)+1);
+		height = (rand.nextInt(5)+1);
 	}
 	public int getWidth(){
 		return width;
