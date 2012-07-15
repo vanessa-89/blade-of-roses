@@ -113,22 +113,30 @@ public class MapCanvas extends Canvas {
 	private BufferedImage render(BufferedImage background) {
 		BufferedImage buf = new BufferedImage(map.length * TILE_SIZE, map.length * TILE_SIZE, BufferedImage.TYPE_INT_ARGB);
 		Graphics g = buf.getGraphics();
-//		g.drawImage(background, 0, 0, map.length * TILE_SIZE, map.length * TILE_SIZE,
-//				0, 0, map.length * TILE_SIZE, map.length * TILE_SIZE, this);
 		
 		int locx1 = pc.getX() * TILE_SIZE;
 		int locx2 = locx1 + TILE_SIZE;
 		int locy1 = pc.getY() * TILE_SIZE;
 		int locy2 = locy1 + TILE_SIZE;
-		g.drawImage(background, 160, 0, 800, 576,
+		
+		g.drawImage(drawElements(background), 160, 0, 800, 576,
 				locx1 - 5*64, locy1 - 4*64, locx2 + 4*64, locy2 + 4*64, this);
+		
 		g.drawImage(pc.getSprite(), 480, 256, 544, 320, 0, 0, 64, 64, this);
 		
+		g.drawImage(ui, 0, 0, 800, 600, 0, 0, 800, 600, this);
+		
+		return buf;
+	}
+	
+	private BufferedImage drawElements(BufferedImage background) {
+		BufferedImage buf = new BufferedImage(map.length * TILE_SIZE, map.length * TILE_SIZE, BufferedImage.TYPE_INT_ARGB);
+		Graphics g = buf.getGraphics();
+		g.drawImage(background, 0, 0, map.length * TILE_SIZE, map.length * TILE_SIZE,
+				0, 0, map.length * TILE_SIZE, map.length * TILE_SIZE, this);
 		for (Character c : elements) {
 			g.drawImage(c.getSprite(), c.getX() * TILE_SIZE, c.getY() * TILE_SIZE, c.getX() * TILE_SIZE + 64, c.getY() * TILE_SIZE + 64, 0, 0, 64, 64, this);
 		}
-		
-		g.drawImage(ui, 0, 0, 800, 600, 0, 0, 800, 600, this);
 		
 		return buf;
 	}
