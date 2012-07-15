@@ -103,7 +103,7 @@ public class BORGUI {
 			File file = new File("Imp001.png");
 			impImage = ImageIO.read(file);
 			Random r = new Random();
-			MonsterCharacter imp = new MonsterCharacter(r.nextInt(14), r.nextInt(14), impImage);
+			MonsterCharacter imp = new MonsterCharacter(r.nextInt(12) + 1, r.nextInt(12) + 1, impImage);
 			mapCanvas.addElement(imp);
 		} catch (IOException ioe) {
 			System.out.println("BOR could not load the image.");
