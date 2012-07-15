@@ -126,6 +126,8 @@ public class MapCanvas extends Canvas {
 			g.drawImage(c.getSprite(), c.getX() * TILE_SIZE, c.getY() * TILE_SIZE, c.getX() * TILE_SIZE + 64, c.getY() * TILE_SIZE + 64, 0, 0, 64, 64, this);
 		}
 		
+		g.drawImage(ui, 0, 0, 800, 600, 0, 0, 800, 600, this);
+		
 		return buf;
 	}
 
@@ -234,7 +236,7 @@ public class MapCanvas extends Canvas {
 				}
 			}
 		}
-		g.drawImage(ui, 0, 0, 800, 600, 0, 0, 800, 600, this);
+		
 		newMap = false;
 	}
 
@@ -247,17 +249,37 @@ public class MapCanvas extends Canvas {
 			int sy1 = pc.getY() * TILE_SIZE;
 			int sy2 = sy1 + TILE_SIZE;
 			if (arg0.getKeyCode() == KeyEvent.VK_UP) {
-				pc.moveNorth();
-				repaint(sx1, sy1-TILE_SIZE, sx2, sy2);
+				if (!map[pc.getX()][pc.getY()].dirIndex.contains(0)) {
+					pc.moveNorth();
+				}
+				if (!map[elements.get(0).getX()][elements.get(0).getY()].dirIndex.contains(3)) {
+					elements.get(0).moveWest();
+				}
+				repaint();
 			} else if (arg0.getKeyCode() == KeyEvent.VK_LEFT) {
-				pc.moveWest();
-				repaint(sx1-TILE_SIZE, sy1, sx2, sy2);
+				if (!map[pc.getX()][pc.getY()].dirIndex.contains(3)) {
+					pc.moveWest();
+				}
+				if (!map[elements.get(0).getX()][elements.get(0).getY()].dirIndex.contains(2)) {
+					elements.get(0).moveSouth();
+				}
+				repaint();
 			} else if (arg0.getKeyCode() == KeyEvent.VK_RIGHT) {
-				pc.moveEast();
-				repaint(sx1, sy1, sx2+TILE_SIZE, sy2);
+				if (!map[pc.getX()][pc.getY()].dirIndex.contains(1)) {
+					pc.moveEast();
+				}
+				if (!map[elements.get(0).getX()][elements.get(0).getY()].dirIndex.contains(0)) {
+					elements.get(0).moveNorth();
+				}
+				repaint();
 			} else if (arg0.getKeyCode() == KeyEvent.VK_DOWN) {
-				pc.moveSouth();
-				repaint(sx1, sy1, sx2, sy2+TILE_SIZE);
+				if (!map[pc.getX()][pc.getY()].dirIndex.contains(2)) {
+					pc.moveSouth();
+				}
+				if (!map[elements.get(0).getX()][elements.get(0).getY()].dirIndex.contains(1)) {
+					elements.get(0).moveEast();
+				}
+				repaint();
 			}
 		}
 

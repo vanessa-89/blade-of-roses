@@ -4,8 +4,14 @@ import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JFrame;
 
 import com.fetch.bor.bor.MonsterCharacter;
@@ -27,6 +33,49 @@ public class BORGUI {
 	
 	
 	public static void main(String[] args) {
+		// Musicz
+		int totalFramesRead = 0;
+		File fileIn = new File("Song013.mid");
+		try {
+		  AudioInputStream audioInputStream = 
+		    AudioSystem.getAudioInputStream(fileIn);
+		  int bytesPerFrame = 
+		    audioInputStream.getFormat().getFrameSize();
+		    if (bytesPerFrame == AudioSystem.NOT_SPECIFIED) {
+		    // some audio formats may have unspecified frame size
+		    // in that case we may read any amount of bytes
+		    bytesPerFrame = 1;
+		  } 
+		  // Set an arbitrary buffer size of 1024 frames.
+		  int numBytes = 1024 * bytesPerFrame; 
+		  byte[] audioBytes = new byte[numBytes];
+		  try {
+		    int numBytesRead = 0;
+		    int numFramesRead = 0;
+		    // Try to read numBytes bytes from the file.
+		    while ((numBytesRead = 
+		      audioInputStream.read(audioBytes)) != -1) {
+		      // Calculate the number of frames actually read.
+		      numFramesRead = numBytesRead / bytesPerFrame;
+		      totalFramesRead += numFramesRead;
+		      // Here, do something useful with the audio data that's 
+		      // now in the audioBytes array...
+		      
+		    }
+		    Clip clip = AudioSystem.getClip();
+		    clip.loop(2);
+		    clip.open(audioInputStream.getFormat(), audioBytes, 0, totalFramesRead);
+		    clip.start();
+		  } catch (Exception ex) { 
+		    ex.printStackTrace();
+		  }
+		} catch (Exception e) {
+		  e.printStackTrace();
+		}
+
+		
+		
+		// UI
 		try {
 			File iconFile = new File("ICON_ROSE.gif");
 			icon = ImageIO.read(iconFile);
@@ -55,7 +104,8 @@ public class BORGUI {
 		try {
 			File file = new File("Imp001.png");
 			impImage = ImageIO.read(file);
-			MonsterCharacter imp = new MonsterCharacter(8, 3, impImage);
+			Random r = new Random();
+			MonsterCharacter imp = new MonsterCharacter(r.nextInt(14), r.nextInt(14), impImage);
 			mapCanvas.addElement(imp);
 		} catch (IOException ioe) {
 			System.out.println("BOR could not load the image.");
