@@ -34,6 +34,9 @@ public class MapCanvas extends Canvas {
 
 	private boolean newMap = true;
 	private BufferedImage buffer;
+	private BufferedImage texts;
+	private int textLine = 1;
+//	private ArrayList<String> text = new ArrayList<String>();
 	
 	private ArrayList<Character> elements = new ArrayList<Character>();
 	
@@ -43,6 +46,8 @@ public class MapCanvas extends Canvas {
 	public MapCanvas() {
 		this.addKeyListener(dirKeyLis);
 //		needToRedrawMap = true;
+		
+		texts = new BufferedImage(120, 570, BufferedImage.TYPE_INT_ARGB);
 		
 		try {
 			File file = new File("BORUI.png");
@@ -125,6 +130,7 @@ public class MapCanvas extends Canvas {
 		g.drawImage(pc.getSprite(), 480, 256, 544, 320, 0, 0, 64, 64, this);
 		
 		g.drawImage(ui, 0, 0, 800, 600, 0, 0, 800, 600, this);
+		g.drawImage(texts, 0, 30, 120, 600, 0, 0, 120, 570, this);
 		
 		return buf;
 	}
@@ -249,6 +255,21 @@ public class MapCanvas extends Canvas {
 		
 		newMap = false;
 	}
+	
+	public void sendMessage(String message) {
+		Graphics g = texts.getGraphics();
+		g.setColor(Color.BLACK);
+		g.setFont(Font.decode("Bella Donna-BOLD-20"));
+		g.drawString(message, 5, 20 * textLine);
+		textLine++;
+//		text.add(message);
+//		if (text.size() > 28) {
+//			text.remove(0);
+//		}
+//		for (int i = 0; i < text.size(); i++) {
+//			g.drawString(text.get(i), 5, 20 * (i + 1));
+//		}
+	}
 
 	private class DirectionKeyListener implements KeyListener {
 
@@ -257,6 +278,7 @@ public class MapCanvas extends Canvas {
 			if (arg0.getKeyCode() == KeyEvent.VK_UP) {
 				if (!map[pc.getX()][pc.getY()].dirIndex.contains(0)) {
 					pc.moveNorth();
+					sendMessage("Moved North");
 				}
 				if (!map[elements.get(0).getX()][elements.get(0).getY()].dirIndex.contains(3)) {
 					elements.get(0).moveWest();
@@ -265,6 +287,7 @@ public class MapCanvas extends Canvas {
 			} else if (arg0.getKeyCode() == KeyEvent.VK_LEFT) {
 				if (!map[pc.getX()][pc.getY()].dirIndex.contains(3)) {
 					pc.moveWest();
+					sendMessage("Moved West");
 				}
 				if (!map[elements.get(0).getX()][elements.get(0).getY()].dirIndex.contains(2)) {
 					elements.get(0).moveSouth();
@@ -273,6 +296,7 @@ public class MapCanvas extends Canvas {
 			} else if (arg0.getKeyCode() == KeyEvent.VK_RIGHT) {
 				if (!map[pc.getX()][pc.getY()].dirIndex.contains(1)) {
 					pc.moveEast();
+					sendMessage("Moved East");
 				}
 				if (!map[elements.get(0).getX()][elements.get(0).getY()].dirIndex.contains(0)) {
 					elements.get(0).moveNorth();
@@ -281,6 +305,7 @@ public class MapCanvas extends Canvas {
 			} else if (arg0.getKeyCode() == KeyEvent.VK_DOWN) {
 				if (!map[pc.getX()][pc.getY()].dirIndex.contains(2)) {
 					pc.moveSouth();
+					sendMessage("Moved South");
 				}
 				if (!map[elements.get(0).getX()][elements.get(0).getY()].dirIndex.contains(1)) {
 					elements.get(0).moveEast();
