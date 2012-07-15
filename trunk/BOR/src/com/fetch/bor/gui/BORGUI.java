@@ -10,8 +10,6 @@ import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JFrame;
 
 import com.fetch.bor.bor.MonsterCharacter;
@@ -90,7 +88,7 @@ public class BORGUI {
 		window.setIconImage(icon);
 		
 		TestArea ta = new TestArea(14);
-		int size = 14 * 64;
+//		int size = 14 * 64;
 		
 		MapCanvas mapCanvas = new MapCanvas();
 		mapCanvas.setPreferredSize(new Dimension(800, 600));

@@ -28,7 +28,7 @@ public class MapCanvas extends Canvas {
 	private static BufferedImage tileset;
 	private Tile[][] map;
 	private Character pc;
-	private boolean needToRedrawMap;
+//	private boolean needToRedrawMap;
 	
 	private DirectionKeyListener dirKeyLis = new DirectionKeyListener();
 
@@ -42,7 +42,7 @@ public class MapCanvas extends Canvas {
 	 */
 	public MapCanvas() {
 		this.addKeyListener(dirKeyLis);
-		needToRedrawMap = true;
+//		needToRedrawMap = true;
 		
 		try {
 			File file = new File("BORUI.png");
@@ -244,10 +244,6 @@ public class MapCanvas extends Canvas {
 
 		@Override
 		public void keyPressed(KeyEvent arg0) {
-			int sx1 = pc.getX() * TILE_SIZE;
-			int sx2 = sx1 + TILE_SIZE;
-			int sy1 = pc.getY() * TILE_SIZE;
-			int sy2 = sy1 + TILE_SIZE;
 			if (arg0.getKeyCode() == KeyEvent.VK_UP) {
 				if (!map[pc.getX()][pc.getY()].dirIndex.contains(0)) {
 					pc.moveNorth();
