@@ -12,6 +12,7 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.JFrame;
 
+import com.fetch.bor.Procedural.ProceduralGeneration;
 import com.fetch.bor.bor.MonsterCharacter;
 import com.fetch.bor.bor.PlayerCharacter;
 import com.fetch.bor.bor.TestArea;
@@ -87,14 +88,18 @@ public class BORGUI {
 		JFrame window = new JFrame("Blade of Roses");
 		window.setIconImage(icon);
 		
-		TestArea ta = new TestArea(14);
+		ProceduralGeneration PG = new ProceduralGeneration(30,20);
+		PG.Generate();
+		
+//		TestArea ta = new TestArea(14);
 //		int size = 14 * 64;
 		
 		MapCanvas mapCanvas = new MapCanvas();
 		mapCanvas.setPreferredSize(new Dimension(800, 600));
 		mapCanvas.setLocation(200,200);
 		mapCanvas.loadTileset("TestTileSet.png");
-		mapCanvas.loadMap(ta.getTiles());
+//		mapCanvas.loadMap(ta.getTiles());
+		mapCanvas.loadMap(PG.convertOut());
 		mapCanvas.addCharacter(pc);
 		
 		/**************************** TEST **************************************/
