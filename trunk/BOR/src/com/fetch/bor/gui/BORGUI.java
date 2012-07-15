@@ -76,12 +76,16 @@ public class BORGUI {
 		
 		
 		// UI
+		ProceduralGeneration PG = new ProceduralGeneration(100,100);
+		PG.Generate();
+		PG.findBounds();
+		
 		try {
 			File iconFile = new File("ICON_ROSE.gif");
 			icon = ImageIO.read(iconFile);
 			File spriteFile = new File("Player1.png");
 			sprite = ImageIO.read(spriteFile);
-			pc = new PlayerCharacter(50, 50, sprite);
+			pc = new PlayerCharacter((PG.yStart-PG.boundsX1), (PG.yStart-PG.boundsY1), sprite);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -89,8 +93,7 @@ public class BORGUI {
 		JFrame window = new JFrame("Blade of Roses");
 		window.setIconImage(icon);
 		
-		ProceduralGeneration PG = new ProceduralGeneration(100,100);
-		PG.Generate();
+		
 		
 		TestArea ta = new TestArea(14);
 //		int size = 14 * 64;

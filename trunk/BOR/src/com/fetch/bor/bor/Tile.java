@@ -34,6 +34,12 @@ public class Tile {
 	
 	public void setNWall (int value) {
 		tile[1][0] = value;
+		if (!dirIndex.contains(0) && value==1)
+			dirIndex.push(0);
+		else if (value == 0)
+			dirIndex.removeElement(0);
+		else if (value==2)
+			dirIndex.removeElement(0);
 	}
 	
 	public int getSWall() {
@@ -42,6 +48,12 @@ public class Tile {
 	
 	public void setSWall(int value) {
 		tile[1][2] = value;
+		if (!dirIndex.contains(2) && value==1)
+			dirIndex.push(2);
+		else if (value == 0)
+			dirIndex.removeElement(2);
+		else if (value==2)
+			dirIndex.removeElement(2);
 	}
 	
 	public int getEWall() {
@@ -50,6 +62,12 @@ public class Tile {
 	
 	public void setEWall(int value) {
 		tile[2][1] = value;
+		if (!dirIndex.contains(1) && value==1)
+			dirIndex.push(1);
+		else if (value == 0)
+			dirIndex.removeElement(1);
+		else if (value==2)
+			dirIndex.removeElement(1);
 	}
 	
 	public int getWWall() {
@@ -58,6 +76,12 @@ public class Tile {
 	
 	public void setWWall(int value) {
 		tile[0][1] = value;
+		if (!dirIndex.contains(3) && value==1)
+			dirIndex.push(3);
+		else if (value == 0)
+			dirIndex.removeElement(3);
+		else if (value==2)
+			dirIndex.removeElement(3);
 	}
 	
 	public int getNWCorner() {
@@ -96,36 +120,48 @@ public class Tile {
 		if (tile[1][0] != 2){
 			tile[1][0] = value;
 		}
-		else if (!dirIndex.contains(0)){
+		else if (!dirIndex.contains(0) && value==1)
 			dirIndex.push(0);
-		}
+		else if (value == 0)
+			dirIndex.removeElement(0);
+		else if (value==2)
+			dirIndex.removeElement(0);
 	}
 	
 	public void setSWallSafe(int value) {
 		if (tile[1][2] != 2){
 			tile[1][2] = value;
 		}
-		else if (!dirIndex.contains(2)){
+		else if (!dirIndex.contains(2) && value==1)
 			dirIndex.push(2);
-		}
+		else if (value == 0)
+			dirIndex.removeElement(2);
+		else if (value==2)
+			dirIndex.removeElement(2);
 	}
 	
 	public void setEWallSafe(int value) {
 		if (tile[2][1] != 2){
 			tile[2][1] = value;
 		}
-		else if (!dirIndex.contains(1)){
+		else if (!dirIndex.contains(1) && value==1)
 			dirIndex.push(1);
-		}
+		else if (value == 0)
+			dirIndex.removeElement(1);
+		else if (value==2)
+			dirIndex.removeElement(1);
 	}
 	
 	public void setWWallSafe(int value) {
 		if (tile[0][1] != 2){
 			tile[0][1] = value;
 		}
-		else if (!dirIndex.contains(3)){
+		else if (!dirIndex.contains(3) && value==1)
 			dirIndex.push(3);
-		}
+		else if (value==2)
+			dirIndex.removeElement(3);
+		else if (value == 0)
+			dirIndex.removeElement(3);
 	}
 	
 	

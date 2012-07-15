@@ -18,7 +18,8 @@ public class ProceduralGeneration {
 	int xTemp, yTemp;
 	int direction;
 	int realCornerX, realCornerY;
-	int boundsX1, boundsX2, boundsY1, boundsY2;
+	public int boundsX1, boundsX2, boundsY1, boundsY2;
+	public int xStart, yStart;
 	
 	ProceduralHallway[] hArchive;
 	int hCounter;
@@ -60,11 +61,12 @@ public class ProceduralGeneration {
 		yDraw = ((ySize-1)/2)-(yObject/2);
 		direction = 0;
 		generateRoom( xDraw, yDraw );
-		
-		while (hCounter+rCounter < 20)//some condition for ending Generation
+		xStart = rArchive[0].realX;
+		yStart = rArchive[0].realY;
+		while (hCounter+rCounter < 15)//some condition for ending Generation
 		{
 			//determine which to generate
-			if ( (rand.nextDouble()*rCounter+hCounter) < rCounter)
+			if ( (rand.nextDouble()*((rCounter+hCounter))) < rCounter)
 				nextGenChar = 'h';
 			else
 				nextGenChar = 'r';
@@ -141,9 +143,9 @@ public class ProceduralGeneration {
 				if (genMap[xTemp][yTemp].tile.dirIndex.isEmpty()){
 					System.out.print("Empty" + '\n');
 				}
-//				direction = genMap[xTemp][yTemp].tile.dirIndex.size();
-//				direction = rand.nextInt(direction);
-//				direction = genMap[xTemp][yTemp].tile.dirIndex.get(direction);
+				direction = genMap[xTemp][yTemp].tile.dirIndex.size();
+				direction = rand.nextInt(direction);
+				direction = genMap[xTemp][yTemp].tile.dirIndex.get(direction);
 				
 				switch(direction){
 					case 0: //Heading North
@@ -222,7 +224,6 @@ public class ProceduralGeneration {
 		rArchive[rCounter].pushY(realCornerY);
 		for (int i=realCornerX ; i<=realCornerX+xObject; i++){
 			for (int j=realCornerY ; j<=realCornerY+yObject; j++){
-				if (!genMap[i][j].typeIndex.contains('r')){
 					genMap[i][j].tile.setFloor(1);
 					genMap[i][j].tile.setEWall(0);
 					genMap[i][j].tile.setWWall(0);
@@ -233,6 +234,7 @@ public class ProceduralGeneration {
 					genMap[i][j].tile.setSECorner(0);
 					genMap[i][j].tile.setSWCorner(0);
 					genMap[i][j].tile.dirIndex.clear();
+				if (!genMap[i][j].typeIndex.contains('r')){
 					if (j==realCornerY){
 						genMap[i][j].tile.dirIndex.push(0);
 						genMap[i][j].tile.setNWallSafe(1);
@@ -284,6 +286,7 @@ public class ProceduralGeneration {
 		for (int i = 0; i < xObject ; i++){
 			xTemp = startX + hArchive[hCounter].xydTrack[0][i];
 			yTemp = startY + hArchive[hCounter].xydTrack[1][i];
+			direction = hArchive[hCounter].xydTrack[2][i];
 			if (!genMap[xTemp][yTemp].typeIndex.contains('r')){
 				genMap[xTemp][yTemp].tile.setFloor(1);
 				genMap[xTemp][yTemp].tile.setEWall(0);
@@ -297,7 +300,6 @@ public class ProceduralGeneration {
 				genMap[xTemp][yTemp].tile.dirIndex.clear();
 				genMap[xTemp][yTemp].typeIndex.push('h');
 				genMap[xTemp][yTemp].intIndex.push(hCounter);
-				direction = hArchive[hCounter].xydTrack[2][i];
 				switch(direction){
 					case 0: //Heading North
 						genMap[xTemp][yTemp].tile.setNWall(1);
@@ -352,21 +354,21 @@ public class ProceduralGeneration {
 						genMap[xTemp][yTemp].tile.setEWallSafe(0);
 						break;
 				}
-			}//end of if (genMap[xTemp][yTemp].typeIndex.contains('r'))
+			}//end of if (!genMap[xTemp][yTemp].typeIndex.contains('r'))
 			else {
-				if (genMap[xTemp][yTemp].tile.getWWall()==1){
+				if (genMap[xTemp][yTemp].tile.getWWall()==1 && direction==3){
 					genMap[xTemp][yTemp].tile.setWWall(2);
 					genMap[xTemp-1][yTemp].tile.setEWall(2);
 				}
-				else if (genMap[xTemp][yTemp].tile.getSWall()==1){
+				else if (genMap[xTemp][yTemp].tile.getSWall()==1 && direction==2){
 					genMap[xTemp][yTemp].tile.setSWall(2);
 					genMap[xTemp-1][yTemp].tile.setNWall(2);
 				}
-				else if (genMap[xTemp][yTemp].tile.getEWall()==1){
+				else if (genMap[xTemp][yTemp].tile.getEWall()==1 && direction==1){
 					genMap[xTemp][yTemp].tile.setEWall(2);
 					genMap[xTemp-1][yTemp].tile.setEWall(2);
 				}
-				else if (genMap[xTemp][yTemp].tile.getNWall()==1){
+				else if (genMap[xTemp][yTemp].tile.getNWall()==1 && direction==0){
 					genMap[xTemp][yTemp].tile.setNWall(2);
 					genMap[xTemp-1][yTemp].tile.setSWall(2);
 				}
@@ -378,37 +380,41 @@ public class ProceduralGeneration {
 	}
 	
 	public Tile[][] convertOut(){
-//		findBounds();
-//		Tile[][] tileOut= new Tile[boundsX2-boundsX1][boundsY2-boundsY1];
-//		for (int i = 0; i<boundsX2-boundsX1; i++){
-//			for (int j = 0; j<boundsY2-boundsY1; j++){
-//				tileOut[i][j] = genMap[boundsX1+i][boundsY1+j].tile;
-//			}
-//		}
-		printMap();
-		Tile[][] tileOut= new Tile[xSize][ySize];
-		for (int i = 0; i<xSize; i++){
-			for (int j = 0; j<ySize; j++){
-				tileOut[i][j] = genMap[i][j].tile;
+		findBounds();
+		Tile[][] tileOut= new Tile[boundsX2-boundsX1][boundsY2-boundsY1];
+		for (int i = 0; i<boundsX2-boundsX1; i++){
+			for (int j = 0; j<boundsY2-boundsY1; j++){
+				tileOut[i][j] = genMap[boundsX1+i][boundsY1+j].tile;
 			}
 		}
+//		printMap();
+//		Tile[][] tileOut= new Tile[xSize][ySize];
+//		for (int i = 0; i<xSize; i++){
+//			for (int j = 0; j<ySize; j++){
+//				tileOut[i][j] = genMap[i][j].tile;
+//			}
+//		}
 		return tileOut;
 	}
 	
 	public void findBounds(){
+		boundsX1 = xSize-1;
+		boundsX2 = 0;
+		boundsY1 = ySize-1;
+		boundsY2 = 0;
 		for (int j = 0; j < ySize; j++){
 			for (int i = 0; i<xSize; i++){
 				if (genMap[i][j].tile.getFloor()==1){
-					if (i<boundsX1){
+					if (i<=boundsX1){
 						boundsX1 = i;
 					}
-					if (i>boundsX2){
+					if (i>=boundsX2){
 						boundsX2 = i;
 					}
-					if (j<boundsY1){
+					if (j<=boundsY1){
 						boundsY1 = j;
 					}
-					if (j>boundsY2){
+					if (j>=boundsY2){
 						boundsY2 = j;
 					}
 				}
@@ -417,14 +423,19 @@ public class ProceduralGeneration {
 	}
 
 	public void printMap(){
-//		findBounds();
+		findBounds();
 		System.out.print("Bounds: " + boundsX1 + " , " + boundsX2 + " , " + boundsY1 + " , " + boundsY2 + '\n');
-		for (int i = boundsY2; i<boundsY1; i++){
-			for (int j = boundsX2; j<boundsX1; j++){
+		for (int i = boundsY1; i<boundsY2; i++){
+			for (int j = boundsX1; j<boundsX2; j++){
+				System.out.print( genMap[j][i].tile.getFloor() + " ");
+			}
+			System.out.print( '\n' );
+		}
+		for (int i = 0; i<ySize; i++){
+			for (int j = 0; j<xSize; j++){
 				System.out.print( genMap[j][i].tile.getFloor() + " ");
 			}
 			System.out.print( '\n' );
 		}
 	}
-	
 }

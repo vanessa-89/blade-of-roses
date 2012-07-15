@@ -26,12 +26,12 @@ public class ProceduralHallway{
 		int previous;
 		for (int i=1; i<MAXLENGTH; i++) {
 			previous = direction;
-			int length = rand.nextInt(6)+rand.nextInt(6)+rand.nextInt(6)+1;
+			int length = rand.nextInt(8)+rand.nextInt(8)+rand.nextInt(8)+1;
 			for (int j=0; j<length; j++){
 				switch (direction) {
 				case 0: //up
 					xydTrack[0][i+j]=xydTrack[0][i+j-1];
-					xydTrack[1][i+j]=xydTrack[1][i+j-1]+1;
+					xydTrack[1][i+j]=xydTrack[1][i+j-1]-1;
 					xydTrack[2][i+j]=direction;
 					break;
 				case 1: //right
@@ -41,7 +41,7 @@ public class ProceduralHallway{
 					break;
 				case 2: //down
 					xydTrack[0][i+j]=xydTrack[0][i+j-1];
-					xydTrack[1][i+j]=xydTrack[1][i+j-1]-1;
+					xydTrack[1][i+j]=xydTrack[1][i+j-1]+1;
 					xydTrack[2][i+j]=direction;
 					break;
 				case 3: //left
