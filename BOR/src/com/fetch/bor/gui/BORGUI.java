@@ -81,7 +81,7 @@ public class BORGUI {
 			icon = ImageIO.read(iconFile);
 			File spriteFile = new File("Player1.png");
 			sprite = ImageIO.read(spriteFile);
-			pc = new PlayerCharacter(3, 3, sprite);
+			pc = new PlayerCharacter(50, 50, sprite);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -89,8 +89,8 @@ public class BORGUI {
 		JFrame window = new JFrame("Blade of Roses");
 		window.setIconImage(icon);
 		
-//		ProceduralGeneration PG = new ProceduralGeneration(30,20);
-//		PG.Generate();
+		ProceduralGeneration PG = new ProceduralGeneration(100,100);
+		PG.Generate();
 		
 		TestArea ta = new TestArea(14);
 //		int size = 14 * 64;
@@ -99,8 +99,8 @@ public class BORGUI {
 		mapCanvas.setPreferredSize(new Dimension(800, 600));
 		mapCanvas.setLocation(200,200);
 		mapCanvas.loadTileset("TestTileSet.png");
-		mapCanvas.loadMap(ta.getTiles());
-//		mapCanvas.loadMap(PG.convertOut());
+//		mapCanvas.loadMap(ta.getTiles());
+		mapCanvas.loadMap(PG.convertOut());
 		mapCanvas.addCharacter(pc);
 		mapCanvas.setBackground(Color.BLACK);
 		
