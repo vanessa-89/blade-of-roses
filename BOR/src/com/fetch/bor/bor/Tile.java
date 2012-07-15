@@ -96,21 +96,36 @@ public class Tile {
 		if (tile[1][0] != 2){
 			tile[1][0] = value;
 		}
+		else if (!dirIndex.contains(0)){
+			dirIndex.push(0);
+		}
 	}
 	
 	public void setSWallSafe(int value) {
-		if (tile[1][2] != 2)
-		tile[1][2] = value;
+		if (tile[1][2] != 2){
+			tile[1][2] = value;
+		}
+		else if (!dirIndex.contains(2)){
+			dirIndex.push(2);
+		}
 	}
 	
 	public void setEWallSafe(int value) {
-		if (tile[2][1] != 2)
-		tile[2][1] = value;
+		if (tile[2][1] != 2){
+			tile[2][1] = value;
+		}
+		else if (!dirIndex.contains(1)){
+			dirIndex.push(1);
+		}
 	}
 	
 	public void setWWallSafe(int value) {
-		if (tile[0][1] != 2)
-		tile[0][1] = value;
+		if (tile[0][1] != 2){
+			tile[0][1] = value;
+		}
+		else if (!dirIndex.contains(3)){
+			dirIndex.push(3);
+		}
 	}
 	
 	
