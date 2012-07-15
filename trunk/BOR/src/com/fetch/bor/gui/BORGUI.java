@@ -30,6 +30,7 @@ public class BORGUI {
 	static BufferedImage icon;
 	static BufferedImage sprite;
 	static PlayerCharacter pc;
+	int playerLocationX, playerLocationY;
 	
 	
 	public static void main(String[] args) {

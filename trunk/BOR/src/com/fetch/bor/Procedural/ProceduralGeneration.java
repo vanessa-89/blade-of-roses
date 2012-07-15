@@ -304,6 +304,18 @@ public class ProceduralGeneration {
 					}
 					else
 						genMap[i][j].tile.setEWall(0);
+					if (j==realCornerY && i==realCornerX+xObject){
+					
+					}
+					if (j==realCornerY && i==realCornerX){
+						
+					}
+					if (j==realCornerY+yObject && i==realCornerX+xObject){
+						
+					}
+					if (j==realCornerY+yObject && i==realCornerX){
+						
+					}
 				}
 					genMap[i][j].typeIndex.push('r');
 					genMap[i][j].intIndex.push(rCounter);
@@ -328,7 +340,7 @@ public class ProceduralGeneration {
 			xTemp = startX + hArchive[hCounter].xydTrack[0][i];
 			yTemp = startY + hArchive[hCounter].xydTrack[1][i];
 			direction = hArchive[hCounter].xydTrack[2][i];
-			if (!genMap[xTemp][yTemp].typeIndex.contains('r')){
+			if (genMap[xTemp][yTemp].typeIndex.isEmpty()){
 				genMap[xTemp][yTemp].tile.dirIndex.clear();
 				genMap[xTemp][yTemp].tile.setFloor(1);
 				genMap[xTemp][yTemp].tile.setEWall(0);
@@ -338,8 +350,7 @@ public class ProceduralGeneration {
 				genMap[xTemp][yTemp].tile.setNWCorner(0);
 				genMap[xTemp][yTemp].tile.setNECorner(0);
 				genMap[xTemp][yTemp].tile.setSECorner(0);
-				genMap[xTemp][yTemp].tile.setSWCorner(0);
-				
+				genMap[xTemp][yTemp].tile.setSWCorner(0);				
 				genMap[xTemp][yTemp].typeIndex.push('h');
 				genMap[xTemp][yTemp].intIndex.push(hCounter);
 				switch(direction){
@@ -347,11 +358,13 @@ public class ProceduralGeneration {
 						genMap[xTemp][yTemp].tile.setNWall(1);
 						genMap[xTemp][yTemp].tile.setEWall(1);
 						genMap[xTemp][yTemp].tile.setWWall(1);
+						genMap[xTemp][yTemp].tile.setSWallSafe(0);
 //						genMap[xTemp][yTemp].tile.setSWCorner(1);
 //						genMap[xTemp][yTemp].tile.setSECorner(1);
 						genMap[xTemp][yTemp].tile.dirIndex.push(0);
 						genMap[xTemp][yTemp].tile.dirIndex.push(3);
 						genMap[xTemp][yTemp].tile.dirIndex.push(1);
+						genMap[xTemp][yTemp].tile.dirIndex.removeElement(2);
 						yTemp += 1;
 						genMap[xTemp][yTemp].tile.dirIndex.removeElement(0);
 						genMap[xTemp][yTemp].tile.setNWallSafe(0);
@@ -360,11 +373,13 @@ public class ProceduralGeneration {
 						genMap[xTemp][yTemp].tile.setEWall(1);
 						genMap[xTemp][yTemp].tile.setNWall(1);
 						genMap[xTemp][yTemp].tile.setSWall(1);
+						genMap[xTemp][yTemp].tile.setWWallSafe(0);
 //						genMap[xTemp][yTemp].tile.setSWCorner(1);
 //						genMap[xTemp][yTemp].tile.setNWCorner(1);
 						genMap[xTemp][yTemp].tile.dirIndex.push(0);
 						genMap[xTemp][yTemp].tile.dirIndex.push(2);
 						genMap[xTemp][yTemp].tile.dirIndex.push(1);
+						genMap[xTemp][yTemp].tile.dirIndex.removeElement(3);
 						xTemp -= 1;
 						genMap[xTemp][yTemp].tile.dirIndex.removeElement(1);
 						genMap[xTemp][yTemp].tile.setEWallSafe(0);
@@ -373,30 +388,82 @@ public class ProceduralGeneration {
 						genMap[xTemp][yTemp].tile.setSWall(1);
 						genMap[xTemp][yTemp].tile.setEWall(1);
 						genMap[xTemp][yTemp].tile.setWWall(1);
+						genMap[xTemp][yTemp].tile.setNWallSafe(0);
 //						genMap[xTemp][yTemp].tile.setNECorner(1);
 //						genMap[xTemp][yTemp].tile.setNWCorner(1);
 						genMap[xTemp][yTemp].tile.dirIndex.push(3);
 						genMap[xTemp][yTemp].tile.dirIndex.push(2);
 						genMap[xTemp][yTemp].tile.dirIndex.push(1);
+						genMap[xTemp][yTemp].tile.dirIndex.removeElement(0);
 						yTemp -= 1;	
 						genMap[xTemp][yTemp].tile.dirIndex.removeElement(2);
-						genMap[xTemp][yTemp].tile.setNWallSafe(0);
+						genMap[xTemp][yTemp].tile.setSWallSafe(0);
 						break;
 					case 3: //Heading West
 						genMap[xTemp][yTemp].tile.setWWall(1);
 						genMap[xTemp][yTemp].tile.setNWall(1);
 						genMap[xTemp][yTemp].tile.setSWall(1);
+						genMap[xTemp][yTemp].tile.setEWallSafe(0);
 //						genMap[xTemp][yTemp].tile.setNECorner(1);
 //						genMap[xTemp][yTemp].tile.setSECorner(1);
 						genMap[xTemp][yTemp].tile.dirIndex.push(3);
 						genMap[xTemp][yTemp].tile.dirIndex.push(0);
 						genMap[xTemp][yTemp].tile.dirIndex.push(1);
+						genMap[xTemp][yTemp].tile.dirIndex.removeElement(1);
 						xTemp += 1;
 						genMap[xTemp][yTemp].tile.dirIndex.removeElement(3);
-						genMap[xTemp][yTemp].tile.setEWallSafe(0);
+						genMap[xTemp][yTemp].tile.setWWallSafe(0);
 						break;
 				}
 			}//end of if (!genMap[xTemp][yTemp].typeIndex.contains('r'))
+			else if (genMap[xTemp][yTemp].typeIndex.contains('h')){
+				switch(direction){
+				case 0: //Heading North
+					genMap[xTemp][yTemp].tile.setNWall(1);
+					genMap[xTemp][yTemp].tile.setSWallSafe(0);
+//					genMap[xTemp][yTemp].tile.setSWCorner(1);
+//					genMap[xTemp][yTemp].tile.setSECorner(1);
+					genMap[xTemp][yTemp].tile.dirIndex.push(0);
+					genMap[xTemp][yTemp].tile.dirIndex.removeElement(2);
+					yTemp += 1;
+					genMap[xTemp][yTemp].tile.dirIndex.removeElement(0);
+					genMap[xTemp][yTemp].tile.setNWallSafe(0);
+					break;
+				case 1: //Heading East
+					genMap[xTemp][yTemp].tile.setEWall(1);
+					genMap[xTemp][yTemp].tile.setWWallSafe(0);
+//					genMap[xTemp][yTemp].tile.setSWCorner(1);
+//					genMap[xTemp][yTemp].tile.setNWCorner(1);
+					genMap[xTemp][yTemp].tile.dirIndex.push(0);
+					genMap[xTemp][yTemp].tile.dirIndex.removeElement(3);
+					xTemp -= 1;
+					genMap[xTemp][yTemp].tile.dirIndex.removeElement(1);
+					genMap[xTemp][yTemp].tile.setEWallSafe(0);
+					break;
+				case 2: //Heading South
+					genMap[xTemp][yTemp].tile.setSWall(1);
+					genMap[xTemp][yTemp].tile.setNWallSafe(0);
+//					genMap[xTemp][yTemp].tile.setNECorner(1);
+//					genMap[xTemp][yTemp].tile.setNWCorner(1);
+					genMap[xTemp][yTemp].tile.dirIndex.push(2);
+					genMap[xTemp][yTemp].tile.dirIndex.removeElement(0);
+					yTemp -= 1;	
+					genMap[xTemp][yTemp].tile.dirIndex.removeElement(2);
+					genMap[xTemp][yTemp].tile.setSWallSafe(0);
+					break;
+				case 3: //Heading West
+					genMap[xTemp][yTemp].tile.setWWall(1);
+					genMap[xTemp][yTemp].tile.setEWallSafe(0);
+//					genMap[xTemp][yTemp].tile.setNECorner(1);
+//					genMap[xTemp][yTemp].tile.setSECorner(1);
+					genMap[xTemp][yTemp].tile.dirIndex.push(3);
+					genMap[xTemp][yTemp].tile.dirIndex.removeElement(1);
+					xTemp += 1;
+					genMap[xTemp][yTemp].tile.dirIndex.removeElement(3);
+					genMap[xTemp][yTemp].tile.setWWallSafe(0);
+					break;
+			}
+			}
 			else {
 				if (genMap[xTemp][yTemp].tile.getWWall()==1 && direction==3){
 					genMap[xTemp][yTemp].tile.setWWall(2);
