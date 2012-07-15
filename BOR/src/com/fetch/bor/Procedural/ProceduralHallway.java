@@ -26,7 +26,7 @@ public class ProceduralHallway{
 		int previous;
 		for (int i=1; i<MAXLENGTH; i++) {
 			previous = direction;
-			int length = rand.nextInt(6+1);
+			int length = rand.nextInt(6)+rand.nextInt(6)+rand.nextInt(6)+1;
 			for (int j=0; j<length; j++){
 				switch (direction) {
 				case 0: //up
@@ -69,9 +69,9 @@ public class ProceduralHallway{
 	public void pickStart(){
 		start = rand.nextInt(trueLength);
 	}
-	public int getDirection(){
-		return (xydTrack[2][start]-1);
-	}
+//	public int getDirection(){
+//		return (xydTrack[2][start]);
+//	}
 	public int getX(){
 		return xydTrack[0][start];
 	}
