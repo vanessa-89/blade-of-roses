@@ -207,6 +207,9 @@ public class ProceduralGeneration {
 						makeWOpen(i,j);
 						makeSOpen(i,j);
 						makeNWall(i,j);
+						if (genMap[i][j-1].typeIndex.contains('h') && genMap[i][j].typeIndex.contains('h')){
+							makeNDoor(i,j);
+						}
 					}
 					else
 						makeNOpen(i,j);
@@ -216,6 +219,9 @@ public class ProceduralGeneration {
 						makeWOpen(i,j);
 						makeNOpen(i,j);
 						makeSWall(i,j);
+						if (genMap[i][j+1].typeIndex.contains('h') && genMap[i][j].typeIndex.contains('h')){
+							makeSDoor(i,j);
+						}
 					}
 					else
 						makeSOpen(i,j);
@@ -225,6 +231,9 @@ public class ProceduralGeneration {
 						makeNOpen(i,j);
 						makeSOpen(i,j);
 						makeWWall(i,j);
+						if (genMap[i-1][j].typeIndex.contains('h') && genMap[i][j].typeIndex.contains('h')){
+							makeWDoor(i,j);
+						}
 					}
 					else
 						makeWOpen(i,j);
@@ -234,6 +243,9 @@ public class ProceduralGeneration {
 						makeNOpen(i,j);
 						makeSOpen(i,j);
 						makeEWall(i,j);
+						if (genMap[i+1][j].typeIndex.contains('h') && genMap[i][j].typeIndex.contains('h')){
+							makeEDoor(i,j);
+						}
 					}
 					else
 						makeEOpen(i,j);
@@ -242,29 +254,60 @@ public class ProceduralGeneration {
 						makeSOpen(i,j);
 						makeEWall(i,j);
 						makeNWall(i,j);
-						genMap[i][j].tile.setNECorner(1);
+						if (genMap[i][j-1].typeIndex.contains('h') && genMap[i][j].typeIndex.contains('h')){
+							makeNDoor(i,j);
+						}
+						if (genMap[i+1][j].typeIndex.contains('h') && genMap[i][j].typeIndex.contains('h')){
+							makeEDoor(i,j);
+						}
+						else {
+							genMap[i][j].tile.setNECorner(1);
+						}
 					}
 					if (j==realCornerY && i==realCornerX){
 						makeEOpen(i,j);
 						makeSOpen(i,j);
 						makeWWall(i,j);
 						makeNWall(i,j);
-						clearCorners(i,j);
-						genMap[i][j].tile.setNWCorner(1);
+						if (genMap[i][j-1].typeIndex.contains('h') && genMap[i][j].typeIndex.contains('h')){
+							makeNDoor(i,j);
+						}
+						if (genMap[i-1][j].typeIndex.contains('h') && genMap[i][j].typeIndex.contains('h')){
+							makeWDoor(i,j);
+						}
+						else {
+							genMap[i][j].tile.setNWCorner(1);
+						}
 					}
 					if (j==realCornerY+yObject && i==realCornerX+xObject){
 						makeWOpen(i,j);
 						makeNOpen(i,j);
 						makeEWall(i,j);
 						makeSWall(i,j);
-						genMap[i][j].tile.setSECorner(1);
+						if (genMap[i][j+1].typeIndex.contains('h') && genMap[i][j].typeIndex.contains('h')){
+							makeSDoor(i,j);
+						}
+						if (genMap[i+1][j].typeIndex.contains('h') && genMap[i][j].typeIndex.contains('h')){
+							makeEDoor(i,j);
+						}
+						else {
+							genMap[i][j].tile.setSECorner(1);
+						}
 					}
 					if (j==realCornerY+yObject && i==realCornerX){
 						makeNOpen(i,j);
 						makeEOpen(i,j);
 						makeSWall(i,j);
 						makeWWall(i,j);
-						genMap[i][j].tile.setSWCorner(1);	
+						if (genMap[i][j+1].typeIndex.contains('h') && genMap[i][j].typeIndex.contains('h')){
+							makeSDoor(i,j);
+						}
+						if (genMap[i-1][j].typeIndex.contains('h') && genMap[i][j].typeIndex.contains('h')){
+							makeWDoor(i,j);
+						}
+						else {
+							genMap[i][j].tile.setSWCorner(1);
+						}
 					}
 				}
 				else {
