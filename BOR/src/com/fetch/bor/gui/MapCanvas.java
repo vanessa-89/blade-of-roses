@@ -42,6 +42,7 @@ public class MapCanvas extends Canvas {
 	
 	
 	private boolean debugMode;
+	private boolean ghostMode;
 	
 	int charx1, charx2, chary1, chary2;
 	int mapx1, mapx2, mapy1, mapy2;
@@ -64,7 +65,8 @@ public class MapCanvas extends Canvas {
 		}
 		
 		
-		debugMode = true;
+		debugMode = false;
+		ghostMode = false;
 		
 		charx1 = chary1 = 0;
 		charx2 = chary2 = 64;
@@ -340,7 +342,7 @@ public class MapCanvas extends Canvas {
 			mapy2 = locy2;
 			
 			if (arg0.getKeyCode() == KeyEvent.VK_UP) {
-				if (!map[pc.getX()][pc.getY()].dirIndex.contains(0)) {
+				if (ghostMode || !map[pc.getX()][pc.getY()].dirIndex.contains(0)) {
 					pc.moveNorth();
 					sendMessage("moved north");
 					
@@ -362,7 +364,7 @@ public class MapCanvas extends Canvas {
 				}
 				repaint();
 			} else if (arg0.getKeyCode() == KeyEvent.VK_LEFT) {
-				if (!map[pc.getX()][pc.getY()].dirIndex.contains(3)) {
+				if (ghostMode || !map[pc.getX()][pc.getY()].dirIndex.contains(3)) {
 					pc.moveWest();
 					sendMessage("moved west");
 				}
@@ -371,7 +373,7 @@ public class MapCanvas extends Canvas {
 				}
 				repaint();
 			} else if (arg0.getKeyCode() == KeyEvent.VK_RIGHT) {
-				if (!map[pc.getX()][pc.getY()].dirIndex.contains(1)) {
+				if (ghostMode || !map[pc.getX()][pc.getY()].dirIndex.contains(1)) {
 					pc.moveEast();
 					sendMessage("moved east");
 				}
@@ -380,7 +382,7 @@ public class MapCanvas extends Canvas {
 				}
 				repaint();
 			} else if (arg0.getKeyCode() == KeyEvent.VK_DOWN) {
-				if (!map[pc.getX()][pc.getY()].dirIndex.contains(2)) {
+				if (ghostMode || !map[pc.getX()][pc.getY()].dirIndex.contains(2)) {
 					pc.moveSouth();
 					sendMessage("moved south");
 					
@@ -409,8 +411,13 @@ public class MapCanvas extends Canvas {
 					debugMode = true;
 					newMap = true;
 				}
-				sendMessage(Boolean.toString(debugMode));
 				repaint();
+			} else if (arg0.getKeyCode() == KeyEvent.VK_F2) {
+				if (ghostMode) {
+					ghostMode = false;
+				} else {
+					ghostMode = true;
+				}
 			}
 		}
 
