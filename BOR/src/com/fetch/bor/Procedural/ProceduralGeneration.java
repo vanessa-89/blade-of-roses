@@ -235,12 +235,14 @@ public class ProceduralGeneration {
 					genMap[i][j].tile.setSECorner(0);
 					genMap[i][j].tile.setSWCorner(0);					
 					genMap[i][j].typeIndex.push('r');
-					genMap[i][j].intIndex.push(rCounter);
+					genMap[i][j].intIndex.push(rCounter+hCounter);
 			}
 		}
 		for (int i=realCornerX ; i<=realCornerX+xObject; i++){
 			for (int j=realCornerY ; j<=realCornerY+yObject; j++){
 				if (!genMap[i][j].typeIndex.contains('r')){
+					genMap[i][j].typeIndex.push('r');
+					genMap[i][j].intIndex.push(rCounter+hCounter);
 					if (j==realCornerY){
 						genMap[i][j].tile.dirIndex.clear();
 						genMap[i][j].tile.setFloor(1);
@@ -253,7 +255,6 @@ public class ProceduralGeneration {
 						genMap[i][j].tile.setSWCorner(0);
 //						genMap[i][j].tile.dirIndex.push(0);
 						genMap[i][j].tile.setNWallSafe(1);
-						genMap[i][j].typeIndex.push('r');
 					}
 					else
 						genMap[i][j].tile.setNWall(0);
@@ -270,7 +271,6 @@ public class ProceduralGeneration {
 						genMap[i][j].tile.setSWCorner(0);
 //						genMap[i][j].tile.dirIndex.push(2);
 						genMap[i][j].tile.setSWallSafe(1);
-						genMap[i][j].typeIndex.push('r');
 					}
 					else
 						genMap[i][j].tile.setSWall(0);
@@ -287,7 +287,6 @@ public class ProceduralGeneration {
 						genMap[i][j].tile.setSWCorner(0);
 //						genMap[i][j].tile.dirIndex.push(3);
 						genMap[i][j].tile.setWWallSafe(1);
-						genMap[i][j].typeIndex.push('r');
 					}
 					else
 						genMap[i][j].tile.setWWall(0);
@@ -304,7 +303,6 @@ public class ProceduralGeneration {
 						genMap[i][j].tile.setSWCorner(0);
 //						genMap[i][j].tile.dirIndex.push(1);
 						genMap[i][j].tile.setEWallSafe(1);
-						genMap[i][j].typeIndex.push('r');
 					}
 					else
 						genMap[i][j].tile.setEWall(0);
@@ -320,7 +318,6 @@ public class ProceduralGeneration {
 //						genMap[i][j].tile.dirIndex.push(1);
 						genMap[i][j].tile.setEWallSafe(1);
 						genMap[i][j].tile.setNWallSafe(1);
-						genMap[i][j].typeIndex.push('r');
 					}
 					if (j==realCornerY && i==realCornerX){
 						genMap[i][j].tile.dirIndex.clear();
@@ -334,7 +331,6 @@ public class ProceduralGeneration {
 //						genMap[i][j].tile.dirIndex.push(1);
 						genMap[i][j].tile.setNWallSafe(1);
 						genMap[i][j].tile.setWWallSafe(1);
-						genMap[i][j].typeIndex.push('r');
 					}
 					if (j==realCornerY+yObject && i==realCornerX+xObject){
 						genMap[i][j].tile.dirIndex.clear();
@@ -348,7 +344,6 @@ public class ProceduralGeneration {
 //						genMap[i][j].tile.dirIndex.push(1);
 						genMap[i][j].tile.setSWallSafe(1);
 						genMap[i][j].tile.setEWallSafe(1);
-						genMap[i][j].typeIndex.push('r');
 					}
 					if (j==realCornerY+yObject && i==realCornerX){
 						genMap[i][j].tile.dirIndex.clear();
@@ -361,12 +356,9 @@ public class ProceduralGeneration {
 						genMap[i][j].tile.setSWCorner(1);
 //						genMap[i][j].tile.dirIndex.push(1);
 						genMap[i][j].tile.setSWallSafe(1);
-						genMap[i][j].tile.setWWallSafe(1);
-						genMap[i][j].typeIndex.push('r');
+						genMap[i][j].tile.setWWallSafe(1);			
 					}
 				}
-					genMap[i][j].typeIndex.push('r');
-					genMap[i][j].intIndex.push(rCounter);
 			}
 		}
 		rCounter++;
@@ -400,7 +392,7 @@ public class ProceduralGeneration {
 				genMap[xTemp][yTemp].tile.setSECorner(0);
 				genMap[xTemp][yTemp].tile.setSWCorner(0);				
 				genMap[xTemp][yTemp].typeIndex.push('h');
-				genMap[xTemp][yTemp].intIndex.push(hCounter);
+				genMap[xTemp][yTemp].intIndex.push(hCounter+rCounter);
 				switch(direction){
 					case 0: //Heading North
 						genMap[xTemp][yTemp].tile.setNWall(1);
@@ -465,6 +457,8 @@ public class ProceduralGeneration {
 				}
 			}//end of if (!genMap[xTemp][yTemp].typeIndex.contains('r'))
 			else if (genMap[xTemp][yTemp].typeIndex.contains('h')){
+				genMap[xTemp][yTemp].intIndex.push(hCounter+rCounter);
+				genMap[xTemp][yTemp].typeIndex.push('h');
 				switch(direction){
 				case 0: //Heading North
 					genMap[xTemp][yTemp].tile.setNWallSafe(1);
@@ -513,6 +507,8 @@ public class ProceduralGeneration {
 				}
 			}
 			else {
+				genMap[xTemp][yTemp].intIndex.push(hCounter+rCounter);
+				genMap[xTemp][yTemp].typeIndex.push('h');
 				if (genMap[xTemp][yTemp].tile.getWWall()==1 && direction==3){
 					genMap[xTemp][yTemp].tile.setWWall(2);
 					genMap[xTemp-1][yTemp].tile.setEWall(2);
@@ -538,11 +534,14 @@ public class ProceduralGeneration {
 	
 	public Tile[][] convertOut(){
 		findBounds();
-		Tile[][] tileOut= new Tile[boundsX2-boundsX1+2][boundsY2-boundsY1+2];
-		for (int i = 1; i<boundsX2-boundsX1+1; i++){
-			for (int j = 1; j<boundsY2-boundsY1+1; j++){
-				tileOut[i][j] = genMap[boundsX1+i][boundsY1+j].tile;
-				tileOut[i][j].structIndex = genMap[boundsX1+i][boundsY1+j].intIndex;
+		Tile[][] tileOut= new Tile[(boundsX2-boundsX1)+2][(boundsY2-boundsY1)+2];
+		for (int i = 0; i<(boundsX2-boundsX1)+2; i++){
+			for (int j = 0; j<(boundsY2-boundsY1)+2; j++){
+				tileOut[i][j] = genMap[boundsX1+i+1][boundsY1+j+1].tile;
+				tileOut[i][j].structIndex = genMap[boundsX1+i+1][boundsY1+j+1].intIndex;
+				if (tileOut[i][j] == null){
+					tileOut[i][j] = new Tile();
+				}
 			}
 		}
 //		printMap();
