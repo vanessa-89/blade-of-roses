@@ -40,6 +40,9 @@ public class MapCanvas extends Canvas {
 	
 	private ArrayList<Character> elements = new ArrayList<Character>();
 	
+	
+	private boolean debugMode;
+	
 	/**
 	 * 
 	 */
@@ -56,6 +59,9 @@ public class MapCanvas extends Canvas {
 			System.out.println("BOR could not load the image.");
 			ioe.printStackTrace();
 		}
+		
+		
+		debugMode = true;
 	}
 	
 	/**
@@ -245,7 +251,13 @@ public class MapCanvas extends Canvas {
 						
 						// Draw Characters
 							
-						g.drawString(Integer.toString(map[i][j].structIndex.peek()), dx1 + 32, dy1 + 32);
+						int temp = 5;
+						int index = 0;
+						while (debugMode && index < map[i][j].structIndex.size()) {
+							g.drawString(Integer.toString(map[i][j].structIndex.get(index)), dx1 + temp, dy1 + 32);
+							temp += 10;
+							index++;
+						}
 						
 					} else {
 						g.drawImage(tileset,dx1,dy1,dx2,dy2,64,0,128,64,this);
@@ -279,7 +291,7 @@ public class MapCanvas extends Canvas {
 			if (arg0.getKeyCode() == KeyEvent.VK_UP) {
 				if (!map[pc.getX()][pc.getY()].dirIndex.contains(0)) {
 					pc.moveNorth();
-					sendMessage("Moved North");
+					sendMessage("moved north");
 				}
 				if (!map[elements.get(0).getX()][elements.get(0).getY()].dirIndex.contains(3)) {
 					elements.get(0).moveWest();
@@ -288,7 +300,7 @@ public class MapCanvas extends Canvas {
 			} else if (arg0.getKeyCode() == KeyEvent.VK_LEFT) {
 				if (!map[pc.getX()][pc.getY()].dirIndex.contains(3)) {
 					pc.moveWest();
-					sendMessage("Moved West");
+					sendMessage("moved west");
 				}
 				if (!map[elements.get(0).getX()][elements.get(0).getY()].dirIndex.contains(2)) {
 					elements.get(0).moveSouth();
@@ -297,7 +309,7 @@ public class MapCanvas extends Canvas {
 			} else if (arg0.getKeyCode() == KeyEvent.VK_RIGHT) {
 				if (!map[pc.getX()][pc.getY()].dirIndex.contains(1)) {
 					pc.moveEast();
-					sendMessage("Moved East");
+					sendMessage("moved east");
 				}
 				if (!map[elements.get(0).getX()][elements.get(0).getY()].dirIndex.contains(0)) {
 					elements.get(0).moveNorth();
@@ -306,11 +318,21 @@ public class MapCanvas extends Canvas {
 			} else if (arg0.getKeyCode() == KeyEvent.VK_DOWN) {
 				if (!map[pc.getX()][pc.getY()].dirIndex.contains(2)) {
 					pc.moveSouth();
-					sendMessage("Moved South");
+					sendMessage("moved south");
 				}
 				if (!map[elements.get(0).getX()][elements.get(0).getY()].dirIndex.contains(1)) {
 					elements.get(0).moveEast();
 				}
+				repaint();
+			} else if (arg0.getKeyCode() == KeyEvent.VK_F1) {
+				if (debugMode) {
+					debugMode = false;
+					newMap = true;
+				} else {
+					debugMode = true;
+					newMap = true;
+				}
+				sendMessage(Boolean.toString(debugMode));
 				repaint();
 			}
 		}
