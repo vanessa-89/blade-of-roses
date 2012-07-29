@@ -84,7 +84,7 @@ public class BORGUI {
 		try {
 			File iconFile = new File("ICON_ROSE.gif");
 			icon = ImageIO.read(iconFile);
-			File spriteFile = new File("Player1.png");
+			File spriteFile = new File("Player1Sheet.png");
 			sprite = ImageIO.read(spriteFile);
 			pc = new PlayerCharacter((PG.yStart-PG.boundsX1), (PG.yStart-PG.boundsY1), sprite);
 		} catch (IOException e) {

@@ -43,6 +43,9 @@ public class MapCanvas extends Canvas {
 	
 	private boolean debugMode;
 	
+	int charx1, charx2, chary1, chary2;
+	int mapx1, mapx2, mapy1, mapy2;
+	
 	/**
 	 * 
 	 */
@@ -62,6 +65,9 @@ public class MapCanvas extends Canvas {
 		
 		
 		debugMode = true;
+		
+		charx1 = chary1 = 0;
+		charx2 = chary2 = 64;
 	}
 	
 	/**
@@ -84,6 +90,15 @@ public class MapCanvas extends Canvas {
 	 */
 	public void addCharacter(Character newPC) {
 		pc = newPC;
+		
+		int locx1 = pc.getX() * TILE_SIZE;
+		int locx2 = locx1 + TILE_SIZE;
+		int locy1 = pc.getY() * TILE_SIZE;
+		int locy2 = locy1 + TILE_SIZE;
+		mapx1 = locx1;
+		mapx2 = locx2;
+		mapy1 = locy1;
+		mapy2 = locy2;
 	}
 	
 	public void addElement(Character newElement) {
@@ -130,13 +145,22 @@ public class MapCanvas extends Canvas {
 		int locy1 = pc.getY() * TILE_SIZE;
 		int locy2 = locy1 + TILE_SIZE;
 		
-		g.drawImage(drawElements(background), 160, 0, 800, 576,
-				locx1 - 5*64, locy1 - 4*64, locx2 + 4*64, locy2 + 4*64, this);
+		if (debugMode) {
+			g.drawImage(drawElements(background), 160, 0, 1600, 1376, locx1 - 5*64, locy1 - 4*64, locx2 + 4*64 + 800, locy2 + 4*64 + 800, this);
+		} else {
+			g.drawImage(drawElements(background), 160, 0, 800, 576, locx1 - 5*64, locy1 - 4*64, locx2 + 4*64, locy2 + 4*64, this);
+			
+//			g.drawImage(drawElements(background), 160, 0, 800, 576,
+//			mapx1, mapy1, mapx2, mapy2, this);
+		}
 		
-		g.drawImage(pc.getSprite(), 480, 256, 544, 320, 0, 0, 64, 64, this);
+		g.drawImage(pc.getSprite(), 480, 256, 544, 320, charx1, chary1, charx2, chary2, this);
 		
-		g.drawImage(ui, 0, 0, 800, 600, 0, 0, 800, 600, this);
-		g.drawImage(texts, 0, 30, 120, 600, 0, 0, 120, 570, this);
+		if (!debugMode) {
+			g.drawImage(ui, 0, 0, 800, 600, 0, 0, 800, 600, this);
+			g.drawImage(texts, 0, 30, 120, 600, 0, 0, 120, 570, this);
+		}
+		
 		
 		return buf;
 	}
@@ -283,15 +307,55 @@ public class MapCanvas extends Canvas {
 //			g.drawString(text.get(i), 5, 20 * (i + 1));
 //		}
 	}
+	
+	private void moveSouth() {
+
+		int locy1 = pc.getY() * TILE_SIZE;
+		int locy2 = locy1 + TILE_SIZE;
+		
+		while (locy1 != mapy1 && locy2 != mapy2) {
+			repaint();
+			try {
+				wait(30);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			mapy1 += 4;
+			mapy2 += 4;
+		}
+	}
 
 	private class DirectionKeyListener implements KeyListener {
 
 		@Override
 		public void keyPressed(KeyEvent arg0) {
+			
+			int locx1 = pc.getX() * TILE_SIZE;
+			int locx2 = locx1 + TILE_SIZE;
+			int locy1 = pc.getY() * TILE_SIZE;
+			int locy2 = locy1 + TILE_SIZE;
+			mapx1 = locx1;
+			mapx2 = locx2;
+			mapy1 = locy1;
+			mapy2 = locy2;
+			
 			if (arg0.getKeyCode() == KeyEvent.VK_UP) {
 				if (!map[pc.getX()][pc.getY()].dirIndex.contains(0)) {
 					pc.moveNorth();
 					sendMessage("moved north");
+					
+					if (charx1 == 64) {
+						charx1 = 0;
+						chary1 = 64;
+						charx2 = 64;
+						chary2 = 128;
+					} else {
+						charx1 = 64;
+						chary1 = 64;
+						charx2 = 128;
+						chary2 = 128;
+					}
+					
 				}
 				if (!map[elements.get(0).getX()][elements.get(0).getY()].dirIndex.contains(3)) {
 					elements.get(0).moveWest();
@@ -319,6 +383,19 @@ public class MapCanvas extends Canvas {
 				if (!map[pc.getX()][pc.getY()].dirIndex.contains(2)) {
 					pc.moveSouth();
 					sendMessage("moved south");
+					
+					if (charx1 == 64) {
+						charx1 = 0;
+						chary1 = 0;
+						charx2 = 64;
+						chary2 = 64;
+					} else {
+						charx1 = 64;
+						chary1 = 0;
+						charx2 = 128;
+						chary2 = 64;
+					}
+					
 				}
 				if (!map[elements.get(0).getX()][elements.get(0).getY()].dirIndex.contains(1)) {
 					elements.get(0).moveEast();
