@@ -277,10 +277,11 @@ public class MapCanvas extends Canvas {
 						
 						// Draw Characters
 							
-						int temp = 5;
+						int temp = 20;
 						int index = 0;
 						while (debugMode && index < map[i][j].structIndex.size()) {
-							g.drawString(Integer.toString(map[i][j].structIndex.get(index)), dx1 + temp, dy1 + 32);
+							g.setColor(Color.RED);
+							g.drawString(Integer.toString(map[i][j].structIndex.get(index)), dx1 + 10, dy1 + temp);
 							temp += 10;
 							index++;
 						}
