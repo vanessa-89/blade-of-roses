@@ -245,6 +245,7 @@ public class MapCanvas extends Canvas {
 						
 						// Draw Characters
 							
+						g.drawString(Integer.toString(map[i][j].structIndex.peek()), dx1 + 32, dy1 + 32);
 						
 					} else {
 						g.drawImage(tileset,dx1,dy1,dx2,dy2,64,0,128,64,this);
