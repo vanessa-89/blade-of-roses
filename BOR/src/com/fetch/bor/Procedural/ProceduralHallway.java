@@ -24,6 +24,19 @@ public class ProceduralHallway{
 		}
 		int direction = initial;
 		int previous;
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		for (int i=1; i<MAXLENGTH; i++) {
 			previous = direction;
 			int length = rand.nextInt(8)+rand.nextInt(8)+rand.nextInt(1)+1;
@@ -51,7 +64,7 @@ public class ProceduralHallway{
 					break;
 				}	
 			}
-			while (direction == previous){
+			while (direction == previous || direction == (previous+2) % 4){
 				direction = rand.nextInt(4);
 			}
 			i = i+length-1;
