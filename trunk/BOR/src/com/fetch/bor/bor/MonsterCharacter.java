@@ -2,8 +2,12 @@ package com.fetch.bor.bor;
 
 import java.awt.Image;
 
-public class MonsterCharacter extends Character{
+import com.fetch.bor.gui.Game;
+
+public class MonsterCharacter extends BORCharacter{
 	
+	private Game game;
+
 	public MonsterCharacter() {
 		xPos = 3;
 		yPos = 3;
@@ -64,6 +68,10 @@ public class MonsterCharacter extends Character{
 		stats.setBody(stats.getMaxBody());
 		stats.setSoul(stats.getMaxSoul());
 	}
-	
+
+	public MonsterCharacter(Game game, String ref, int x, int y) {
+		super(ref, x, y);
+		this.game = game;
+	}
 
 }

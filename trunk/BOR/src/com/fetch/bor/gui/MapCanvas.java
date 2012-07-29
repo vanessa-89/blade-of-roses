@@ -10,11 +10,11 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
-import com.fetch.bor.bor.Character;
+import com.fetch.bor.bor.BORCharacter;
 import com.fetch.bor.bor.Tile;
 
 /**
- * 
+ * @deprecated
  * @author MattFMorris
  * @version 0.1
  *
@@ -27,7 +27,7 @@ public class MapCanvas extends Canvas {
 	
 	private static BufferedImage tileset;
 	private Tile[][] map;
-	private Character pc;
+	private BORCharacter pc;
 //	private boolean needToRedrawMap;
 	
 	private DirectionKeyListener dirKeyLis = new DirectionKeyListener();
@@ -38,7 +38,7 @@ public class MapCanvas extends Canvas {
 	private int textLine = 1;
 //	private ArrayList<String> text = new ArrayList<String>();
 	
-	private ArrayList<Character> elements = new ArrayList<Character>();
+	private ArrayList<BORCharacter> elements = new ArrayList<BORCharacter>();
 	
 	
 	private boolean debugMode;
@@ -90,7 +90,7 @@ public class MapCanvas extends Canvas {
 	 * Add a character to the display
 	 * @param pc The PlayerCharacter to add to the display.
 	 */
-	public void addCharacter(Character newPC) {
+	public void addCharacter(BORCharacter newPC) {
 		pc = newPC;
 		
 		int locx1 = pc.getX() * TILE_SIZE;
@@ -103,7 +103,7 @@ public class MapCanvas extends Canvas {
 		mapy2 = locy2;
 	}
 	
-	public void addElement(Character newElement) {
+	public void addElement(BORCharacter newElement) {
 		elements.add(newElement);
 	}
 	
@@ -112,7 +112,7 @@ public class MapCanvas extends Canvas {
 	 * Note: the param must be the exact object to be removed.
 	 * @param remove
 	 */
-	public void removeElement(Character remove) {
+	public void removeElement(BORCharacter remove) {
 		elements.remove(remove);
 	}
 	
@@ -152,8 +152,7 @@ public class MapCanvas extends Canvas {
 		} else {
 			g.drawImage(drawElements(background), 160, 0, 800, 576, locx1 - 5*64, locy1 - 4*64, locx2 + 4*64, locy2 + 4*64, this);
 			
-//			g.drawImage(drawElements(background), 160, 0, 800, 576,
-//			mapx1, mapy1, mapx2, mapy2, this);
+//			g.drawImage(drawElements(background), 160, 0, 800, 576, mapx1, mapy1, mapx2, mapy2, this);
 		}
 		
 		g.drawImage(pc.getSprite(), 480, 256, 544, 320, charx1, chary1, charx2, chary2, this);
@@ -172,7 +171,7 @@ public class MapCanvas extends Canvas {
 		Graphics g = buf.getGraphics();
 		g.drawImage(background, 0, 0, map.length * TILE_SIZE, map.length * TILE_SIZE,
 				0, 0, map.length * TILE_SIZE, map.length * TILE_SIZE, this);
-		for (Character c : elements) {
+		for (BORCharacter c : elements) {
 			g.drawImage(c.getSprite(), c.getX() * TILE_SIZE, c.getY() * TILE_SIZE, c.getX() * TILE_SIZE + 64, c.getY() * TILE_SIZE + 64, 0, 0, 64, 64, this);
 		}
 		

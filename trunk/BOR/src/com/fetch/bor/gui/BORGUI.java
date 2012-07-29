@@ -20,7 +20,7 @@ import com.fetch.bor.bor.TestArea;
 
 
 /**
- * 
+ * @deprecated
  * @author MattFMorris
  * @version 0.1
  *

@@ -1,26 +1,19 @@
 package com.fetch.bor.bor;
 
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.util.Random;
 
+import com.fetch.bor.gui.Sprite;
+import com.fetch.bor.gui.SpriteStore;
+
 /**
  * 
- * @author MattFMorris
+ * @author MattFMorris, RangerAdams
  *
  */
-/**
- * @author Ranger
- *
- */
-/**
- * @author Ranger
- *
- */
-/**
- * @author Ranger
- *
- */
-public class Character {
+
+public class BORCharacter {
 
 	Random rand = new Random();
 	int level;
@@ -35,10 +28,12 @@ public class Character {
 	//Facing
 	public int targetX, targetY;
 	
+	private Sprite spriteH;
+	
 	/**
 	 * Constructs a generic PC.
 	 */
-	public Character() {
+	public BORCharacter() {
 		xPos = 3;
 		yPos = 3;
 		targetX = 3;
@@ -72,7 +67,7 @@ public class Character {
 	 * @param y The C's vertical position.
 	 * @param image The C's Sprite Sheet.
 	 */
-	public Character(int x, int y, Image image) {
+	public BORCharacter(int x, int y, Image image) {
 		xPos = x;
 		yPos = y;
 		targetX = 3;
@@ -99,6 +94,12 @@ public class Character {
 		stats.setSoul(stats.getMaxSoul());
 	}
 	
+	public BORCharacter(String ref, int x, int y) {
+		this.spriteH = SpriteStore.get().getSprite(ref);
+		this.xPos = x;
+		this.yPos = y;
+	}
+
 	/**
 	 * Moves the C NORTH. Map handler should test before making this call.
 	 */
@@ -161,6 +162,16 @@ public class Character {
 	 */
 	public Image getSprite() {
 		return sprite;
+	}
+
+	// TODO Implement in the child, allows for "AI" and player input
+	public void move(long delta) {
+		
+	}
+
+	public void draw(Graphics2D g) {
+		// TODO draw
+		spriteH.draw(g, (int) xPos * 64, (int) yPos * 64);
 	}
 	
  
