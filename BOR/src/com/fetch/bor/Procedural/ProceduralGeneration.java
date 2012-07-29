@@ -538,9 +538,9 @@ public class ProceduralGeneration {
 	
 	public Tile[][] convertOut(){
 		findBounds();
-		Tile[][] tileOut= new Tile[boundsX2-boundsX1][boundsY2-boundsY1];
-		for (int i = 0; i<boundsX2-boundsX1; i++){
-			for (int j = 0; j<boundsY2-boundsY1; j++){
+		Tile[][] tileOut= new Tile[boundsX2-boundsX1+2][boundsY2-boundsY1+2];
+		for (int i = 1; i<boundsX2-boundsX1+1; i++){
+			for (int j = 1; j<boundsY2-boundsY1+1; j++){
 				tileOut[i][j] = genMap[boundsX1+i][boundsY1+j].tile;
 				tileOut[i][j].structIndex = genMap[boundsX1+i][boundsY1+j].intIndex;
 			}
