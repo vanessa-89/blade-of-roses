@@ -10,6 +10,8 @@ import java.util.Stack;
 public class Tile {
 	public int[][] tile;
 	public Stack<Integer> dirIndex;
+	//temporary stack
+	public Stack<Integer> structIndex;
 	
 	public Tile() {
 		tile = new int[3][3];
