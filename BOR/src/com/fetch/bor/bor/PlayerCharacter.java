@@ -2,11 +2,15 @@ package com.fetch.bor.bor;
 
 import java.awt.Image;
 
-public class PlayerCharacter extends Character {
+import com.fetch.bor.gui.Game;
+
+public class PlayerCharacter extends BORCharacter {
 	
 	int experience;
 	int skillPointsTotal;
 	int skillPointsSpent;
+	
+	private Game game;
 	
 	PlayerCharacter(){
 		xPos = 3;
@@ -63,7 +67,10 @@ public class PlayerCharacter extends Character {
 		stats.setBody(stats.getMaxBody());
 		stats.setSoul(stats.getMaxSoul());
 	}
-	
-	
+
+	public PlayerCharacter(Game game, String ref, int x, int y) {
+		super(ref, x, y);
+		this.game = game;
+	}
 	
 }
