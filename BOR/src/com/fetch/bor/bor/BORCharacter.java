@@ -2,6 +2,7 @@ package com.fetch.bor.bor;
 
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.util.Random;
 
 import com.fetch.bor.gui.Sprite;
@@ -13,7 +14,7 @@ import com.fetch.bor.gui.SpriteStore;
  *
  */
 
-public class BORCharacter {
+public abstract class BORCharacter {
 
 	Random rand = new Random();
 	int level;
@@ -29,6 +30,8 @@ public class BORCharacter {
 	public int targetX, targetY;
 	
 	private Sprite spriteH;
+	private Rectangle self = new Rectangle();
+	private Rectangle other = new Rectangle();
 	
 	/**
 	 * Constructs a generic PC.
@@ -168,9 +171,28 @@ public class BORCharacter {
 	public void move(long delta) {
 		
 	}
+	
+	/**
+	 * Check if this entity collised with another.
+	 * 
+	 * @param other The other entity to check collision against
+	 * @return True if the entities collide with each other
+	 */
+	public boolean collidesWith(BORCharacter other) {
+		self.setBounds((int) xPos, (int) yPos, spriteH.getWidth(), spriteH.getHeight());
+		this.other.setBounds((int) other.xPos, (int) other.yPos, other.spriteH.getWidth(), other.spriteH.getHeight());
+
+		return self.intersects(this.other);
+	}
+	
+	/**
+	 * Notification that this entity collided with another.
+	 * 
+	 * @param other The entity with which this entity collided.
+	 */
+	public abstract void collidedWith(BORCharacter other);
 
 	public void draw(Graphics2D g) {
-		// TODO draw
 		spriteH.draw(g, (int) xPos * 64, (int) yPos * 64);
 	}
 	

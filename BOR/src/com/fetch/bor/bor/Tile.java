@@ -87,6 +87,9 @@ public class Tile {
 	}
 	
 	public int getNWCorner() {
+		if (tile[0][1] != 0 && tile[1][0] != 0) {
+			tile[0][0] = 1;
+		}
 		return tile[0][0];
 	}
 	
@@ -95,6 +98,9 @@ public class Tile {
 	}
 	
 	public int getNECorner() {
+		if (tile[2][1] != 0 && tile[1][0] != 0) {
+			tile[2][0] = 1;
+		}
 		return tile[2][0];
 	}
 	
@@ -103,6 +109,9 @@ public class Tile {
 	}
 	
 	public int getSWCorner() {
+		if (tile[0][1] != 0 && tile[1][2] != 0) {
+			tile[0][2] = 1;
+		}
 		return tile[0][2];
 	}
 	
@@ -111,6 +120,9 @@ public class Tile {
 	}
 	
 	public int getSECorner() {
+		if (tile[2][1] != 0 && tile[1][2] != 0) {
+			tile[2][2] = 1;
+		}
 		return tile[2][2];
 	}
 	
