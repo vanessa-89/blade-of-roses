@@ -13,10 +13,13 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import sun.util.calendar.BaseCalendar.Date;
 
 import com.fetch.bor.Procedural.ProceduralGeneration;
 import com.fetch.bor.bor.BORCharacter;
@@ -84,8 +87,9 @@ public class Game extends Canvas {
 		
 		// Set up logging
 		try {
-			System.setOut(new PrintStream("BORLog.txt"));
-			System.out.println("Hello Log");
+			Calendar cal = Calendar.getInstance();
+			System.setOut(new PrintStream("BORLog" + cal.get(Calendar.DATE) + "_" + cal.get(Calendar.MONTH) + ".txt"));
+			System.out.println("Blade of Roses - Debug Log\n\n" + cal.getTime().toString() + "\n\n");
 		} catch (FileNotFoundException e) {
 			// Do nothing as logging has failed
 		}
