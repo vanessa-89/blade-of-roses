@@ -74,4 +74,10 @@ public class MonsterCharacter extends BORCharacter{
 		this.game = game;
 	}
 
+	@Override
+	public void collidedWith(BORCharacter other) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
