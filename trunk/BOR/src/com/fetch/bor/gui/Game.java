@@ -71,6 +71,11 @@ public class Game extends Canvas {
 		// going to do that our self in accelerated mode
 		setIgnoreRepaint(true);
 		
+		try {
+			window.setIconImage(ImageIO.read(new File("ICON_ROSE.gif")));
+		} catch (IOException e1) {
+			// Do nothing, no icon file
+		}
 		window.pack();
 		window.setResizable(false);
 		window.setVisible(true);
