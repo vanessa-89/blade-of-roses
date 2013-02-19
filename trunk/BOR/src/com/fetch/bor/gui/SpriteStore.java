@@ -5,8 +5,8 @@ import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import java.awt.Transparency;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.util.HashMap;
 
 import javax.imageio.ImageIO;
@@ -25,7 +25,7 @@ public class SpriteStore {
 	}
 	
 	/** The cached sprite map, from reference to sprite instance */
-	private HashMap sprites = new HashMap();
+	private HashMap<String, Sprite> sprites = new HashMap<String, Sprite>();
 	
 	/**
 	 * Retrieve a sprite from the store
@@ -45,18 +45,10 @@ public class SpriteStore {
 		BufferedImage sourceImage = null;
 		
 		try {
-			// The ClassLoader.getResource() ensures we get the sprite
-			// from the appropriate place, this helps with deploying the game
-			// with things like webstart. You could equally do a file look
-			// up here.
-			URL url = this.getClass().getClassLoader().getResource(ref);
-			
-			if (url == null) {
-				fail("Can't find ref: " + ref);
-			}
+			File file = new File("sprites/" + ref);
 			
 			// use ImageIO to read the image in
-			sourceImage = ImageIO.read(url);
+			sourceImage = ImageIO.read(file);
 		} catch (IOException e) {
 			fail("Failed to load: " + ref);
 		}
@@ -75,13 +67,27 @@ public class SpriteStore {
 		return sprite;
 	}
 	
+	public Sprite getSprite(String ref, int width, int height, int x, int y) {
+		// create an accelerated image of the right size to store our sprite in
+		GraphicsConfiguration gc = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration();
+		Image image = gc.createCompatibleImage(width, height, Transparency.BITMASK);
+		
+		// draw our source image into the accelerated image
+		image.getGraphics().drawImage(getSprite(ref).getImage(), 0, 0, width, height, x, y, x + width, y + height, null);
+		
+		// create a sprite, add it the cache then return it
+		Sprite sprite = new Sprite(image);
+		
+		return sprite;
+	}
+	
 	/**
 	 * Utility method to handle resource loading failure
 	 * 
 	 * @param message The message to display on failure
 	 */
 	private void fail(String message) {
-		// we'n't available
+		// wasn't available
 		// we dump the message and exit the game
 		System.err.println(message);
 		System.exit(0);

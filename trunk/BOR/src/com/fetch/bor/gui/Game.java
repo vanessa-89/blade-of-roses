@@ -34,6 +34,12 @@ public class Game extends Canvas {
 	private static final int DIR_EAST = 1;
 	private static final int DIR_SOUTH = 2;
 	private static final int DIR_WEST = 3;
+	
+	/* Game loop constants */
+	private static final int MAIN_MENU = 0;
+	private static final int IN_GAME = 1;
+	private static final int SCORE = 2;
+	
 	/* The strategy that allows us to use accelerated page flipping */
 	private BufferStrategy strategy;
 	/* The state of the game */
@@ -54,7 +60,9 @@ public class Game extends Canvas {
 	private long turnInterval = 250;
 	
 	private ProceduralGeneration PG;
-	private Map map;
+	public Map map;
+	private UI ui;
+	private int gameState;
 
 	
 	public Game() {
@@ -64,10 +72,9 @@ public class Game extends Canvas {
 		
 		// get and set content area
 		JPanel contentPanel = (JPanel) window.getContentPane();
-		contentPanel.setPreferredSize(new Dimension(800,600));
 		contentPanel.setLayout(null);
 		
-		setBounds(0, 0, 800, 600);
+		setSize(800, 600);
 		contentPanel.add(this);
 		
 		// Tell AWT not to bother repainting our canvas since we're
@@ -75,14 +82,14 @@ public class Game extends Canvas {
 		setIgnoreRepaint(true);
 		
 		try {
-			window.setIconImage(ImageIO.read(new File("ICON_ROSE.gif")));
+			window.setIconImage(ImageIO.read(new File("Images/ICON_ROSE.gif")));
 		} catch (IOException e1) {
 			// Do nothing, no icon file
 		}
-		window.pack();
+		window.setSize(805, 625);
 		window.setResizable(false);
 		window.setVisible(true);
-		window.setLocation(500, 50);
+		window.setLocationRelativeTo(null);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		// Set up logging
@@ -116,7 +123,9 @@ public class Game extends Canvas {
 		// Characters
 		initCharacters();
 		
+		requestFocus();
 		
+		gameState = MAIN_MENU;
 	}
 
 	/**
@@ -129,28 +138,49 @@ public class Game extends Canvas {
 	}
 	
 	private void initUI() {
-		// TODO Auto-generated method stub
-		
+		ui = new UI();
 	}
 
 	private void initMap() {
-		map = new Map("TestTileSet.png", 6, 5, PG.convertOut());
+		map = new Map("Images/TestTileSet.png", 6, 5, PG.convertOut());
 	}
 	
 	private void initCharacters() {
 		// create the player
-		pc = new PlayerCharacter(this, "Player1.png", 5, 4);
+		pc = new PlayerCharacter(this, "Player1Sheet.png", 5, 4);
 		characters.add(pc);
 		
-//		int impCount = 0;
-//		for (int row = 0; row < 5; row++) {
-//			for (int x = 0; x < 5; x++) {
-//				BORCharacter imp = new MonsterCharacter(this, "Imp001.png", x, row);
-//				characters.add(imp);
-//				impCount++;
-//			}
-//		}
+		BORCharacter imp = new MonsterCharacter(this, "Imp001.png", 5, 6);
+		characters.add(imp);
 
+	}
+	
+	void mainGameLoop() {
+		while (true) {
+			switch(gameState) {
+				case MAIN_MENU:
+					mainMenu();
+					break;
+				case IN_GAME:
+					gameLoop();
+					break;
+				case SCORE:
+//					highScore();
+					break;
+				default:
+					break;
+					
+			}
+		}
+	}
+	
+	public void mainMenu() {
+		Graphics2D g = (Graphics2D) strategy.getDrawGraphics();
+		g.setColor(Color.black);
+		g.fillRect(0, 0, 800, 600);
+		
+		g.dispose();
+		strategy.show();
 	}
 	
 	public void gameLoop() {
@@ -170,13 +200,13 @@ public class Game extends Canvas {
 			g.fillRect(0,0,800,600);
 			
 			// cycle round asking each entity to move itself
-			if (!waitingForKeyPress) {
+			//if (!waitingForKeyPress) {
 				for (int i = 0; i < characters.size(); i++) {
 					BORCharacter character = characters.get(i);
 
 					character.move(delta);
 				}
-			}
+			//}
 
 			// Draw Map
 			map.draw(g);
@@ -187,7 +217,7 @@ public class Game extends Canvas {
 				character.draw(g);
 			}
 			// Draw UI
-			//ui.draw(g);
+			ui.draw(g);
 
 
 			// finally, we've completed drawing so clear up the graphics

@@ -45,4 +45,8 @@ public class Sprite {
 		g.drawImage(image,x,y,null);
 	}
 
+	public Image getImage() {
+		return image;
+	}
+
 }
