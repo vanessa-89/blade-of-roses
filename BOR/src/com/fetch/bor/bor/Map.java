@@ -15,6 +15,11 @@ import com.fetch.bor.gui.SpriteStore;
 
 public class Map {
 
+	public static int NORTH = 0;
+	public static int EAST = 1;
+	public static int WEST = 3;
+	public static int SOUTH = 2;
+	
 	private static final int TILE_SIZE = 64;
 	private BufferedImage tileset;
 	
@@ -82,6 +87,22 @@ public class Map {
 			cameraY++;
 			System.out.println("PC - South: Yes");
 		}
+	}
+	
+	public boolean moveIsValid(int x, int y, int direction) {
+		boolean valid = false;
+		if(!map[x][y].dirIndex.contains(direction)) {
+			valid = true;
+		}
+		return valid;
+	}
+	
+	public boolean isInView(int x, int y) {
+		boolean inView = false;
+		if ((x > cameraX - 5 && x < cameraX + 5) && (y > cameraY - 5 && y < cameraY + 5)) {
+			inView = true;
+		}
+		return inView;
 	}
 	
 	public void draw(Graphics2D g) {
@@ -279,5 +300,13 @@ public class Map {
 		}
 		
 		newMap = false;
+	}
+
+	public int getRelativeX(int x) {
+		return 5 + x - cameraX;
+	}
+
+	public int getRelativeY(int y) {
+		return 4 + y - cameraY;
 	}
 }

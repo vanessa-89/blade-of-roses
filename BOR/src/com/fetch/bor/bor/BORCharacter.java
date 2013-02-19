@@ -29,7 +29,7 @@ public abstract class BORCharacter {
 	//Facing
 	public int targetX, targetY;
 	
-	private Sprite spriteH;
+	protected Sprite spriteH;
 	private Rectangle self = new Rectangle();
 	private Rectangle other = new Rectangle();
 	
