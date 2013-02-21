@@ -48,10 +48,10 @@ public class Map {
 	public void moveNorth() {
 		System.out.println("PC - North?");
 		System.out.println("X: " + cameraX);
-		System.out.println("Y: " + cameraY);
-		System.out.println(map[cameraX][cameraY].dirIndex.toString());
-		if(cameraY > 0 && !map[cameraX][cameraY].dirIndex.contains(0)) {
-			cameraY--;
+		System.out.println("Y: " + getCameraY());
+		System.out.println(map[cameraX][getCameraY()].dirIndex.toString());
+		if(getCameraY() > 0 && !map[cameraX][getCameraY()].dirIndex.contains(0)) {
+			cameraY = getCameraY() - 1;
 			System.out.println("PC - North: Yes");
 		}
 	}
@@ -59,9 +59,9 @@ public class Map {
 	public void moveEast() {
 		System.out.println("PC - East?");
 		System.out.println("X: " + cameraX);
-		System.out.println("Y: " + cameraY);
-		System.out.println(map[cameraX][cameraY].dirIndex.toString());
-		if(cameraX < map.length - 2 && !map[cameraX][cameraY].dirIndex.contains(1)) {
+		System.out.println("Y: " + getCameraY());
+		System.out.println(map[cameraX][getCameraY()].dirIndex.toString());
+		if(cameraX < map.length - 2 && !map[cameraX][getCameraY()].dirIndex.contains(1)) {
 			cameraX++;
 			System.out.println("PC - East: Yes");
 		}
@@ -70,9 +70,9 @@ public class Map {
 	public void moveWest() {
 		System.out.println("PC - West?");
 		System.out.println("X: " + cameraX);
-		System.out.println("Y: " + cameraY);
-		System.out.println(map[cameraX][cameraY].dirIndex.toString());
-		if(cameraX > 0 && !map[cameraX][cameraY].dirIndex.contains(3)) {
+		System.out.println("Y: " + getCameraY());
+		System.out.println(map[cameraX][getCameraY()].dirIndex.toString());
+		if(cameraX > 0 && !map[cameraX][getCameraY()].dirIndex.contains(3)) {
 			cameraX--;
 			System.out.println("PC - West: Yes");
 		}
@@ -81,10 +81,10 @@ public class Map {
 	public void moveSouth() {
 		System.out.println("PC - South?");
 		System.out.println("X: " + cameraX);
-		System.out.println("Y: " + cameraY);
-		System.out.println(map[cameraX][cameraY].dirIndex.toString());
-		if(cameraY < map[0].length - 2 && !map[cameraX][cameraY].dirIndex.contains(2)) {
-			cameraY++;
+		System.out.println("Y: " + getCameraY());
+		System.out.println(map[cameraX][getCameraY()].dirIndex.toString());
+		if(getCameraY() < map[0].length - 2 && !map[cameraX][getCameraY()].dirIndex.contains(2)) {
+			cameraY = getCameraY() + 1;
 			System.out.println("PC - South: Yes");
 		}
 	}
@@ -99,7 +99,7 @@ public class Map {
 	
 	public boolean isInView(int x, int y) {
 		boolean inView = false;
-		if ((x > cameraX - 5 && x < cameraX + 5) && (y > cameraY - 5 && y < cameraY + 5)) {
+		if ((x > cameraX - 5 && x < cameraX + 5) && (y > getCameraY() - 5 && y < getCameraY() + 5)) {
 			inView = true;
 		}
 		return inView;
@@ -121,7 +121,7 @@ public class Map {
 		
 		int locx1 = cameraX * TILE_SIZE;
 		int locx2 = locx1 + TILE_SIZE;
-		int locy1 = cameraY * TILE_SIZE;
+		int locy1 = getCameraY() * TILE_SIZE;
 		int locy2 = locy1 + TILE_SIZE;
 		
 		g.drawImage(drawElements(background), 0, 0, 640, 576, locx1 - 5*64, locy1 - 4*64, locx2 + 4*64, locy2 + 4*64, null);
@@ -303,10 +303,22 @@ public class Map {
 	}
 
 	public int getRelativeX(int x) {
-		return 5 + x - cameraX;
+		System.out.println("CAMERA X:" + (cameraX));
+		System.out.println("RELATIVE X:" + (6 + x - cameraX));
+		return 6 + x - cameraX;
 	}
 
 	public int getRelativeY(int y) {
-		return 4 + y - cameraY;
+		System.out.println("CAMERA Y:" + (getCameraY()));
+		System.out.println("RELATIVE Y:" + (5 + y - getCameraY()));
+		return 5 + y - getCameraY();
+	}
+
+	public int getCameraY() {
+		return cameraY;
+	}
+
+	public int getCameraX() {
+		return cameraX;
 	}
 }
