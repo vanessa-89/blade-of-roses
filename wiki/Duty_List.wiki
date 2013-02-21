@@ -23,8 +23,6 @@ List of what each of us are supposed to do. Crossover is allowed, this simply de
 
   * change map display to dynamic tileset
 
-  * tile class
-
   * 3x3 array for display of walls
 
   * character/monster tiles
