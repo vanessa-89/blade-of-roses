@@ -33,6 +33,9 @@ public abstract class BORCharacter {
 	private Rectangle self = new Rectangle();
 	private Rectangle other = new Rectangle();
 	
+	protected Sprite[] frames;
+	protected int frameNumber;
+	
 	/**
 	 * Constructs a generic PC.
 	 */

@@ -5,3 +5,8 @@ Look at AWT classes, possible replacement to swing classes - http://docs.oracle.
 	Add new window borders
 	TexturePaint?
 	GraphicsConfiguration?
+	
+	
+	
+Switch aspect ratio to 16:9  - canvas should be 1024x576
+	or 4:3 - canvas should be 768x576

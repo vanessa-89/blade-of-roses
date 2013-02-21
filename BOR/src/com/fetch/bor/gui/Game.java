@@ -49,7 +49,7 @@ public class Game extends Canvas {
 	
 	
 	private boolean waitingForKeyPress = true;
-	private PlayerCharacter pc;
+	public PlayerCharacter pc;
 	
 	public boolean leftPressed = false;
 	public boolean rightPressed = false;
@@ -254,15 +254,19 @@ public class Game extends Canvas {
 		switch (direction) {
 		case DIR_NORTH:
 			map.moveNorth();
+			pc.moveNorth();
 			break;
 		case DIR_EAST:
 			map.moveEast();
+			pc.moveEast();
 			break;
 		case DIR_SOUTH:
 			map.moveSouth();
+			pc.moveSouth();
 			break;
 		case DIR_WEST:
 			map.moveWest();
+			pc.moveWest();
 			break;
 		}
 		

@@ -13,9 +13,9 @@ public class PlayerCharacter extends BORCharacter {
 	int skillPointsTotal;
 	int skillPointsSpent;
 	
+	private int drawX, drawY;
+	
 	private Game game;
-	private Sprite[] frames;
-	private int frameNumber;
 	
 	PlayerCharacter(){
 		xPos = 3;
@@ -75,6 +75,8 @@ public class PlayerCharacter extends BORCharacter {
 
 	public PlayerCharacter(Game game, String ref, int x, int y) {
 		super(ref, x, y);
+		drawX = xPos;
+		drawY = yPos;
 		this.game = game;
 		frames = new Sprite[4];
 		frames[0] = SpriteStore.get().getSprite(ref, 64, 64, 0, 0);
@@ -93,37 +95,37 @@ public class PlayerCharacter extends BORCharacter {
 	
 	@Override
 	public void moveNorth() {
-		super.moveNorth();
-		if (frameNumber == 0) {
-			frameNumber = 1;
-		} else {
-			frameNumber = 0;
-		}
-	}
-	
-	@Override
-	public void moveSouth() {
-		super.moveSouth();
 		if (frameNumber == 2) {
 			frameNumber = 3;
 		} else {
 			frameNumber = 2;
 		}
+		yPos--;
+	}
+	
+	@Override
+	public void moveSouth() {
+		if (frameNumber == 0) {
+			frameNumber = 1;
+		} else {
+			frameNumber = 0;
+		}
+		yPos++;
 	}
 	
 	@Override
 	public void moveEast() {
-		super.moveEast();
+		xPos++;
 	}
 	
 	@Override
 	public void moveWest() {
-		super.moveWest();
+		xPos--;
 	}
 	
 	@Override
 	public void draw(Graphics2D g) {
-		frames[frameNumber].draw(g, (int) xPos * 64, (int) yPos * 64);
+		frames[frameNumber].draw(g, (int) drawX * 64, (int) drawY * 64);
 	}
 	
 }
