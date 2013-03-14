@@ -89,7 +89,6 @@ public class PlayerCharacter extends BORCharacter {
 
 	@Override
 	public void collidedWith(BORCharacter other) {
-		// TODO Auto-generated method stub
 		
 	}
 	

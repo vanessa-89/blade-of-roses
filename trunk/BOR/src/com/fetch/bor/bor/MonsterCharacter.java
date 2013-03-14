@@ -80,7 +80,6 @@ public class MonsterCharacter extends BORCharacter{
 
 	@Override
 	public void collidedWith(BORCharacter other) {
-		// TODO Auto-generated method stub
 		
 	}
 	
